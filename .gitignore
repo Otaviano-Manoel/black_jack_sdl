@@ -1,0 +1,34 @@
+# Arquivos de saída
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dSYM
+
+# Diretórios de build
+/build/
+bin/
+obj/
+
+# Arquivos de configuração do editor
+*.swp
+*.swo
+*.swn
+*~
+*.tmp
+*.temp
+
+# Arquivos de backup
+*.bak
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de log
+*.log
+
+# Outros
+*.class
+*.jar
