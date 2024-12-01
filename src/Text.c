@@ -15,6 +15,8 @@ Text *Text_Init()
     text->SetColor = Text_SetColo;
     text->SetFont = Text_SetFont;
     text->SetPosition = Text_SetPosition;
+
+    text->isTextLoaded = SDL_FALSE;
     return text;
 }
 

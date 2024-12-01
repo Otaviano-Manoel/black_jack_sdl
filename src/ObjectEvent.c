@@ -20,11 +20,11 @@ void RegisterEvent(Object *this,
 
     if (OnExit == NULL)
     {
-        this->OnExit = ObjectEvent_OnExit;
+        this->OnLeave = ObjectEvent_OnExit;
     }
     else
     {
-        this->OnExit = OnExit;
+        this->OnLeave = OnExit;
     }
 
     this->OnAnimClick = ObjectEvent_AnimClick;

@@ -74,6 +74,7 @@
     "object.h": "c",
     "eventmanager.h": "c",
     "sdl_ttf.h": "c",
-    "objectevent.h": "c"
+    "objectevent.h": "c",
+    "gameconfig.h": "c"
   }
 }

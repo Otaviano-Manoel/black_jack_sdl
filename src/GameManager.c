@@ -7,6 +7,7 @@ static void GetPathAssets(GameManager *this);
 GameManager *GameManager_Init()
 {
     GameManager *this = malloc(sizeof(GameManager));
+    this->gameConfig = GameConfig_Init();
     this->sceneManager = SceneManager_Init();
     GetPathAssets(this);
 

@@ -8,12 +8,14 @@
 #include <EventManager.h>
 #include <Object.h>
 #include <Text.h>
+#include <GameConfig.h>
 
 typedef struct GameManager
 {
     char *assets;
     SDL_bool quit;
     SceneManager *sceneManager;
+    GameConfig *gameConfig;
 } GameManager;
 
 GameManager *GameManager_Init();

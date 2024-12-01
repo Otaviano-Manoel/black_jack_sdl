@@ -27,7 +27,7 @@ typedef struct Object
     void (*Obj_ResizeRect)(struct Object *obj, int x, int y, int width, int height);
 
     void (*OnHover)(GameManager *manager, struct Object *this);
-    void (*OnExit)(GameManager *manager, struct Object *this);
+    void (*OnLeave)(GameManager *manager, struct Object *this);
     void (*OnAnimClick)(GameManager *manager, struct Object *this);
     void (*OnClick)(GameManager *manager, struct Object *this);
 

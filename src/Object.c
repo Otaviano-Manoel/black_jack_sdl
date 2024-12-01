@@ -11,6 +11,10 @@ Object Obj_Init()
     obj.text = Text_Init();
     obj.Obj_SetImage = Obj_SetImage;
     obj.Obj_ResizeRect = Obj_ResizeRect;
+    obj.OnClick = NULL;
+    obj.OnHover = NULL;
+    obj.OnLeave = NULL;
+    obj.OnAnimClick = NULL;
     obj.isHover = SDL_FALSE;
     obj.isButton = SDL_FALSE;
     obj.opacity = 255;

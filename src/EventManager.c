@@ -18,8 +18,10 @@ void Event_Wait(GameManager *this)
             if (index != -1)
             {
                 Object *obj = &this->sceneManager->current->objects[index];
-                obj->OnAnimClick(this, obj);
-                obj->OnClick(this, obj);
+                if (obj->OnAnimClick != NULL)
+                    obj->OnAnimClick(this, obj);
+                if (obj->OnClick != NULL)
+                    obj->OnClick(this, obj);
             }
         }
         if (event->type == SDL_MOUSEMOTION)
@@ -43,7 +45,8 @@ static void Event_GetMouseHover(GameManager *this)
         if (obj->isHover)
         {
             obj->isHover = SDL_FALSE;
-            obj->OnExit(this, obj);
+            if (obj->OnLeave != NULL)
+                obj->OnLeave(this, obj);
         }
 
         if (!obj->isButton || obj->layer != this->sceneManager->layerCurrent)
@@ -56,7 +59,8 @@ static void Event_GetMouseHover(GameManager *this)
             obj->rect->y <= y && y <= obj->rect->y + obj->rect->h)
         {
             obj->isHover = SDL_TRUE;
-            obj->OnHover(this, obj);
+            if (obj->OnHover != NULL)
+                obj->OnHover(this, obj);
         }
     }
 }
