@@ -2,7 +2,7 @@
 
 static void ObjectEvent_OnHover(GameManager *manager, Object *this);
 static void ObjectEvent_OnExit(GameManager *manager, Object *this);
-static void ObjectEvent_AnimClick(GameManager *manager, Object *this);
+static void ObjectEvent_OnAnimClick(GameManager *manager, Object *this);
 static void ObjectEvent_UpdateAnimClick(GameManager *manager, Object *this);
 
 void RegisterEvent(Object *this,
@@ -27,7 +27,7 @@ void RegisterEvent(Object *this,
         this->OnLeave = OnExit;
     }
 
-    this->OnAnimClick = ObjectEvent_AnimClick;
+    this->OnAnimClick = ObjectEvent_OnAnimClick;
 }
 
 static void ObjectEvent_OnHover(GameManager *manager, Object *this)
@@ -42,7 +42,7 @@ static void ObjectEvent_OnExit(GameManager *manager, Object *this)
     this->opacity = 255;
 }
 
-static void ObjectEvent_AnimClick(GameManager *manager, Object *this)
+static void ObjectEvent_OnAnimClick(GameManager *manager, Object *this)
 {
     (void)manager;
     if (this->opacity < 255)

@@ -39,13 +39,23 @@
     "`sdl2-config --cflags`"
   ],
   "C_Cpp_Runner.linkerArgs": [
+    "${workspaceFolder}/src/core/*.c",
+    "${workspaceFolder}/src/graphics/*.c",
+    "${workspaceFolder}/src/graphics/scene/*.c",
+    "${workspaceFolder}/src/events/*.c",
+    "${workspaceFolder}/src/gameplay/*.c",
+    "${workspaceFolder}/src/utils/*.c",
     "-lSDL2",
     "-lSDL2_gfx",
     "-lSDL2_ttf"
   ],
   "C_Cpp_Runner.includePaths": [
-    "${workspaceFolder}/includes",
-    "${workspaceFolder}/includes/scenes"
+    "${workspaceFolder}/src/core",
+    "${workspaceFolder}/src/graphics",
+    "${workspaceFolder}/src/events",
+    "${workspaceFolder}/src/gameplay",
+    "${workspaceFolder}/src/graphics/scene",
+    "${workspaceFolder}/src/utils"
   ],
   "C_Cpp_Runner.includeSearch": [
     "*",
@@ -75,6 +85,8 @@
     "eventmanager.h": "c",
     "sdl_ttf.h": "c",
     "objectevent.h": "c",
-    "gameconfig.h": "c"
+    "gameconfig.h": "c",
+    "text.h": "c",
+    "sdl2_gfxprimitives.h": "c"
   }
 }

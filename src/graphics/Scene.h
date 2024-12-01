@@ -2,8 +2,6 @@
 
 #include <GameManager.h>
 
-typedef struct GameManager GameManager;
-
 typedef struct Scene
 {
     struct Object *objects;

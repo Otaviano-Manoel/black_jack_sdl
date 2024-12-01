@@ -19,20 +19,6 @@ SceneManager *SceneManager_Init()
     return sceneManager;
 }
 
-int SceneManager_GetObjisHover(struct GameManager *this)
-{
-    for (size_t i = 0; i < this->sceneManager->current->objCount; i++)
-    {
-        Object *obj = &this->sceneManager->current->objects[i];
-
-        if (obj->isHover)
-        {
-            return (int)i;
-        }
-    }
-    return -1;
-}
-
 static void SceneManager_ChangeScene(GameManager *manager, Scene *next)
 {
     if (manager->sceneManager->isCurrentSet)
@@ -73,8 +59,10 @@ static void SceneManager_init_SDL(SceneManager *this)
 {
     SDL_Window *window;
     SDL_Init(SDL_INIT_VIDEO);
+
     window = SDL_CreateWindow("21 Master", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, SDL_WINDOW_SHOWN);
     this->window = window;
+
     this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);
     if (!this->renderer)
     {

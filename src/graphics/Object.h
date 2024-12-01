@@ -5,8 +5,6 @@
 #define MAX_LENGTH_TAG 32
 #define TAG_BACKGROUND "background"
 
-typedef struct Text Text;
-
 typedef struct Object
 {
     char tag[MAX_LENGTH_TAG];

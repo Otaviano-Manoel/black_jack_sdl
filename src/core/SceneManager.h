@@ -7,9 +7,6 @@
 #define MAX_FPS 60
 #define FRAME_TIME (1000 / MAX_FPS)
 
-typedef struct GameManager GameManager;
-typedef struct Object Object;
-
 typedef struct SceneManager
 {
     int layerCurrent;
@@ -20,12 +17,11 @@ typedef struct SceneManager
     struct Scene *current;
     SDL_bool isCurrentSet;
 
-    void (*ChangeScene)(GameManager *, struct Scene *);
+    void (*ChangeScene)(struct GameManager *, struct Scene *);
 
-    void (*Start)(GameManager *);
-    void (*Update)(GameManager *);
-    void (*Quit)(GameManager *);
+    void (*Start)(struct GameManager *);
+    void (*Update)(struct GameManager *);
+    void (*Quit)(struct GameManager *);
 } SceneManager;
 
 SceneManager *SceneManager_Init();
-int SceneManager_GetObjisHover(struct GameManager *this);

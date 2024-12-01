@@ -1,14 +1,22 @@
 #pragma once
 
+typedef struct GameManager GameManager;
+typedef struct Text Text;
+typedef struct Object Object;
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <File_Utils.h>
 #include <SceneManager.h>
 #include <Scene.h>
 #include <EventManager.h>
 #include <Object.h>
 #include <Text.h>
 #include <GameConfig.h>
+#include <ObjectEvent.h>
+#include <MenuEvent.h>
+#include <Object_Interactions.h>
 
 typedef struct GameManager
 {
@@ -19,5 +27,3 @@ typedef struct GameManager
 } GameManager;
 
 GameManager *GameManager_Init();
-
-char *GetFile(GameManager *this, char *nameFile);

@@ -4,8 +4,12 @@
       "name": "linux-gcc-x64",
       "includePath": [
         "${workspaceFolder}/**",
-        "${workspaceFolder}/includes",
-        "${workspaceFolder}/includes/scenes"
+        "${workspaceFolder}/src/core",
+        "${workspaceFolder}/src/graphics",
+        "${workspaceFolder}/src/events",
+        "${workspaceFolder}/src/gameplay",
+        "${workspaceFolder}/src/graphics/scene",
+        "${workspaceFolder}/src/utils"
       ],
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "${default}",
