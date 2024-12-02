@@ -3,6 +3,7 @@
 typedef struct GameManager GameManager;
 typedef struct Text Text;
 typedef struct Object Object;
+typedef struct GameConfig GameConfig;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -17,6 +18,7 @@ typedef struct Object Object;
 #include <ObjectEvent.h>
 #include <MenuEvent.h>
 #include <Object_Interactions.h>
+#include <Graphics_Utils.h>
 
 typedef struct GameManager
 {

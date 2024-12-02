@@ -87,6 +87,10 @@
     "objectevent.h": "c",
     "gameconfig.h": "c",
     "text.h": "c",
-    "sdl2_gfxprimitives.h": "c"
+    "sdl2_gfxprimitives.h": "c",
+    "graphics_utils.h": "c",
+    "object_interactions.h": "c",
+    "menuevent.h": "c",
+    "math.h": "c"
   }
 }

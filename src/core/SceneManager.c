@@ -38,15 +38,12 @@ static void SceneManager_Start(GameManager *manager)
 }
 static void SceneManager_Update(GameManager *manager)
 {
-    SDL_RenderClear(manager->sceneManager->renderer);
-    if (manager->sceneManager->isCurrentSet)
-    {
-        manager->sceneManager->current->Update(manager);
-    }
-    SDL_RenderPresent(manager->sceneManager->renderer);
-    SDL_UpdateWindowSurface(manager->sceneManager->window);
+    ClearRender(manager->sceneManager->renderer);
+    RenderObjectsInScene(manager);
+    PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window);
     Event_Wait(manager);
 }
+
 static void SceneManager_Quit(GameManager *manager)
 {
     if (manager->sceneManager->isCurrentSet)

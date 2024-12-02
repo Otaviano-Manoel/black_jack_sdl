@@ -22,8 +22,8 @@ static void Menu_Start(GameManager *manager)
     // Obj
     obj = Obj_Init();
     obj.layer = 0;
-    obj.Obj_ResizeRect(&obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW);
-    obj.Obj_SetImage(renderer, &obj, BuildFilePath(manager->assets, "background.bmp"), MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW);
+    obj.ResizeRect(&obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW);
+    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "background.bmp"), MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW);
     SDL_strlcpy(obj.tag, TAG_BACKGROUND, sizeof(obj.tag));
     RegisterEvent(&obj, NULL, NULL);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
@@ -31,8 +31,8 @@ static void Menu_Start(GameManager *manager)
     // Obj
     obj = Obj_Init();
     obj.layer = 1;
-    obj.Obj_ResizeRect(&obj, 86, 107, 460, 460);
-    obj.Obj_SetImage(renderer, &obj, BuildFilePath(manager->assets, "title.bmp"), 460, 460);
+    obj.ResizeRect(&obj, 86, 107, 460, 460);
+    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "title.bmp"), 460, 460);
     RegisterEvent(&obj, NULL, NULL);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
@@ -40,8 +40,8 @@ static void Menu_Start(GameManager *manager)
     obj = Obj_Init();
     obj.layer = 1;
     RegisterEvent(&obj, NULL, NULL);
-    obj.Obj_ResizeRect(&obj, 708, 113, 350, 90);
-    obj.Obj_SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
+    obj.ResizeRect(&obj, 708, 113, 350, 90);
+    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
     obj.isButton = SDL_TRUE;
     obj.OnClick = Menu_OnClick_PvsCPU;
     // Text
@@ -55,8 +55,8 @@ static void Menu_Start(GameManager *manager)
     obj = Obj_Init();
     obj.layer = 1;
     RegisterEvent(&obj, NULL, NULL);
-    obj.Obj_ResizeRect(&obj, 708, 233, 350, 90);
-    obj.Obj_SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
+    obj.ResizeRect(&obj, 708, 233, 350, 90);
+    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
     obj.isButton = SDL_TRUE;
     obj.OnClick = Menu_OnClick_PvsP;
     // Text
@@ -70,8 +70,8 @@ static void Menu_Start(GameManager *manager)
     obj = Obj_Init();
     obj.layer = 1;
     RegisterEvent(&obj, NULL, NULL);
-    obj.Obj_ResizeRect(&obj, 708, 353, 350, 90);
-    obj.Obj_SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
+    obj.ResizeRect(&obj, 708, 353, 350, 90);
+    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
     obj.isButton = SDL_TRUE;
     obj.OnClick = Menu_OnClick_Settings;
     // Text
@@ -85,8 +85,8 @@ static void Menu_Start(GameManager *manager)
     obj = Obj_Init();
     obj.layer = 1;
     RegisterEvent(&obj, NULL, NULL);
-    obj.Obj_ResizeRect(&obj, 708, 473, 350, 90);
-    obj.Obj_SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
+    obj.ResizeRect(&obj, 708, 473, 350, 90);
+    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
     obj.isButton = SDL_TRUE;
     obj.OnClick = Menu_OnClick_Quit;
     // Text
@@ -99,19 +99,7 @@ static void Menu_Start(GameManager *manager)
 
 static void Menu_Update(GameManager *manager)
 {
-    for (size_t i = 0; i < manager->sceneManager->current->objCount; i++)
-    {
-        Object *element = &manager->sceneManager->current->objects[i];
-        SDL_SetTextureAlphaMod(element->texture, element->opacity);
-
-        SDL_RenderCopy(manager->sceneManager->renderer, element->texture, NULL, element->rect);
-
-        if (element->text->isTextLoaded)
-        {
-            SDL_SetTextureAlphaMod(element->text->textTexture, element->opacity);
-            SDL_RenderCopy(manager->sceneManager->renderer, element->text->textTexture, NULL, element->text->textRect);
-        }
-    }
+    (void)manager;
 }
 static void Menu_Quit(GameManager *manager)
 {

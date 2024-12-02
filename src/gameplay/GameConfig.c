@@ -1,11 +1,10 @@
 #include <GameConfig.h>
-#include <GameManager.h>
 
 GameConfig *GameConfig_Init()
 {
     GameConfig *config = malloc(sizeof(GameConfig));
-    config->difficulty = 0;
-    config->style = 0;
+    config->difficulty = DIFFICULTY_MEDIUM;
+    config->style = STYLE_CLASSIC;
     return config;
 }
 
@@ -13,26 +12,26 @@ char *GameConfig_DifficultyString(GameConfig *config)
 {
     switch (config->difficulty)
     {
-    case 0:
+    case DIFFICULTY_EASY:
         return "Easy";
-    case 1:
+    case DIFFICULTY_MEDIUM:
         return "Medium";
-    case 2:
+    case DIFFICULTY_HARD:
         return "Hard";
+    default:
+        return "Unknown";
     }
-
-    return "Unknown";
 }
 
 char *GameConfig_StyleString(GameConfig *config)
 {
     switch (config->style)
     {
-    case 0:
+    case STYLE_CLASSIC:
         return "Classic";
-    case 1:
+    case STYLE_MODERN:
         return "Modern";
+    default:
+        return "Unknown";
     }
-
-    return "Unknown";
 }

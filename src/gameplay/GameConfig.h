@@ -1,9 +1,24 @@
 #pragma once
 
+#include <GameManager.h>
+
+typedef enum
+{
+    DIFFICULTY_EASY = 0,
+    DIFFICULTY_MEDIUM,
+    DIFFICULTY_HARD
+} Difficulty;
+
+typedef enum
+{
+    STYLE_CLASSIC = 0,
+    STYLE_MODERN
+} Style;
+
 typedef struct GameConfig
 {
-    int difficulty;
-    int style;
+    Difficulty difficulty;
+    Style style;
 } GameConfig;
 
 GameConfig *GameConfig_Init();

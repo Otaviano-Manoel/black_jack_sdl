@@ -62,16 +62,6 @@ static void ObjectEvent_OnAnimClick(GameManager *manager, Object *this)
 
 static void ObjectEvent_UpdateAnimClick(GameManager *manager, Object *this)
 {
-    SDL_SetTextureAlphaMod(this->texture, this->opacity);
-
-    SDL_RenderCopy(manager->sceneManager->renderer, this->texture, NULL, this->rect);
-
-    if (this->text->isTextLoaded)
-    {
-        SDL_SetTextureAlphaMod(this->text->textTexture, this->opacity);
-        SDL_RenderCopy(manager->sceneManager->renderer, this->text->textTexture, NULL, this->text->textRect);
-    }
-
-    SDL_RenderPresent(manager->sceneManager->renderer);
-    SDL_UpdateWindowSurface(manager->sceneManager->window);
+    RenderObject(manager->sceneManager->renderer, this);
+    PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window);
 }

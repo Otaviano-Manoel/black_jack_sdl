@@ -21,8 +21,12 @@ typedef struct Object
     int xEnd, yEnd;
     Uint8 opacity;
 
-    void (*Obj_SetImage)(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height);
-    void (*Obj_ResizeRect)(struct Object *obj, int x, int y, int width, int height);
+    void (*SetImage)(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height);
+    void (*SetColorKey)(struct Object *obj, Uint8 r, Uint8 g, Uint8 b);
+    void (*ResizeRect)(struct Object *obj, int x, int y, int width, int height);
+    void (*InitFull)(SDL_Renderer *renderer, struct Object *obj,
+                     int x, int y, int width, int height, const char *file,
+                     Uint8 r, Uint8 g, Uint8 b);
 
     void (*OnHover)(GameManager *manager, struct Object *this);
     void (*OnLeave)(GameManager *manager, struct Object *this);
