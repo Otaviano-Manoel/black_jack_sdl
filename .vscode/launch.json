@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/bluebird/Documents/Otaviano/black_jack_sdl/src",
-      "program": "/home/bluebird/Documents/Otaviano/black_jack_sdl/src/build/Debug/outDebug",
+      "cwd": "/home/otaviano/Documentos/black_jack_sdl/src",
+      "program": "/home/otaviano/Documentos/black_jack_sdl/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

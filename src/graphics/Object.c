@@ -82,7 +82,7 @@ static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char 
         Obj_Resize(obj, width, height);
     }
 
-    // SDL_SetColorKey(obj->surface, SDL_TRUE, SDL_MapRGB(obj->surface->format, 0, 0, 0));
+    SDL_SetColorKey(obj->surface, SDL_TRUE, SDL_MapRGB(obj->surface->format, 0, 0, 0));
 
     obj->texture = SDL_CreateTextureFromSurface(renderer, obj->surface);
 
