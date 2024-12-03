@@ -1,23 +1,36 @@
 #include <Text.h>
 
 static void Text_SetFont(Text *text, char *file, int ptsize);
-static void Text_SetColo(GameManager *manager, Text *text, char *writer, SDL_Color textColor);
-static void Text_SetTexture(GameManager *manager, Text *text);
+static void Text_SetColor(SDL_Renderer *renderer, Text *text, char *writer, SDL_Color textColor);
+static void Text_SetTexture(SDL_Renderer *renderer, Text *text);
 static void Text_SetPosition(Text *text, int x, int y);
+static void Text_Destroy(Text *text);
+static void Text_InitFull(SDL_Renderer *renderer, Text *text, char *file, int ptsize, char *writer, SDL_Color textColor, int x, int y);
 
 Text *Text_Init()
 {
     Text *text = malloc(sizeof(Text));
-    text->font = malloc(sizeof(TTF_Font *));
+    text->font = NULL;
+    text->textSurface = NULL;
+    text->textTexture = NULL;
     text->textRect = malloc(sizeof(SDL_Rect));
-    text->textSurface = malloc(sizeof(SDL_Surface));
 
-    text->SetColor = Text_SetColo;
+    text->InitFull = Text_InitFull;
+    text->SetColor = Text_SetColor;
     text->SetFont = Text_SetFont;
     text->SetPosition = Text_SetPosition;
+    text->Destroy = Text_Destroy;
 
     text->isTextLoaded = SDL_FALSE;
     return text;
+}
+
+static void Text_InitFull(SDL_Renderer *renderer, Text *text, char *file, int ptsize, char *writer, SDL_Color textColor, int x, int y)
+{
+    Text_SetFont(text, file, ptsize);
+    Text_SetColor(renderer, text, writer, textColor);
+    Text_SetPosition(text, x, y);
+    text->isTextLoaded = SDL_TRUE;
 }
 
 static void Text_SetFont(Text *text, char *file, int ptsize)
@@ -30,7 +43,7 @@ static void Text_SetFont(Text *text, char *file, int ptsize)
     }
 }
 
-static void Text_SetColo(GameManager *manager, Text *text, char *writer, SDL_Color textColor)
+static void Text_SetColor(SDL_Renderer *renderer, Text *text, char *writer, SDL_Color textColor)
 {
     text->textSurface = TTF_RenderText_Blended(text->font, writer, textColor);
     if (text->textSurface == NULL)
@@ -39,12 +52,12 @@ static void Text_SetColo(GameManager *manager, Text *text, char *writer, SDL_Col
         return;
     }
 
-    Text_SetTexture(manager, text);
+    Text_SetTexture(renderer, text);
 }
 
-static void Text_SetTexture(GameManager *manager, Text *text)
+static void Text_SetTexture(SDL_Renderer *renderer, Text *text)
 {
-    text->textTexture = SDL_CreateTextureFromSurface(manager->sceneManager->renderer, text->textSurface);
+    text->textTexture = SDL_CreateTextureFromSurface(renderer, text->textSurface);
     if (text->textTexture == NULL)
     {
         SDL_Log("Erro ao criar textura do texto: %s", SDL_GetError());
@@ -59,4 +72,30 @@ void Text_SetPosition(Text *text, int x, int y)
 {
     text->textRect->x = x;
     text->textRect->y = y;
+}
+
+static void Text_Destroy(Text *text)
+{
+    if (!text)
+        return;
+
+    if (text->textTexture)
+    {
+        SDL_DestroyTexture(text->textTexture);
+    }
+
+    if (text->textSurface)
+    {
+        SDL_FreeSurface(text->textSurface);
+    }
+
+    if (text->font)
+    {
+        TTF_CloseFont(text->font);
+    }
+
+    if (text->textRect)
+    {
+        free(text->textRect);
+    }
 }

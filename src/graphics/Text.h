@@ -11,9 +11,11 @@ typedef struct Text
 
     SDL_bool isTextLoaded;
 
+    void (*Destroy)(Text *text);
     void (*SetFont)(struct Text *text, char *file, int ptsize);
-    void (*SetColor)(GameManager *manager, struct Text *text, char *writer, SDL_Color textColor);
+    void (*SetColor)(SDL_Renderer *renderer, struct Text *text, char *writer, SDL_Color textColor);
     void (*SetPosition)(struct Text *text, int x, int y);
+    void (*InitFull)(SDL_Renderer *renderer, Text *text, char *file, int ptsize, char *writer, SDL_Color textColor, int x, int y);
 } Text;
 
 Text *Text_Init();

@@ -1,13 +1,17 @@
 #include <Object.h>
 #include <math.h>
 
-static void Obj_SetImage(SDL_Renderer *renderer, Object *obj, const char *file, int width, int height);
+static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b);
 static void Obj_Resize(Object *obj, int width, int height);
 static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height);
 static void Obj_SetColorKey(Object *obj, Uint8 r, Uint8 g, Uint8 b);
+static void Obj_Free(Object *obj);
 static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
                          int x, int y, int width, int height, const char *file,
-                         Uint8 r, Uint8 g, Uint8 b);
+                         Uint8 r, Uint8 g, Uint8 b, Uint8 opacity, int layer, SDL_bool isButton,
+                         void (*OnHover)(GameManager *manager, struct Object *this),
+                         void (*OnExit)(GameManager *manager, struct Object *this),
+                         void (*OnClick)(GameManager *manager, struct Object *this));
 
 Object Obj_Init()
 {
@@ -17,6 +21,7 @@ Object Obj_Init()
     obj.ResizeRect = Obj_ResizeRect;
     obj.SetColorKey = Obj_SetColorKey;
     obj.InitFull = Obj_InitFull;
+    obj.Free = Obj_Free;
     obj.OnClick = NULL;
     obj.OnHover = NULL;
     obj.OnLeave = NULL;
@@ -37,17 +42,23 @@ Object Obj_Init()
 
 static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
                          int x, int y, int width, int height, const char *file,
-                         Uint8 r, Uint8 g, Uint8 b)
+                         Uint8 r, Uint8 g, Uint8 b, Uint8 opacity, int layer, SDL_bool isButton,
+                         void (*OnHover)(GameManager *manager, struct Object *this),
+                         void (*OnExit)(GameManager *manager, struct Object *this),
+                         void (*OnClick)(GameManager *manager, struct Object *this))
 {
-    if (!renderer || !obj || !file || width <= 0 || height <= 0)
+    if (!renderer || !obj || !file || width < 0 || height < 0)
     {
         printf("Parâmetros inválidos em Obj_Create.\n");
         return;
     }
-
+    RegisterEvent(obj, OnHover, OnExit);
     Obj_ResizeRect(obj, x, y, width, height);
-    Obj_SetImage(renderer, obj, file, width, height);
-    Obj_SetColorKey(obj, r, g, b);
+    Obj_SetImage(renderer, obj, file, width, height, r, g, b);
+    obj->layer = layer;
+    obj->isButton = isButton;
+    obj->OnClick = OnClick;
+    obj->opacity = opacity;
 }
 
 static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height)
@@ -66,7 +77,7 @@ static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height)
     obj->height = height;
 }
 
-static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height)
+static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b)
 {
     SDL_Surface *image = SDL_LoadBMP(file);
     if (!image)
@@ -82,7 +93,7 @@ static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char 
         Obj_Resize(obj, width, height);
     }
 
-    SDL_SetColorKey(obj->surface, SDL_TRUE, SDL_MapRGB(obj->surface->format, 0, 0, 0));
+    Obj_SetColorKey(obj, r, g, b);
 
     obj->texture = SDL_CreateTextureFromSurface(renderer, obj->surface);
 
@@ -122,6 +133,16 @@ static void Obj_Resize(Object *obj, int width, int height)
     }
 }
 
-static void Obj_Destroy(obj)
+static void Obj_Free(Object *obj)
 {
+    if (obj->surface)
+        SDL_FreeSurface(obj->surface);
+    if (obj->texture)
+        SDL_DestroyTexture(obj->texture);
+    if (obj->rect)
+        free(obj->rect);
+
+    obj->text->Destroy(obj->text);
+
+    free(obj->text);
 }

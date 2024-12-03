@@ -9,135 +9,69 @@ void Setting_Init(GameManager *gameManager)
 
     // Obj
     obj = Obj_Init();
-    obj.layer = 2;
-    obj.opacity = 128;
-    obj.ResizeRect(&obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "setting.bmp"), MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW);
-    RegisterEvent(&obj, NULL, NULL);
+    obj.InitFull(renderer, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(gameManager->assets, "setting.bmp"), 0, 0, 0, 128, 2, SDL_FALSE, NULL, NULL, NULL);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj
     obj = Obj_Init();
-    obj.layer = 2;
-    obj.ResizeRect(&obj, 450, 162, 451, 397);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "background_setting.bmp"), 381, 397);
+    obj.InitFull(renderer, &obj, 450, 162, 451, 397, BuildFilePath(gameManager->assets, "background_setting.bmp"), 0, 0, 0, 255, 2, SDL_FALSE, NULL, NULL, NULL);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj
     obj = Obj_Init();
-    obj.layer = 2;
-    obj.ResizeRect(&obj, 590, 450, 100, 100);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "card.bmp"), 100, 100);
+    obj.InitFull(renderer, &obj, 630, 450, 100, 100, BuildFilePath(gameManager->assets, "card.bmp"), 0, 0, 0, 255, 2, SDL_FALSE, NULL, NULL, NULL);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 866, 137, 50, 50);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "close.bmp"), 50, 50);
-    RegisterEvent(&obj, NULL, NULL);
-    obj.isButton = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 866, 137, 50, 50, BuildFilePath(gameManager->assets, "close.bmp"), 0, 0, 0, 255, 3, SDL_TRUE, NULL, NULL, NULL);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Difficulty
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 469, 192, 0, 0);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "null.bmp"), 50, 50);
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26);
-    obj.text->SetColor(gameManager, obj.text, "Difficulty", (SDL_Color){255, 255, 255, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x), (obj.rect->y));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 469, 192, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), 0, 0, 0, 255, 3, SDL_FALSE, NULL, NULL, NULL);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "Difficulty", (SDL_Color){255, 255, 255, 255}, obj.rect->x, obj.rect->y);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Difficulty
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 605, 192, 215, 35);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "b_background.bmp"), 215, 35);
-    RegisterEvent(&obj, NULL, NULL);
-    obj.isButton = SDL_TRUE;
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26);
-    obj.text->SetColor(gameManager, obj.text, GameConfig_DifficultyString(gameManager->gameConfig), (SDL_Color){0, 0, 0, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x + 45), (obj.rect->y + 1));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 605, 192, 215, 36, BuildFilePath(gameManager->assets, "b_background.bmp"), 0, 0, 0, 255, 3, SDL_TRUE, NULL, NULL, NULL);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, GameConfig_DifficultyString(gameManager->gameConfig), (SDL_Color){0, 0, 0, 255}, (obj.rect->x + 45), (obj.rect->y + 1));
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Style
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 469, 252, 0, 0);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "null.bmp"), 50, 50);
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26);
-    obj.text->SetColor(gameManager, obj.text, "Style", (SDL_Color){255, 255, 255, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x), (obj.rect->y));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 469, 252, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), 0, 0, 0, 255, 3, SDL_FALSE, NULL, NULL, NULL);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "Style", (SDL_Color){255, 255, 255, 255}, (obj.rect->x), (obj.rect->y));
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Style
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 605, 252, 215, 35);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "b_background.bmp"), 215, 35);
-    RegisterEvent(&obj, NULL, NULL);
-    obj.isButton = SDL_TRUE;
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26);
-    obj.text->SetColor(gameManager, obj.text, GameConfig_StyleString(gameManager->gameConfig), (SDL_Color){0, 0, 0, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x + 45), (obj.rect->y + 1));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 605, 252, 215, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), 0, 0, 0, 255, 3, SDL_TRUE, NULL, NULL, NULL);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, GameConfig_StyleString(gameManager->gameConfig), (SDL_Color){0, 0, 0, 255}, (obj.rect->x + 45), (obj.rect->y + 1));
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P1
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 469, 312, 0, 0);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "null.bmp"), 50, 50);
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26);
-    obj.text->SetColor(gameManager, obj.text, "Name P1", (SDL_Color){255, 255, 255, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x), (obj.rect->y));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 469, 312, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), 0, 0, 0, 255, 3, SDL_FALSE, NULL, NULL, NULL);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "Name P1", (SDL_Color){255, 255, 255, 255}, (obj.rect->x), (obj.rect->y));
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P1
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 605, 312, 275, 35);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "b_background.bmp"), 215, 35);
-    RegisterEvent(&obj, NULL, NULL);
-    obj.isButton = SDL_TRUE;
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 17);
-    obj.text->SetColor(gameManager, obj.text, "14", (SDL_Color){0, 0, 0, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x + 5), (obj.rect->y + 5));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 605, 312, 275, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), 0, 0, 0, 255, 3, SDL_TRUE, NULL, NULL, NULL);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "15", (SDL_Color){0, 0, 0, 255}, (obj.rect->x + 5), (obj.rect->y + 2));
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P2
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 469, 377, 0, 0);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "null.bmp"), 50, 50);
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26);
-    obj.text->SetColor(gameManager, obj.text, "Name P2", (SDL_Color){255, 255, 255, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x), (obj.rect->y));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 469, 377, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), 0, 0, 0, 255, 3, SDL_FALSE, NULL, NULL, NULL);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "Name P2", (SDL_Color){255, 255, 255, 255}, (obj.rect->x), (obj.rect->y));
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P2
     obj = Obj_Init();
-    obj.layer = 3;
-    obj.ResizeRect(&obj, 605, 377, 275, 35);
-    obj.SetImage(renderer, &obj, BuildFilePath(gameManager->assets, "b_background.bmp"), 275, 35);
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 17);
-    obj.text->SetColor(gameManager, obj.text, "14", (SDL_Color){0, 0, 0, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x + 5), (obj.rect->y + 5));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 605, 377, 275, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), 0, 0, 0, 255, 3, SDL_TRUE, NULL, NULL, NULL);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "15", (SDL_Color){0, 0, 0, 255}, (obj.rect->x + 5), (obj.rect->y + 2));
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 }

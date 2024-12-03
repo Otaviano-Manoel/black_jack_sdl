@@ -21,79 +21,36 @@ static void Menu_Start(GameManager *manager)
 
     // Obj
     obj = Obj_Init();
-    obj.layer = 0;
-    obj.ResizeRect(&obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW);
-    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "background.bmp"), MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW);
-    SDL_strlcpy(obj.tag, TAG_BACKGROUND, sizeof(obj.tag));
-    RegisterEvent(&obj, NULL, NULL);
+    obj.InitFull(renderer, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(manager->assets, "background.bmp"), 0, 0, 0, 255, 0, SDL_FALSE, NULL, NULL, NULL);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj
     obj = Obj_Init();
-    obj.layer = 1;
-    obj.ResizeRect(&obj, 86, 107, 460, 460);
-    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "title.bmp"), 460, 460);
-    RegisterEvent(&obj, NULL, NULL);
+    obj.InitFull(renderer, &obj, 86, 107, 460, 460, BuildFilePath(manager->assets, "title.bmp"), 0, 0, 0, 255, 1, SDL_FALSE, NULL, NULL, NULL);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj P VS CPU
     obj = Obj_Init();
-    obj.layer = 1;
-    RegisterEvent(&obj, NULL, NULL);
-    obj.ResizeRect(&obj, 708, 113, 350, 90);
-    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
-    obj.isButton = SDL_TRUE;
-    obj.OnClick = Menu_OnClick_PvsCPU;
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32);
-    obj.text->SetColor(manager, obj.text, "P vs CPU", (SDL_Color){0, 0, 0, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x + 137), (obj.rect->y + 25));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 708, 113, 350, 90, BuildFilePath(manager->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_PvsCPU);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "P vs CPU", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 137, obj.rect->y + 25);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj P VS P
     obj = Obj_Init();
-    obj.layer = 1;
-    RegisterEvent(&obj, NULL, NULL);
-    obj.ResizeRect(&obj, 708, 233, 350, 90);
-    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
-    obj.isButton = SDL_TRUE;
-    obj.OnClick = Menu_OnClick_PvsP;
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32);
-    obj.text->SetColor(manager, obj.text, "P vs P", (SDL_Color){0, 0, 0, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x + 137), (obj.rect->y + 25));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 708, 233, 350, 90, BuildFilePath(manager->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_PvsP);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "P vs P", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 137, obj.rect->y + 25);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj SETTINGS
     obj = Obj_Init();
-    obj.layer = 1;
-    RegisterEvent(&obj, NULL, NULL);
-    obj.ResizeRect(&obj, 708, 353, 350, 90);
-    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
-    obj.isButton = SDL_TRUE;
-    obj.OnClick = Menu_OnClick_Settings;
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32);
-    obj.text->SetColor(manager, obj.text, "Settings", (SDL_Color){0, 0, 0, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x + 137), (obj.rect->y + 25));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 708, 353, 350, 90, BuildFilePath(manager->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Settings);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "Settings", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 137, obj.rect->y + 25);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj QUIT
     obj = Obj_Init();
-    obj.layer = 1;
-    RegisterEvent(&obj, NULL, NULL);
-    obj.ResizeRect(&obj, 708, 473, 350, 90);
-    obj.SetImage(renderer, &obj, BuildFilePath(manager->assets, "menu/button.bmp"), 350, 90);
-    obj.isButton = SDL_TRUE;
-    obj.OnClick = Menu_OnClick_Quit;
-    // Text
-    obj.text->SetFont(obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32);
-    obj.text->SetColor(manager, obj.text, "Quit", (SDL_Color){0, 0, 0, 255});
-    obj.text->SetPosition(obj.text, (obj.rect->x + 137), (obj.rect->y + 25));
-    obj.text->isTextLoaded = SDL_TRUE;
+    obj.InitFull(renderer, &obj, 708, 473, 350, 90, BuildFilePath(manager->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Quit);
+    obj.text->InitFull(renderer, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "Quit", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 170, obj.rect->y + 25);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 }
 
