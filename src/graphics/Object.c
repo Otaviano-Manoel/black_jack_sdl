@@ -5,7 +5,6 @@ static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char 
 static void Obj_Resize(Object *obj, int width, int height);
 static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height);
 static void Obj_SetColorKey(Object *obj, Uint8 r, Uint8 g, Uint8 b);
-static void Obj_Free(Object *obj);
 static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG]);
 static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
                          int x, int y, int width, int height, const char *file,
@@ -22,7 +21,6 @@ Object Obj_Init()
     obj.ResizeRect = Obj_ResizeRect;
     obj.SetColorKey = Obj_SetColorKey;
     obj.InitFull = Obj_InitFull;
-    obj.Free = Obj_Free;
     obj.SetTag = Obj_SetTag;
     obj.OnClick = NULL;
     obj.OnHover = NULL;
@@ -71,8 +69,6 @@ static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
 
 static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height)
 {
-    if (obj->rect)
-        free(obj->rect);
     obj->rect = malloc(sizeof(SDL_Rect));
     obj->rect->x = x;
     obj->rect->y = y;
@@ -110,9 +106,6 @@ static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char 
         printf("Erro ao criar textura: %s\n", SDL_GetError());
         return;
     }
-
-    if (obj->texture)
-        SDL_FreeSurface(obj->surface);
 }
 
 static void Obj_SetColorKey(Object *obj, Uint8 r, Uint8 g, Uint8 b)
@@ -132,7 +125,6 @@ static void Obj_Resize(Object *obj, int width, int height)
     if (resizedImage)
     {
         SDL_BlitScaled(obj->surface, NULL, resizedImage, NULL);
-        SDL_FreeSurface(obj->surface);
         obj->surface = resizedImage;
     }
     else
@@ -141,16 +133,16 @@ static void Obj_Resize(Object *obj, int width, int height)
     }
 }
 
-static void Obj_Free(Object *obj)
+void Obj_Free(Object *obj)
 {
     if (obj->surface)
         SDL_FreeSurface(obj->surface);
     if (obj->texture)
         SDL_DestroyTexture(obj->texture);
     if (obj->rect)
-        free(obj->rect);
+        SDL_free(obj->rect);
 
-    obj->text->Destroy(obj->text);
-
-    free(obj->text);
+    if (obj->text->isTextLoaded)
+        obj->text->Destroy(obj->text);
+    SDL_free(obj->text);
 }

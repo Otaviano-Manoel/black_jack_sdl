@@ -26,3 +26,13 @@ static void GetPathAssets(GameManager *this)
 
     strcat(path, "assets/");
 }
+
+void Game_Manager_Free(GameManager *this)
+{
+    SDL_free(this->assets);
+    Scene_Manager_Free(this->sceneManager);
+    SDL_free(this->sceneManager);
+    SDL_free(this->player[0]);
+    SDL_free(this->player[1]);
+    SDL_free(this->gameConfig);
+}

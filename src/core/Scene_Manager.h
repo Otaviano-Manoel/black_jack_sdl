@@ -25,3 +25,4 @@ typedef struct SceneManager
 } SceneManager;
 
 SceneManager *SceneManager_Init();
+void Scene_Manager_Free(SceneManager *this);

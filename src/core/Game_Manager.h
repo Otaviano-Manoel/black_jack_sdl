@@ -6,6 +6,7 @@ typedef struct Object Object;
 typedef struct GameConfig GameConfig;
 typedef struct Player Player;
 typedef struct Scene Scene;
+typedef struct SceneManager SceneManager;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -35,3 +36,4 @@ typedef struct GameManager
 } GameManager;
 
 GameManager *GameManager_Init();
+void Game_Manager_Free(GameManager *this);

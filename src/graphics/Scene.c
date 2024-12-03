@@ -2,7 +2,6 @@
 
 static void Scene_AddObj(Scene *scene, Object obj);
 static void Scene_RemoveObj(Scene *scene, size_t index);
-static void Scene_Free(Scene *scene);
 
 Scene *Scene_Init()
 {
@@ -51,7 +50,7 @@ static void Scene_AddObj(Scene *scene, Object obj)
 
 static void Scene_RemoveObj(Scene *scene, size_t index)
 {
-    scene->objects[index].Free(&scene->objects[index]);
+    Obj_Free(&scene->objects[index]);
 
     for (size_t i = index; i < scene->objCount; i++)
     {
@@ -61,14 +60,14 @@ static void Scene_RemoveObj(Scene *scene, size_t index)
     scene->objCount--;
 }
 
-static void Scene_Free(Scene *scene)
+void Scene_Free(Scene *scene)
 {
     if (scene->objects)
     {
         for (size_t i = 0; i < scene->objCount; i++)
         {
             Object *obj = &scene->objects[i];
-            obj->Free(obj);
+            Obj_Free(obj);
         }
 
         free(scene->objects);

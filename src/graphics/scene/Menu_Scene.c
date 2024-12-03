@@ -67,11 +67,5 @@ static void Menu_Update(GameManager *manager)
 }
 static void Menu_Quit(GameManager *manager)
 {
-    for (size_t i = 0; i < manager->sceneManager->current->objCount; i++)
-    {
-        Object *obj = &manager->sceneManager->current->objects[i];
-        obj->Free(obj);
-    }
-
-    manager->sceneManager->current->Free(manager->sceneManager->current);
+    (void)manager;
 }

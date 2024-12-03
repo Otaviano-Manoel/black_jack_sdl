@@ -1,4 +1,4 @@
-#include <Game_Manager.h>
+#include <Scene_Manager.h>
 
 static void SceneManager_init_SDL(SceneManager *this);
 static void SceneManager_ChangeScene(GameManager *manager, Scene *next);
@@ -19,11 +19,18 @@ SceneManager *SceneManager_Init()
     return sceneManager;
 }
 
+void Scene_Manager_Free(SceneManager *this)
+{
+    SDL_DestroyRenderer(this->renderer);
+    SDL_DestroyWindow(this->window);
+}
+
 static void SceneManager_ChangeScene(GameManager *manager, Scene *next)
 {
     if (manager->sceneManager->isCurrentSet)
     {
         manager->sceneManager->Quit(manager);
+        manager->sceneManager->current = NULL;
     }
     manager->sceneManager->current = next;
     manager->sceneManager->isCurrentSet = SDL_TRUE;
@@ -46,10 +53,8 @@ static void SceneManager_Update(GameManager *manager)
 
 static void SceneManager_Quit(GameManager *manager)
 {
-    if (manager->sceneManager->isCurrentSet)
-    {
-        manager->sceneManager->current->Quit(manager);
-    }
+    Scene_Free(manager->sceneManager->current);
+    SDL_free(manager->sceneManager->current);
 }
 
 static void SceneManager_init_SDL(SceneManager *this)

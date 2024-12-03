@@ -19,8 +19,7 @@ int main()
         }
     }
 
-    SDL_RenderClear(gameManager->sceneManager->renderer);
-    SDL_DestroyWindow(gameManager->sceneManager->window);
+    Game_Manager_Free(gameManager);
     SDL_Quit();
 
     return 0;

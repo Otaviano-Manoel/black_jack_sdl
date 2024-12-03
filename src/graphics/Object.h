@@ -24,7 +24,6 @@ typedef struct Object
     void (*SetImage)(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b);
     void (*SetColorKey)(struct Object *obj, Uint8 r, Uint8 g, Uint8 b);
     void (*ResizeRect)(struct Object *obj, int x, int y, int width, int height);
-    void (*Free)(struct Object *obj);
     void (*InitFull)(SDL_Renderer *renderer, struct Object *obj,
                      int x, int y, int width, int height, const char *file,
                      Uint8 r, Uint8 g, Uint8 b, Uint8 opacity, int layer, SDL_bool isButton,
@@ -40,3 +39,4 @@ typedef struct Object
 } Object;
 
 Object Obj_Init();
+void Obj_Free(Object *obj);

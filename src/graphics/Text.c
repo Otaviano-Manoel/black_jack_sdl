@@ -4,7 +4,7 @@ static void Text_SetFont(Text *text, char *file, int ptsize);
 static void Text_SetText(SDL_Renderer *renderer, Text *text, char *writer, SDL_Color textColor);
 static void Text_SetTexture(SDL_Renderer *renderer, Text *text);
 static void Text_SetPosition(Text *text, int x, int y);
-static void Text_Destroy(Text *text);
+static void Text_Free(Text *text);
 static void Text_InitFull(SDL_Renderer *renderer, Text *text, char *file, int ptsize, char *writer, SDL_Color textColor, int x, int y);
 
 Text *Text_Init()
@@ -19,7 +19,7 @@ Text *Text_Init()
     text->SetText = Text_SetText;
     text->SetFont = Text_SetFont;
     text->SetPosition = Text_SetPosition;
-    text->Destroy = Text_Destroy;
+    text->Destroy = Text_Free;
 
     text->isTextLoaded = SDL_FALSE;
     text->text = NULL;
@@ -79,28 +79,23 @@ void Text_SetPosition(Text *text, int x, int y)
     text->textRect->y = y;
 }
 
-static void Text_Destroy(Text *text)
+void Text_Free(Text *text)
 {
-    if (!text)
-        return;
-
     if (text->textTexture)
     {
         SDL_DestroyTexture(text->textTexture);
+        text->textTexture = NULL;
     }
 
     if (text->textSurface)
     {
         SDL_FreeSurface(text->textSurface);
+        text->textSurface = NULL;
     }
 
-    if (text->font)
+    if (text->textSurface)
     {
-        TTF_CloseFont(text->font);
-    }
-
-    if (text->textRect)
-    {
-        free(text->textRect);
+        SDL_free(text->textSurface);
+        text->textSurface = NULL;
     }
 }
