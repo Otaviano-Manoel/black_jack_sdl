@@ -22,7 +22,11 @@ static void Game_Scene_Start(GameManager *this)
     (void)renderer;
 
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 708, 473, 350, 90, BuildFilePath(this->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Quit);
+    obj.InitFull(renderer, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(this->assets, "background.bmp"), 0, 0, 0, 255, 0, SDL_FALSE, NULL, NULL, NULL);
+    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
+
+    obj = Obj_Init();
+    obj.InitFull(renderer, &obj, 324, 30, 660, 660, BuildFilePath(this->assets, "title.bmp"), 0, 0, 0, 25, 0, SDL_FALSE, NULL, NULL, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 }
 
@@ -33,6 +37,5 @@ static void Game_Scene_Update(GameManager *this)
 
 static void Game_Scene_Quit(GameManager *this)
 {
-    Scene_Free(this->sceneManager->current);
-    SDL_free(this->sceneManager->current);
+    (void)this;
 }

@@ -1,4 +1,5 @@
 #include <Scene_Manager.h>
+#include <Fade_Transition.h>
 
 static void SceneManager_init_SDL(SceneManager *this);
 static void SceneManager_ChangeScene(GameManager *manager, Scene *next);
@@ -27,15 +28,9 @@ void Scene_Manager_Free(SceneManager *this)
 
 static void SceneManager_ChangeScene(GameManager *manager, Scene *next)
 {
-    if (manager->sceneManager->isCurrentSet)
-    {
-        manager->sceneManager->Quit(manager);
-        manager->sceneManager->current = NULL;
-    }
-    manager->sceneManager->current = next;
-    manager->sceneManager->isCurrentSet = SDL_TRUE;
-    manager->sceneManager->Start(manager);
+    Fade_Transition(manager, next);
 }
+
 static void SceneManager_Start(GameManager *manager)
 {
     if (manager->sceneManager->isCurrentSet)
@@ -77,66 +72,3 @@ static void SceneManager_init_SDL(SceneManager *this)
         return;
     }
 }
-
-/*
-void fadeSceneTransition(GameManager *manager, Uint32 duration) {
-    Uint32 startTime = SDL_GetTicks();
-    Uint8 alpha = 0;
-    SDL_Surface *fadeSurface = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0, 0);
-
-    // Preencher a superfície com preto
-    SDL_FillRect(fadeSurface, NULL, SDL_MapRGB(fadeSurface->format, 0, 0, 0));
-
-    // Fade in
-    while (alpha < 255) {
-        SDL_RenderClear(manager->sceneManager->renderer);
-
-        // Renderizar a cena atual
-        if (manager->sceneManager->current != NULL) {
-            manager->sceneManager->current->Render(manager);
-        }
-
-        // Ajustar a opacidade
-        SDL_SetSurfaceAlphaMod(fadeSurface, alpha);
-        SDL_Texture *fadeTexture = SDL_CreateTextureFromSurface(manager->sceneManager->renderer, fadeSurface);
-        SDL_RenderCopy(manager->sceneManager->renderer, fadeTexture, NULL, NULL);
-        SDL_DestroyTexture(fadeTexture);
-
-        SDL_RenderPresent(manager->sceneManager->renderer);
-
-        // Aumentar a opacidade
-        alpha += (255 / (duration / 16)); // Ajuste a taxa de aumento conforme necessário
-        if (alpha > 255) alpha = 255;
-
-        SDL_Delay(16); // Esperar um pouco para controlar a taxa de quadros
-    }
-
-    // Trocar a cena aqui
-    // manager->sceneManager->current = novaCena;
-
-    // Fade out
-    while (alpha > 0) {
-        SDL_RenderClear(manager->sceneManager->renderer);
-
-        // Renderizar a nova cena
-        if (manager->sceneManager->current != NULL) {
-            manager->sceneManager->current->Render(manager);
-        }
-
-        // Ajustar a opacidade
-        SDL_SetSurfaceAlphaMod(fadeSurface, alpha);
-        SDL_Texture *fadeTexture = SDL_CreateTextureFromSurface(manager->sceneManager->renderer, fadeSurface);
-        SDL_RenderCopy(manager->sceneManager->renderer, fadeTexture, NULL, NULL);
-        SDL_DestroyTexture(fadeTexture);
-
-        SDL_RenderPresent(manager->sceneManager->renderer);
-
-        // Diminuir a opacidade
-        alpha -= (255 / (duration / 16)); // Ajuste a taxa de diminuição conforme necessário
-        if (alpha < 0) alpha = 0;
-
-        SDL_Delay(16); // Esperar um pouco para controlar a taxa de quadros
-    }
-
-    SDL_FreeSurface(fadeSurface);
-}*/

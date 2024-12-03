@@ -38,25 +38,25 @@ static void Menu_Draw(GameManager *manager)
 
     // Obj P VS CPU
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 708, 113, 350, 90, BuildFilePath(manager->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_PvsCPU);
+    obj.InitFull(renderer, &obj, 708, 113, 350, 90, BuildFilePath(manager->assets, "button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_PvsCPU);
     obj.text->InitFull(renderer, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "P vs CPU", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 137, obj.rect->y + 25);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj P VS P
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 708, 233, 350, 90, BuildFilePath(manager->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_PvsP);
+    obj.InitFull(renderer, &obj, 708, 233, 350, 90, BuildFilePath(manager->assets, "button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_PvsP);
     obj.text->InitFull(renderer, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "P vs P", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 137, obj.rect->y + 25);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj SETTINGS
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 708, 353, 350, 90, BuildFilePath(manager->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Settings);
+    obj.InitFull(renderer, &obj, 708, 353, 350, 90, BuildFilePath(manager->assets, "button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Settings);
     obj.text->InitFull(renderer, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "Settings", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 137, obj.rect->y + 25);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj QUIT
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 708, 473, 350, 90, BuildFilePath(manager->assets, "menu/button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Quit);
+    obj.InitFull(renderer, &obj, 708, 473, 350, 90, BuildFilePath(manager->assets, "button.bmp"), 0, 0, 0, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Quit);
     obj.text->InitFull(renderer, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "Quit", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 170, obj.rect->y + 25);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 }
