@@ -60,8 +60,9 @@ void Setting_Draw(GameManager *gameManager)
 
     // Obj Name P1
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 605, 312, 275, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), 0, 0, 0, 255, 2, SDL_TRUE, NULL, NULL, NULL);
+    obj.InitFull(renderer, &obj, 605, 312, 275, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), 0, 0, 0, 255, 2, SDL_TRUE, NULL, NULL, Setting_OnClick_SetName_P1);
     obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, gameManager->player[0]->name, (SDL_Color){0, 0, 0, 255}, (obj.rect->x + 5), (obj.rect->y + 2));
+    obj.SetTag(&obj, "P1");
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P2
@@ -72,11 +73,17 @@ void Setting_Draw(GameManager *gameManager)
 
     // Obj Name P2
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 605, 377, 275, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), 0, 0, 0, 255, 2, SDL_TRUE, NULL, NULL, NULL);
+    obj.InitFull(renderer, &obj, 605, 377, 275, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), 0, 0, 0, 255, 2, SDL_TRUE, NULL, NULL, Setting_OnClick_SetName_P2);
     obj.text->InitFull(renderer, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, gameManager->player[1]->name, (SDL_Color){0, 0, 0, 255}, (obj.rect->x + 5), (obj.rect->y + 2));
+    obj.SetTag(&obj, "P2");
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     Setting_Hide(gameManager->sceneManager->current);
+}
+
+void Setting_UpdateNamePlayer(GameManager *this, Player *player, Object *obj)
+{
+    obj->text->SetText(this->sceneManager->renderer, obj->text, player->name, (SDL_Color){0, 0, 0, 255});
 }
 
 void Setting_Visible(Scene *scene)

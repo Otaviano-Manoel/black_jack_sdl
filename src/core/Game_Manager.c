@@ -11,6 +11,7 @@ GameManager *GameManager_Init()
     GetPathAssets(this);
     this->player[0] = Player_Init();
     this->player[1] = Player_Init();
+    this->isEnableTextInput = SDL_FALSE;
     return this;
 }
 

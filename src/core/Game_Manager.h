@@ -27,6 +27,7 @@ typedef struct Scene Scene;
 typedef struct GameManager
 {
     char *assets;
+    SDL_bool isEnableTextInput;
     SDL_bool quit;
     SceneManager *sceneManager;
     GameConfig *gameConfig;

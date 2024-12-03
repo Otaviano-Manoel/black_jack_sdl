@@ -13,7 +13,9 @@ typedef struct Scene
     void (*Update)(GameManager *);
     void (*Quit)(GameManager *);
     void (*RemoveObj)(struct Scene *scene, size_t index);
+    void (*Free)(Scene *scene);
 } Scene;
 
 Scene *Scene_Init();
-void Scene_Destroy(Scene *scene);
+void Scene_Free(Scene *scene);
+Object *Scene_FindTag(Scene *scene, char tag[32]);

@@ -2,9 +2,13 @@
 
 #include <Game_Manager.h>
 
+#define MAX_LENGTH_NAME 14
+
 typedef struct Player
 {
-    char name[20];
+    char name[MAX_LENGTH_NAME];
+
+    SDL_bool isEditName;
 
     void (*SetName)(struct Player *this, char name[20]);
 } Player;

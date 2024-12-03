@@ -6,6 +6,7 @@ static void Obj_Resize(Object *obj, int width, int height);
 static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height);
 static void Obj_SetColorKey(Object *obj, Uint8 r, Uint8 g, Uint8 b);
 static void Obj_Free(Object *obj);
+static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG]);
 static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
                          int x, int y, int width, int height, const char *file,
                          Uint8 r, Uint8 g, Uint8 b, Uint8 opacity, int layer, SDL_bool isButton,
@@ -22,6 +23,7 @@ Object Obj_Init()
     obj.SetColorKey = Obj_SetColorKey;
     obj.InitFull = Obj_InitFull;
     obj.Free = Obj_Free;
+    obj.SetTag = Obj_SetTag;
     obj.OnClick = NULL;
     obj.OnHover = NULL;
     obj.OnLeave = NULL;
@@ -39,6 +41,11 @@ Object Obj_Init()
     obj.rect = NULL;
     obj.layer = 0;
     return obj;
+}
+
+static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG])
+{
+    SDL_strlcpy(obj->tag, tag, MAX_LENGTH_TAG);
 }
 
 static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,

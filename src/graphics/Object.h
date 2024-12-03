@@ -20,6 +20,7 @@ typedef struct Object
     int xEnd, yEnd;
     Uint8 opacity;
 
+    void (*SetTag)(Object *obj, char tag[MAX_LENGTH_TAG]);
     void (*SetImage)(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b);
     void (*SetColorKey)(struct Object *obj, Uint8 r, Uint8 g, Uint8 b);
     void (*ResizeRect)(struct Object *obj, int x, int y, int width, int height);

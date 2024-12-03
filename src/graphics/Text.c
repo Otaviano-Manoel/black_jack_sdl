@@ -28,10 +28,10 @@ Text *Text_Init()
 
 static void Text_InitFull(SDL_Renderer *renderer, Text *text, char *file, int ptsize, char *writer, SDL_Color textColor, int x, int y)
 {
+    text->isTextLoaded = SDL_TRUE;
     Text_SetFont(text, file, ptsize);
     Text_SetText(renderer, text, writer, textColor);
     Text_SetPosition(text, x, y);
-    text->isTextLoaded = SDL_TRUE;
 }
 
 static void Text_SetFont(Text *text, char *file, int ptsize)
@@ -50,8 +50,7 @@ static void Text_SetText(SDL_Renderer *renderer, Text *text, char *writer, SDL_C
         text->text = malloc(256);
 
     SDL_strlcpy(text->text, writer, 256);
-
-    text->textSurface = TTF_RenderText_Blended(text->font, writer, textColor);
+    text->textSurface = TTF_RenderText_Blended(text->font, text->text, textColor);
     if (text->textSurface == NULL)
     {
         SDL_Log("Erro ao renderizar texto: %s", TTF_GetError());

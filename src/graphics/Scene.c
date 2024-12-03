@@ -2,12 +2,14 @@
 
 static void Scene_AddObj(Scene *scene, Object obj);
 static void Scene_RemoveObj(Scene *scene, size_t index);
+static void Scene_Free(Scene *scene);
 
 Scene *Scene_Init()
 {
     Scene *scene = malloc(sizeof(Scene));
     scene->AddObj = Scene_AddObj;
     scene->RemoveObj = Scene_RemoveObj;
+    scene->Free = Scene_Free;
     scene->objects = NULL;
     scene->objCount = 0;
     scene->Start = NULL;
@@ -15,6 +17,18 @@ Scene *Scene_Init()
     scene->Quit = NULL;
     scene->capacity = 0;
     return scene;
+}
+
+Object *Scene_FindTag(Scene *scene, char tag[MAX_LENGTH_TAG])
+{
+    for (size_t i = 0; i < scene->objCount; i++)
+    {
+        if (SDL_strcasecmp(tag, scene->objects[i].tag) == 0)
+        {
+            return &scene->objects[i];
+        }
+    }
+    return NULL;
 }
 
 static void Scene_AddObj(Scene *scene, Object obj)
@@ -47,7 +61,7 @@ static void Scene_RemoveObj(Scene *scene, size_t index)
     scene->objCount--;
 }
 
-void Scene_Destroy(Scene *scene)
+static void Scene_Free(Scene *scene)
 {
     if (scene->objects)
     {
@@ -59,5 +73,4 @@ void Scene_Destroy(Scene *scene)
 
         free(scene->objects);
     }
-    free(scene);
 }
