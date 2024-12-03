@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GameManager.h>
+#include <Game_Manager.h>
 
 char *GetPath(size_t size);
 

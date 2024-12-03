@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GameManager.h>
+#include <Game_Manager.h>
 
 void Menu_OnClick_PvsCPU(GameManager *manager, Object *);
 void Menu_OnClick_PvsP(GameManager *manager, Object *);

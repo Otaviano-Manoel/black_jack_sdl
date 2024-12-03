@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GameManager.h>
+#include <Game_Manager.h>
 
 void ClearRender(SDL_Renderer *renderer);
 void RenderObject(SDL_Renderer *renderer, Object *obj);

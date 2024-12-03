@@ -9,16 +9,17 @@ typedef struct GameConfig GameConfig;
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <File_Utils.h>
-#include <SceneManager.h>
+#include <Scene_Manager.h>
 #include <Scene.h>
-#include <EventManager.h>
+#include <Event_Manager.h>
 #include <Object.h>
 #include <Text.h>
-#include <GameConfig.h>
-#include <ObjectEvent.h>
-#include <MenuEvent.h>
+#include <Game_Config.h>
+#include <Object_Event.h>
+#include <Menu_Event.h>
 #include <Object_Interactions.h>
 #include <Graphics_Utils.h>
+#include <Setting_Scene.h>
 
 typedef struct GameManager
 {

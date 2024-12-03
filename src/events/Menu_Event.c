@@ -1,5 +1,5 @@
-#include <MenuEvent.h>
-#include <Setting.h>
+#include <Menu_Event.h>
+#include <Setting_Scene.h>
 
 void Menu_OnClick_PvsCPU(GameManager *manager, Object *this)
 {

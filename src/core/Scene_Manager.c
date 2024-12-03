@@ -1,4 +1,4 @@
-#include <GameManager.h>
+#include <Game_Manager.h>
 
 static void SceneManager_init_SDL(SceneManager *this);
 static void SceneManager_ChangeScene(GameManager *manager, Scene *next);

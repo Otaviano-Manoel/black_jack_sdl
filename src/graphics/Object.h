@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GameManager.h>
+#include <Game_Manager.h>
 
 #define MAX_LENGTH_TAG 32
 #define TAG_BACKGROUND "background"

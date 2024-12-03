@@ -1,4 +1,4 @@
-#include <GameManager.h>
+#include <Game_Manager.h>
 #include <unistd.h>
 
 static void GetPathAssets(GameManager *this);

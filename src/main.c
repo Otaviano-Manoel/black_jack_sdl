@@ -1,6 +1,5 @@
-#include <GameManager.h>
-#include <MenuScene.h>
-#include <SDL2/SDL_ttf.h>
+#include <Game_Manager.h>
+#include <Menu_Scene.h>
 
 int main()
 {

@@ -1,5 +1,4 @@
-#include <Setting.h>
-#include <ObjectEvent.h>
+#include <Setting_Scene.h>
 
 void Setting_Init(GameManager *gameManager)
 {

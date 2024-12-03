@@ -1,4 +1,4 @@
-#include <GameConfig.h>
+#include <Game_Config.h>
 
 GameConfig *GameConfig_Init()
 {

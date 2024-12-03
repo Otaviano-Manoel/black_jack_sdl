@@ -1,5 +1,5 @@
 #pragma once
 
-#include <GameManager.h>
+#include <Game_Manager.h>
 
 Scene *Menu_Init();

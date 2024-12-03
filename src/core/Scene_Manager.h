@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GameManager.h>
+#include <Game_Manager.h>
 
 #define MAX_WIDTH_WINDOW 1280
 #define MAX_HEIGHT_WINDOW 720
