@@ -7,10 +7,14 @@ void ClearRender(SDL_Renderer *renderer)
 
 void RenderObject(SDL_Renderer *renderer, Object *obj)
 {
+    if (!obj->isVisible)
+        return; // Skip invisible objects
+
     SDL_SetTextureAlphaMod(obj->texture, obj->opacity);
     if (SDL_RenderCopy(renderer, obj->texture, NULL, obj->rect) != 0)
     {
         SDL_Log("Erro ao renderizar objeto: %s", SDL_GetError());
+        return;
     }
 
     if (obj->text->isTextLoaded)

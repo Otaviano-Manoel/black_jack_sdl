@@ -28,6 +28,7 @@ Object Obj_Init()
     obj.OnAnimClick = NULL;
     obj.isHover = SDL_FALSE;
     obj.isButton = SDL_FALSE;
+    obj.isVisible = SDL_TRUE;
     obj.width = 0;
     obj.height = 0;
     obj.xEnd = 0;

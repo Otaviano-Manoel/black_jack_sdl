@@ -9,7 +9,8 @@ GameManager *GameManager_Init()
     this->gameConfig = GameConfig_Init();
     this->sceneManager = SceneManager_Init();
     GetPathAssets(this);
-
+    this->player[0] = Player_Init();
+    this->player[1] = Player_Init();
     return this;
 }
 

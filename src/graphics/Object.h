@@ -15,8 +15,7 @@ typedef struct Object
 
     Text *text;
 
-    SDL_bool isHover;
-    SDL_bool isButton;
+    SDL_bool isHover, isButton, isVisible;
     int width, height;
     int xEnd, yEnd;
     Uint8 opacity;

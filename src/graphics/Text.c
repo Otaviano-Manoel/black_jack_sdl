@@ -1,7 +1,7 @@
 #include <Text.h>
 
 static void Text_SetFont(Text *text, char *file, int ptsize);
-static void Text_SetColor(SDL_Renderer *renderer, Text *text, char *writer, SDL_Color textColor);
+static void Text_SetText(SDL_Renderer *renderer, Text *text, char *writer, SDL_Color textColor);
 static void Text_SetTexture(SDL_Renderer *renderer, Text *text);
 static void Text_SetPosition(Text *text, int x, int y);
 static void Text_Destroy(Text *text);
@@ -16,19 +16,20 @@ Text *Text_Init()
     text->textRect = malloc(sizeof(SDL_Rect));
 
     text->InitFull = Text_InitFull;
-    text->SetColor = Text_SetColor;
+    text->SetText = Text_SetText;
     text->SetFont = Text_SetFont;
     text->SetPosition = Text_SetPosition;
     text->Destroy = Text_Destroy;
 
     text->isTextLoaded = SDL_FALSE;
+    text->text = NULL;
     return text;
 }
 
 static void Text_InitFull(SDL_Renderer *renderer, Text *text, char *file, int ptsize, char *writer, SDL_Color textColor, int x, int y)
 {
     Text_SetFont(text, file, ptsize);
-    Text_SetColor(renderer, text, writer, textColor);
+    Text_SetText(renderer, text, writer, textColor);
     Text_SetPosition(text, x, y);
     text->isTextLoaded = SDL_TRUE;
 }
@@ -43,8 +44,13 @@ static void Text_SetFont(Text *text, char *file, int ptsize)
     }
 }
 
-static void Text_SetColor(SDL_Renderer *renderer, Text *text, char *writer, SDL_Color textColor)
+static void Text_SetText(SDL_Renderer *renderer, Text *text, char *writer, SDL_Color textColor)
 {
+    if (text->text == NULL)
+        text->text = malloc(256);
+
+    SDL_strlcpy(text->text, writer, 256);
+
     text->textSurface = TTF_RenderText_Blended(text->font, writer, textColor);
     if (text->textSurface == NULL)
     {

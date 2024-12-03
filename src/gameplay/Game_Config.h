@@ -19,8 +19,11 @@ typedef struct GameConfig
 {
     Difficulty difficulty;
     Style style;
+
+    void (*Difficulty_Change)(GameConfig *config);
+    void (*Style_Change)(GameConfig *config);
 } GameConfig;
 
 GameConfig *GameConfig_Init();
-char *GameConfig_DifficultyString(GameConfig *config);
-char *GameConfig_StyleString(GameConfig *config);
+char *GameConfig_Difficulty_String(GameConfig *config);
+char *GameConfig_Style_String(GameConfig *config);

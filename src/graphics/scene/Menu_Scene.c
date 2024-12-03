@@ -3,6 +3,7 @@
 static void Menu_Start(GameManager *manager);
 static void Menu_Update(GameManager *manager);
 static void Menu_Quit(GameManager *manager);
+static void Menu_Draw(GameManager *manager);
 
 Scene *Menu_Init()
 {
@@ -14,6 +15,12 @@ Scene *Menu_Init()
 }
 
 static void Menu_Start(GameManager *manager)
+{
+    Menu_Draw(manager);
+    Setting_Draw(manager);
+}
+
+static void Menu_Draw(GameManager *manager)
 {
     manager->sceneManager->layerCurrent = 1;
     Object obj;

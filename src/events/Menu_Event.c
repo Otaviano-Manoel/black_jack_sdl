@@ -17,7 +17,8 @@ void Menu_OnClick_Settings(GameManager *manager, Object *this)
 {
     (void)this;
 
-    Setting_Init(manager);
+    manager->sceneManager->layerCurrent = 2;
+    Setting_Visible(manager->sceneManager->current);
 }
 
 void Menu_OnClick_Quit(GameManager *manager, Object *this)
