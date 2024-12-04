@@ -12,4 +12,5 @@ typedef struct Deck
 } Deck;
 
 Deck *Deck_Init();
+Card *Deck_DrawCard(Deck *deck);
 void Deck_Free(Deck *deck);

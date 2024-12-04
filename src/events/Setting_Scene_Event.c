@@ -25,12 +25,12 @@ void Setting_OnClick_SetName_P1(GameManager *manager, Object *this)
 {
     (void)this;
     manager->isEnableTextInput = SDL_TRUE;
-    manager->player[0]->isEditName = SDL_TRUE;
+    manager->gamePlay->player[0]->isEditName = SDL_TRUE;
 }
 
 void Setting_OnClick_SetName_P2(GameManager *manager, Object *this)
 {
     (void)this;
     manager->isEnableTextInput = SDL_TRUE;
-    manager->player[1]->isEditName = SDL_TRUE;
+    manager->gamePlay->player[1]->isEditName = SDL_TRUE;
 }

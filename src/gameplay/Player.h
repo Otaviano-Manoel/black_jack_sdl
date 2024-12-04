@@ -14,6 +14,7 @@ typedef struct Player
     size_t totalValueCards;
 
     void (*SetName)(struct Player *this, char name[20]);
+    void (*Start_Game)(Player *p);
 } Player;
 
 Player *Player_Init();

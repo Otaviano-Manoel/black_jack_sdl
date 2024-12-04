@@ -20,18 +20,17 @@ O programa controla o baralho e distribui as cartas.
 Os jogadores jogam em turnos alternados. Em seu turno, cada jogador pode:
 
 Pedir Carta ("Hit"):
-
 Compra uma carta adicional para tentar melhorar a mão.
 Se ultrapassar 21 pontos, o jogador estoura e perde imediatamente.
+
 Parar ("Stand"):
-
 Decide manter a mão atual e passar a vez para o oponente.
-Dobrar ("Double Down") (opcional):
 
+Dobrar ("Double Down") (opcional):
 Se você tiver apostas no jogo, pode dobrar sua aposta inicial e receber apenas mais uma carta antes de encerrar a jogada.
 Dividir ("Split") (opcional):
-
 Se as duas cartas iniciais forem do mesmo valor, o jogador pode dividir as cartas em duas mãos separadas e jogar cada mão de forma independente.
+
 4. Condição de Vitória
 Após ambos os jogadores terminarem suas jogadas, compare os totais de cada um:
 Vitória: O jogador com a pontuação mais próxima de 21 vence.

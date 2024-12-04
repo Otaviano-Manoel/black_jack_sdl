@@ -8,11 +8,10 @@ GameManager *GameManager_Init()
     GameManager *this = malloc(sizeof(GameManager));
     this->gameConfig = GameConfig_Init();
     this->sceneManager = SceneManager_Init();
+    this->gamePlay = Game_Play_Init();
     GetPathAssets(this);
-    this->player[0] = Player_Init();
-    this->player[1] = Player_Init();
-    this->deck = Deck_Init();
     this->isEnableTextInput = SDL_FALSE;
+
     return this;
 }
 
@@ -33,9 +32,6 @@ void Game_Manager_Free(GameManager *this)
     SDL_free(this->assets);
     Scene_Manager_Free(this->sceneManager);
     SDL_free(this->sceneManager);
-    SDL_free(this->player[0]);
-    SDL_free(this->player[1]);
+    Game_Play_Free(this->gamePlay);
     SDL_free(this->gameConfig);
-    Deck_Free(this->deck);
-    SDL_free(this->deck);
 }

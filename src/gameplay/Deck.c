@@ -12,6 +12,18 @@ Deck *Deck_Init()
     return deck;
 }
 
+Card *Deck_DrawCard(Deck *deck)
+{
+    if (deck->countDraw < MAX_DECK)
+    {
+        Card *c = deck->cards[deck->countDraw];
+        deck->countDraw++;
+        return c;
+    }
+
+    return NULL;
+}
+
 void Deck_Free(Deck *deck)
 {
     for (size_t i = 0; i < MAX_DECK; i++)
@@ -33,8 +45,8 @@ static void Build_Deck(Deck *deck)
     }
 
     // Colocar dois Jocker no deck
-    deck->cards[53] = Card_Init(0, 14); // Jocker Preto
-    deck->cards[54] = Card_Init(0, 15); // Jocker Vermelho
+    deck->cards[52] = Card_Init(0, 14); // Jocker Preto
+    deck->cards[53] = Card_Init(0, 15); // Jocker Vermelho
     deck->countDraw = 0;
 }
 

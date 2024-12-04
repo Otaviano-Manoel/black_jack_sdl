@@ -3,10 +3,10 @@
 void HandleTextInput(GameManager *this)
 {
     SDL_Event *event = this->sceneManager->event;
-    Player *player = this->player[0]->isEditName ? this->player[0] : this->player[1];
+    Player *player = this->gamePlay->player[0]->isEditName ? this->gamePlay->player[0] : this->gamePlay->player[1];
 
     char temp[32];
-    strcpy(temp, this->player[0]->isEditName ? "P1" : "P2");
+    strcpy(temp, this->gamePlay->player[0]->isEditName ? "P1" : "P2");
     Object *obj = Scene_FindTag(this->sceneManager->current, temp);
 
     while (SDL_PollEvent(event))
