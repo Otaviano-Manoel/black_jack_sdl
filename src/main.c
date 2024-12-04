@@ -1,5 +1,6 @@
 #include <Game_Manager.h>
 #include <Menu_Scene.h>
+#include <time.h>
 
 int main()
 {
@@ -7,6 +8,7 @@ int main()
     Uint32 frameStart;
     GameManager *gameManager = GameManager_Init();
     gameManager->sceneManager->ChangeScene(gameManager, Menu_Init());
+    srand((unsigned int)time(NULL));
 
     while (!gameManager->quit)
     {

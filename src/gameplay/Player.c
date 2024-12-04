@@ -8,6 +8,8 @@ Player *Player_Init()
     player->SetName = Player_SetName;
     SDL_strlcpy(player->name, "Name", 20);
     player->isEditName = SDL_FALSE;
+    player->countCardsInHand = 0;
+    player->totalValueCards = 0;
     return player;
 }
 

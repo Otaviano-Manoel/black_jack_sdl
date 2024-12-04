@@ -7,6 +7,8 @@ typedef struct GameConfig GameConfig;
 typedef struct Player Player;
 typedef struct Scene Scene;
 typedef struct SceneManager SceneManager;
+typedef struct Card Card;
+typedef struct Deck Deck;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -24,12 +26,15 @@ typedef struct SceneManager SceneManager;
 #include <Graphics_Utils.h>
 #include <Setting_Scene.h>
 #include <Player.h>
+#include <Card.h>
+#include <Deck.h>
 
 typedef struct GameManager
 {
     char *assets;
     SDL_bool isEnableTextInput;
     SDL_bool quit;
+    Deck *deck;
     SceneManager *sceneManager;
     GameConfig *gameConfig;
     Player *player[2];

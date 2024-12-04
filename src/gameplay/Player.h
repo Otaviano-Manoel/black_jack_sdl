@@ -7,8 +7,11 @@
 typedef struct Player
 {
     char name[MAX_LENGTH_NAME];
-
     SDL_bool isEditName;
+
+    Card *hand[6];
+    size_t countCardsInHand;
+    size_t totalValueCards;
 
     void (*SetName)(struct Player *this, char name[20]);
 } Player;

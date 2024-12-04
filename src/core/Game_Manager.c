@@ -11,6 +11,7 @@ GameManager *GameManager_Init()
     GetPathAssets(this);
     this->player[0] = Player_Init();
     this->player[1] = Player_Init();
+    this->deck = Deck_Init();
     this->isEnableTextInput = SDL_FALSE;
     return this;
 }
@@ -35,4 +36,6 @@ void Game_Manager_Free(GameManager *this)
     SDL_free(this->player[0]);
     SDL_free(this->player[1]);
     SDL_free(this->gameConfig);
+    Deck_Free(this->deck);
+    SDL_free(this->deck);
 }
