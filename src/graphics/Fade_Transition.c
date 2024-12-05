@@ -10,8 +10,8 @@ void Fade_Transition(GameManager *manager, Scene *next)
 
     fade = Obj_Init();
     fade.InitFull(manager->sceneManager->renderer, &fade, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW,
-                  BuildFilePath(manager->assets, "setting.bmp"), 255, 255, 255, 0, 5,
-                  SDL_FALSE, NULL, NULL, NULL);
+                  BuildFilePath(manager->assets, "setting.bmp"), 255, 255, 255,
+                  SDL_TRUE, 0, 5, SDL_FALSE, NULL, NULL, NULL);
 
     Uint8 opacityStep = 5;
 

@@ -1,14 +1,14 @@
 #include <Object.h>
 #include <math.h>
 
-static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b);
+static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor);
 static void Obj_Resize(Object *obj, int width, int height);
 static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height);
 static void Obj_SetColorKey(Object *obj, Uint8 r, Uint8 g, Uint8 b);
 static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG]);
 static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
                          int x, int y, int width, int height, const char *file,
-                         Uint8 r, Uint8 g, Uint8 b, Uint8 opacity, int layer, SDL_bool isButton,
+                         Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor, Uint8 opacity, int layer, SDL_bool isButton,
                          void (*OnHover)(GameManager *manager, struct Object *this),
                          void (*OnExit)(GameManager *manager, struct Object *this),
                          void (*OnClick)(GameManager *manager, struct Object *this));
@@ -48,7 +48,7 @@ static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG])
 
 static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
                          int x, int y, int width, int height, const char *file,
-                         Uint8 r, Uint8 g, Uint8 b, Uint8 opacity, int layer, SDL_bool isButton,
+                         Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor, Uint8 opacity, int layer, SDL_bool isButton,
                          void (*OnHover)(GameManager *manager, struct Object *this),
                          void (*OnExit)(GameManager *manager, struct Object *this),
                          void (*OnClick)(GameManager *manager, struct Object *this))
@@ -58,9 +58,10 @@ static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
         printf("Parâmetros inválidos em Obj_Create.\n");
         return;
     }
+
     RegisterEvent(obj, OnHover, OnExit);
     Obj_ResizeRect(obj, x, y, width, height);
-    Obj_SetImage(renderer, obj, file, width, height, r, g, b);
+    Obj_SetImage(renderer, obj, file, width, height, r, g, b, isSetColor);
     obj->layer = layer;
     obj->isButton = isButton;
     obj->OnClick = OnClick;
@@ -81,7 +82,7 @@ static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height)
     obj->height = height;
 }
 
-static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b)
+static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor)
 {
     SDL_Surface *image = SDL_LoadBMP(file);
     if (!image)
@@ -97,7 +98,8 @@ static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char 
         Obj_Resize(obj, width, height);
     }
 
-    Obj_SetColorKey(obj, r, g, b);
+    if (isSetColor)
+        Obj_SetColorKey(obj, r, g, b);
 
     obj->texture = SDL_CreateTextureFromSurface(renderer, obj->surface);
 

@@ -32,6 +32,7 @@ void Game_Manager_Free(GameManager *this)
     SDL_free(this->assets);
     Scene_Manager_Free(this->sceneManager);
     SDL_free(this->sceneManager);
-    Game_Play_Free(this->gamePlay);
+    GamePlay_Free(this->gamePlay);
+    SDL_free(this->gamePlay);
     SDL_free(this->gameConfig);
 }

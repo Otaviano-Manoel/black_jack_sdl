@@ -18,7 +18,7 @@ Scene *Scene_Init()
     return scene;
 }
 
-Object *Scene_FindTag(Scene *scene, char tag[MAX_LENGTH_TAG])
+Object *Scene_FindTag(Scene *scene, char *tag)
 {
     for (size_t i = 0; i < scene->objCount; i++)
     {

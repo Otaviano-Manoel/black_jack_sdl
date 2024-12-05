@@ -6,6 +6,7 @@ void Menu_OnClick_PvsCPU(GameManager *manager, Object *this)
 {
     (void)this;
     manager->sceneManager->ChangeScene(manager, Game_Scene_Init());
+    Game_OnInit(manager);
 }
 
 void Menu_OnClick_PvsP(GameManager *manager, Object *this)

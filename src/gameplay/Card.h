@@ -7,7 +7,7 @@ typedef enum Naipe
     Diamond,
     Clubs,
     Spades,
-    hearts,
+    Hearts,
     Jocker
 } Naipe;
 
@@ -38,3 +38,4 @@ typedef struct Card
 } Card;
 
 Card *Card_Init(Naipe n, Value v);
+char *Card_GetNameFileBMP(Card *card);

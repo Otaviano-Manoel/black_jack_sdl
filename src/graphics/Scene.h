@@ -17,5 +17,5 @@ typedef struct Scene
 } Scene;
 
 Scene *Scene_Init();
-Object *Scene_FindTag(Scene *scene, char tag[32]);
+Object *Scene_FindTag(Scene *scene, char *tag);
 void Scene_Free(Scene *scene);

@@ -13,4 +13,4 @@ typedef struct GamePlay
 } GamePlay;
 
 GamePlay *Game_Play_Init();
-void Game_Play_Free(GamePlay *this);
+void GamePlay_Free(GamePlay *this);

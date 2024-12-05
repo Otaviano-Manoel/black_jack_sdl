@@ -2,10 +2,12 @@
 
 static void Player_SetName(Player *this, char name[20]);
 static void Player_Start_Game(Player *p);
+static void Player_Add_Card(Player *p, Card *card);
 
 Player *Player_Init()
 {
     Player *player = malloc(sizeof(Player));
+    player->Add_Card = Player_Add_Card;
     player->SetName = Player_SetName;
     player->Start_Game = Player_Start_Game;
     SDL_strlcpy(player->name, "Name", 20);
