@@ -10,7 +10,7 @@ Player *Player_Init()
     player->Add_Card = Player_Add_Card;
     player->SetName = Player_SetName;
     player->Start_Game = Player_Start_Game;
-    SDL_strlcpy(player->name, "Name", 20);
+    SDL_strlcpy(player->name, "Name", MAX_LENGTH_NAME);
     player->isEditName = SDL_FALSE;
     player->countCardsInHand = 0;
     player->totalValueCards = 0;

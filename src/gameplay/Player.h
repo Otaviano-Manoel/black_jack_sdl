@@ -2,7 +2,7 @@
 
 #include <Game_Manager.h>
 
-#define MAX_LENGTH_NAME 14
+#define MAX_LENGTH_NAME 8
 
 typedef struct Player
 {
