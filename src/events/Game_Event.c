@@ -41,10 +41,24 @@ void Game_OnHit_P2(GameManager *manager, Object *this)
     Game_OnChangedTurn(manager, SDL_FALSE);
 }
 
-void Game_OnStand(GameManager *manager, Object *this)
+void Game_OnStand_P1(GameManager *manager, Object *this)
 {
-    (void)manager;
     (void)this;
+
+    if (!Rule_ValidateYourStand(manager, 0))
+        return;
+
+    Game_OnChangedTurn(manager, SDL_TRUE);
+}
+
+void Game_OnStand_P2(GameManager *manager, Object *this)
+{
+    (void)this;
+
+    if (!Rule_ValidateYourStand(manager, 1))
+        return;
+
+    Game_OnChangedTurn(manager, SDL_FALSE);
 }
 
 void Game_OnExit(GameManager *manager, Object *this)

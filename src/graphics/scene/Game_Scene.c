@@ -62,7 +62,7 @@ static void Game_Scene_Start(GameManager *this)
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 408, 542, 200, 70, BuildFilePath(this->assets, "button_small_red.bmp"), 0, 0, 0, SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, NULL);
+    obj.InitFull(renderer, &obj, 408, 542, 200, 70, BuildFilePath(this->assets, "button_small_red.bmp"), 0, 0, 0, SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Game_OnStand_P1);
     obj.text->InitFull(renderer, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "Stand", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 90, obj.rect->y + 17);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
@@ -90,7 +90,7 @@ static void Game_Scene_Start(GameManager *this)
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, 928, 542, 200, 70, BuildFilePath(this->assets, "button_small_blue.bmp"), 0, 0, 0, SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, NULL);
+    obj.InitFull(renderer, &obj, 928, 542, 200, 70, BuildFilePath(this->assets, "button_small_blue.bmp"), 0, 0, 0, SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Game_OnStand_P2);
     obj.text->InitFull(renderer, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "Stand", (SDL_Color){0, 0, 0, 255}, obj.rect->x + 90, obj.rect->y + 17);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
