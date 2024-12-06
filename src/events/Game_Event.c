@@ -21,7 +21,6 @@ void Game_OnInit(GameManager *this)
 
 void Game_OnHit_P1(GameManager *manager, Object *this)
 {
-    (void)this;
 
     if (!Rule_ValidateYourTurn(manager, 0))
         return;
