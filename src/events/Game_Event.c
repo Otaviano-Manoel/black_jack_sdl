@@ -1,5 +1,6 @@
 #include <Game_Event.h>
 #include <Hit_Card_Animation.h>
+#include <Game_Points_Present_Render.h>
 
 static void Game_OnDraw(GameManager *manager, Player *p, SDL_bool isP1);
 
@@ -43,4 +44,5 @@ static void Game_OnDraw(GameManager *manager, Player *p, SDL_bool isP1)
     Card *c = Deck_DrawCard(manager->gamePlay->deck);
     p->Add_Card(p, c);
     Hit_Card_Animation_Run(manager, c, isP1);
+    Game_Points_Present_Render(manager, p, isP1);
 }
