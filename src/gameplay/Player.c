@@ -1,4 +1,5 @@
 #include <Player.h>
+#include <Rules.h>
 
 static void Player_SetName(Player *this, char name[20]);
 static void Player_Start_Game(Player *p);
@@ -21,12 +22,9 @@ Player *Player_Init()
 
 static void Player_Add_Card(Player *p, Card *card)
 {
-    if (card->value == Ace)
-        p->totalValueCards += 11;
-    else if (card->value == Jocker_Dark || card->value == Jocker_Red)
-        p->totalValueCards += 0;
-    else
-        p->totalValueCards += card->value;
+    p->totalValueCards += (size_t)Rule_SomeValueCard(card);
+
+    Rule_Ace(p);
 
     p->hand[p->countCardsInHand] = card;
     p->countCardsInHand++;
