@@ -7,6 +7,7 @@ typedef struct GamePlay
     Deck *deck;
     Player *player[2];
     int turn;
+    int countTurn;
 
     void (*Play_Start)(GamePlay *this);
     void (*Change_Turn)(GamePlay *this);

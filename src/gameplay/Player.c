@@ -15,6 +15,7 @@ Player *Player_Init()
     player->countCardsInHand = 0;
     player->totalValueCards = 0;
     player->isPlayer = SDL_TRUE;
+    player->isWinner = SDL_FALSE;
     return player;
 }
 

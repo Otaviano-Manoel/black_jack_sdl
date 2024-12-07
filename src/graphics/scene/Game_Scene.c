@@ -1,6 +1,7 @@
 #include <Game_Scene.h>
 #include <Game_Event.h>
 #include <CPU.h>
+#include <Rules.h>
 
 static void Game_Scene_Start(GameManager *this);
 static void Game_Scene_Update(GameManager *this);
@@ -118,6 +119,17 @@ static void Game_Scene_Start(GameManager *this)
 
 static void Game_Scene_Update(GameManager *this)
 {
+    if (Rule_ValidateVictory(this))
+    {
+        SDL_Log("ELe venceu %s", this->gamePlay->player[this->gamePlay->turn == 0 ? 1 : 0]->name);
+        return;
+    }
+    else if (Rule_ValidateLoser(this))
+    {
+        SDL_Log("ELe perdeu %s", this->gamePlay->player[this->gamePlay->turn == 0 ? 1 : 0]->name);
+        return;
+    }
+
     if (!this->gamePlay->player[1]->isPlayer && this->gamePlay->turn == 1)
     {
         // funçao da CPU

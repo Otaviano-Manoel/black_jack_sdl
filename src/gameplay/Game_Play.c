@@ -22,11 +22,13 @@ static void GamePlay_Start(GamePlay *this)
     this->turn = 0;
     this->player[0]->Start_Game(this->player[0]);
     this->player[1]->Start_Game(this->player[1]);
+    this->countTurn = 0;
 }
 
 static void GamePlay_Change_Turn(GamePlay *this)
 {
-    this->turn = this->turn ? 0 : 1;
+    this->countTurn++;
+    this->turn = this->turn == 0 ? 1 : 0;
 }
 
 void GamePlay_Free(GamePlay *this)

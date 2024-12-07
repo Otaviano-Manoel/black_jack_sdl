@@ -9,6 +9,7 @@ typedef struct Player
     char name[MAX_LENGTH_NAME];
     SDL_bool isEditName;
     SDL_bool isPlayer;
+    SDL_bool isWinner;
 
     Card *hand[6];
     size_t countCardsInHand;

@@ -6,7 +6,7 @@
 #include <Rules.h>
 
 static void Game_OnDraw(GameManager *manager, Player *p, SDL_bool isP1);
-static void Game_OnChangedTurn(GameManager *manager, SDL_bool isP1);
+static void Game_OnChangedTurn(GameManager *manager);
 
 void Game_OnInit(GameManager *this)
 {
@@ -26,7 +26,9 @@ void Game_OnHit_P1(GameManager *manager, Object *this)
         return;
 
     Game_OnDraw(manager, manager->gamePlay->player[0], SDL_TRUE);
-    Game_OnChangedTurn(manager, SDL_TRUE);
+
+    if (manager->gameConfig->style == STYLE_CLASSIC)
+        Game_OnChangedTurn(manager);
 }
 
 void Game_OnHit_P2(GameManager *manager, Object *this)
@@ -37,7 +39,9 @@ void Game_OnHit_P2(GameManager *manager, Object *this)
         return;
 
     Game_OnDraw(manager, manager->gamePlay->player[1], SDL_FALSE);
-    Game_OnChangedTurn(manager, SDL_FALSE);
+
+    if (manager->gameConfig->style == STYLE_CLASSIC)
+        Game_OnChangedTurn(manager);
 }
 
 void Game_OnStand_P1(GameManager *manager, Object *this)
@@ -47,7 +51,7 @@ void Game_OnStand_P1(GameManager *manager, Object *this)
     if (!Rule_ValidateYourStand(manager, 0))
         return;
 
-    Game_OnChangedTurn(manager, SDL_TRUE);
+    Game_OnChangedTurn(manager);
 }
 
 void Game_OnStand_P2(GameManager *manager, Object *this)
@@ -57,7 +61,7 @@ void Game_OnStand_P2(GameManager *manager, Object *this)
     if (!Rule_ValidateYourStand(manager, 1))
         return;
 
-    Game_OnChangedTurn(manager, SDL_FALSE);
+    Game_OnChangedTurn(manager);
 }
 
 void Game_OnExit(GameManager *manager, Object *this)
@@ -66,9 +70,9 @@ void Game_OnExit(GameManager *manager, Object *this)
     manager->sceneManager->ChangeScene(manager, Menu_Init());
 }
 
-static void Game_OnChangedTurn(GameManager *manager, SDL_bool isP1)
+static void Game_OnChangedTurn(GameManager *manager)
 {
-    manager->gamePlay->turn = isP1 ? 1 : 0;
+    manager->gamePlay->Change_Turn(manager->gamePlay);
     Game_Turn_Name_Present_Render(manager, manager->gamePlay->player[manager->gamePlay->turn]);
 }
 

@@ -10,5 +10,39 @@ SDL_bool Rule_ValidateYourStand(GameManager *manager, int isMyTurn)
     Player *player = manager->gamePlay->player[isMyTurn];
     Player *opponent = manager->gamePlay->player[isMyTurn == 0 ? 1 : 0];
 
-    return player->totalValueCards > opponent->totalValueCards;
+    if (manager->gameConfig->style == STYLE_CLASSIC)
+        return player->totalValueCards > opponent->totalValueCards;
+    else
+        return SDL_TRUE;
+}
+
+SDL_bool Rule_ValidateVictory(GameManager *manager)
+{
+
+    Player *p1 = manager->gamePlay->player[0];
+    Player *p2 = manager->gamePlay->player[1];
+
+    if (manager->gameConfig->style == STYLE_CLASSIC)
+    {
+        p1->isWinner = p1->totalValueCards == 21 || p1->countCardsInHand == 5;
+        p2->isWinner = p2->totalValueCards == 21 || p2->countCardsInHand == 5;
+    }
+    else if (manager->gameConfig->style == STYLE_MODERN)
+    {
+        p1->isWinner = (p1->totalValueCards == 21) || (manager->gamePlay->countTurn == 2 && p1->totalValueCards > p2->totalValueCards);
+        p2->isWinner = (p2->totalValueCards == 21) || (manager->gamePlay->countTurn == 2 && p2->totalValueCards > p1->totalValueCards);
+    }
+
+    return p1->isWinner || p2->isWinner;
+}
+
+SDL_bool Rule_ValidateLoser(GameManager *manager)
+{
+    Player *p1 = manager->gamePlay->player[0];
+    Player *p2 = manager->gamePlay->player[1];
+
+    p1->isWinner = p2->totalValueCards > 21;
+    p2->isWinner = p1->totalValueCards > 21;
+
+    return p1->isWinner || p2->isWinner;
 }
