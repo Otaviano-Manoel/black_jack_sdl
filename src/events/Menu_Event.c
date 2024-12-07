@@ -5,6 +5,7 @@
 void Menu_OnClick_PvsCPU(GameManager *manager, Object *this)
 {
     (void)this;
+    manager->gamePlay->player[1]->isPlayer = SDL_FALSE;
     manager->sceneManager->ChangeScene(manager, Game_Scene_Init());
     Game_OnInit(manager);
 }

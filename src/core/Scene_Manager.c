@@ -41,6 +41,7 @@ static void SceneManager_Start(GameManager *manager)
 static void SceneManager_Update(GameManager *manager)
 {
     ClearRender(manager->sceneManager->renderer);
+    manager->sceneManager->current->Update(manager);
     RenderObjectsInScene(manager);
     PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window);
     Event_Wait(manager);

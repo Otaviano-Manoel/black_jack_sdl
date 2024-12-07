@@ -14,6 +14,7 @@ Player *Player_Init()
     player->isEditName = SDL_FALSE;
     player->countCardsInHand = 0;
     player->totalValueCards = 0;
+    player->isPlayer = SDL_TRUE;
     return player;
 }
 
