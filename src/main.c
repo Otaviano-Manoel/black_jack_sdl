@@ -7,7 +7,7 @@ int main()
     Uint32 frameTime;
     Uint32 frameStart;
     GameManager *gameManager = GameManager_Init();
-    gameManager->sceneManager->ChangeScene(gameManager, Menu_Init());
+    gameManager->sceneManager->ChangeScene(gameManager, Menu_Scene_Init());
     srand((unsigned int)time(NULL));
 
     while (!gameManager->quit)

@@ -15,6 +15,7 @@ Player *Player_Init()
     player->isEditName = SDL_FALSE;
     player->countCardsInHand = 0;
     player->totalValueCards = 0;
+    player->totalWinner = 0;
     player->isPlayer = SDL_TRUE;
     player->isWinner = SDL_FALSE;
     return player;
@@ -24,14 +25,15 @@ static void Player_Add_Card(Player *p, Card *card)
 {
     p->totalValueCards += (size_t)Rule_SomeValueCard(card);
 
-    Rule_Ace(p);
-
     p->hand[p->countCardsInHand] = card;
     p->countCardsInHand++;
+
+    Rule_Ace(p);
 }
 
 static void Player_Start_Game(Player *p)
 {
+    p->isWinner = SDL_FALSE;
     p->countCardsInHand = 0;
     p->totalValueCards = 0;
     for (size_t i = 0; i < 6; i++)

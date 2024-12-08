@@ -119,14 +119,9 @@ static void Game_Scene_Start(GameManager *this)
 
 static void Game_Scene_Update(GameManager *this)
 {
-    if (Rule_ValidateVictory(this))
+    if (Rule_ValidateVictory(this) || Rule_ValidateLoser(this))
     {
-        SDL_Log("ELe venceu %s", this->gamePlay->player[this->gamePlay->turn == 0 ? 1 : 0]->name);
-        return;
-    }
-    else if (Rule_ValidateLoser(this))
-    {
-        SDL_Log("ELe perdeu %s", this->gamePlay->player[this->gamePlay->turn == 0 ? 1 : 0]->name);
+        this->sceneManager->ChangeScene(this, Winner_Scene_Init());
         return;
     }
 

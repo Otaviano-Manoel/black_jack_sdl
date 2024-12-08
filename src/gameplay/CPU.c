@@ -24,5 +24,5 @@ SDL_bool Cpu_IsStand(GameManager *manager)
 
 static SDL_bool Cpu_IsHit_DifficultyEasy(Player *p, GameManager *manager)
 {
-    return p->totalValueCards < 17 || p->totalValueCards < manager->gamePlay->player[0]->totalValueCards;
+    return p->totalValueCards < 17 || p->totalValueCards <= manager->gamePlay->player[0]->totalValueCards;
 }

@@ -5,7 +5,7 @@ static void Menu_Update(GameManager *manager);
 static void Menu_Quit(GameManager *manager);
 static void Menu_Draw(GameManager *manager);
 
-Scene *Menu_Init()
+Scene *Menu_Scene_Init()
 {
     Scene *scene = Scene_Init();
     scene->Start = Menu_Start;

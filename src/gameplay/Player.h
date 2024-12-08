@@ -14,6 +14,7 @@ typedef struct Player
     Card *hand[6];
     size_t countCardsInHand;
     size_t totalValueCards;
+    size_t totalWinner;
 
     void (*Add_Card)(Player *p, Card *card);
     void (*SetName)(struct Player *this, char name[20]);

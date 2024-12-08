@@ -67,7 +67,7 @@ void Game_OnStand_P2(GameManager *manager, Object *this)
 void Game_OnExit(GameManager *manager, Object *this)
 {
     (void)this;
-    manager->sceneManager->ChangeScene(manager, Menu_Init());
+    manager->sceneManager->ChangeScene(manager, Menu_Scene_Init());
 }
 
 static void Game_OnChangedTurn(GameManager *manager)

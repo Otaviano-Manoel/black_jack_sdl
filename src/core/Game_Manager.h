@@ -31,6 +31,7 @@ typedef struct GamePlay GamePlay;
 #include <Deck.h>
 #include <Game_Play.h>
 #include <Game_Event.h>
+#include <Winner_Scene.h>
 
 typedef struct GameManager
 {

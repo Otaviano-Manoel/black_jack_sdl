@@ -25,7 +25,7 @@ void Fade_Transition(GameManager *manager, Scene *next)
 
         fade.opacity += opacityStep;
 
-        SDL_Delay(16);
+        SDL_Delay(8);
     }
 
     Fade_Change_Scene(manager, next);
@@ -40,7 +40,7 @@ void Fade_Transition(GameManager *manager, Scene *next)
 
         fade.opacity -= opacityStep;
 
-        SDL_Delay(16);
+        SDL_Delay(8);
     }
 
     Obj_Free(&fade);

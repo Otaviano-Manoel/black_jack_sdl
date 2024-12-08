@@ -2,4 +2,4 @@
 
 #include <Game_Manager.h>
 
-Scene *Menu_Init();
+Scene *Menu_Scene_Init();
