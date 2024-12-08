@@ -27,7 +27,7 @@ static SDL_bool Rule_CheckWinner(Player *player, Player *opponent, GameConfig *c
     else if (config->style == STYLE_MODERN)
     {
         return (player->totalValueCards == 21) ||
-               (turnCount == 2 && player->totalValueCards > opponent->totalValueCards);
+               (turnCount == 2 && player->totalValueCards >= opponent->totalValueCards);
     }
     return SDL_FALSE;
 }
@@ -57,6 +57,11 @@ SDL_bool Rule_ValidateLoser(GameManager *manager)
 
 int Rule_SomeValueCard(Card *card)
 {
+    if (card == NULL)
+    {
+        SDL_Log("A carta esta nula");
+    }
+
     if (card->value == Ace)
         return 11;
     else if (card->value == Jocker_Dark || card->value == Jocker_Red)
@@ -67,6 +72,11 @@ int Rule_SomeValueCard(Card *card)
 
 void Rule_Ace(Player *p)
 {
+    if (p == NULL)
+    {
+        SDL_Log("A carta esta nula");
+    }
+
     if (p->totalValueCards > 21)
     {
         for (size_t i = 0; i < p->countCardsInHand; i++)

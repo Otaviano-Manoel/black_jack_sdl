@@ -8,6 +8,7 @@ GamePlay *Game_Play_Init()
     GamePlay *this = SDL_malloc(sizeof(GamePlay));
     this->Change_Turn = GamePlay_Change_Turn;
     this->Play_Start = GamePlay_Start;
+    this->countMatche = 0;
     this->player[0] = Player_Init();
     SDL_strlcpy(this->player[0]->name, "ONE", MAX_LENGTH_NAME);
     this->player[1] = Player_Init();
@@ -16,13 +17,19 @@ GamePlay *Game_Play_Init()
     return this;
 }
 
+int GamePlay_GetWinner(GameManager *this)
+{
+    return this->gamePlay->player[0]->isWinner ? 0 : 1;
+}
+
 static void GamePlay_Start(GamePlay *this)
 {
     this->deck->Shuffle(this->deck);
-    this->turn = 0;
+    this->turn = this->countMatche % 2 == 0 ? 0 : 1;
     this->player[0]->Start_Game(this->player[0]);
     this->player[1]->Start_Game(this->player[1]);
     this->countTurn = 0;
+    this->countMatche++;
 }
 
 static void GamePlay_Change_Turn(GamePlay *this)
