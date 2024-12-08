@@ -4,7 +4,15 @@
 
 void Winnar_OnInit(GameManager *this)
 {
-    Player *p = this->gamePlay->player[GamePlay_GetWinner(this)];
+    Player *p1 = this->gamePlay->player[0];
+    Player *p2 = this->gamePlay->player[1];
+
+    if (p1->isWinner && p2->isWinner)
+    {
+        return;
+    }
+
+    Player *p = GamePlay_GetWinner(this);
     p->totalWinner++;
 }
 

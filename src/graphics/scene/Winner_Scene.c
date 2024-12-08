@@ -3,9 +3,12 @@
 static void Winner_Scene_Start(GameManager *this);
 static void Winner_Scene_Update(GameManager *this);
 static void Winner_Scene_Quit(GameManager *this);
-static char *Winner_TotalWinnerInString(Player *p);
+static void Winner_DrawPanel(GameManager *this);
+static void Winner_LoadPlayerDraw(GameManager *this);
 static void Winner_LoadPlayerWinner(GameManager *this);
 static void Winner_LoadPlayerLoser(GameManager *this);
+static void Winner_Panel(GameManager *this, SDL_bool isP2, char *panelBMP);
+static char *Winner_TotalWinnerInString(Player *p);
 
 Scene *Winner_Scene_Init()
 {
@@ -27,9 +30,7 @@ static void Winner_Scene_Start(GameManager *this)
     obj.InitFull(renderer, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(this->assets, "background.bmp"), 0, 0, 0, SDL_TRUE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    Winner_LoadPlayerLoser(this);
-
-    Winner_LoadPlayerWinner(this);
+    Winner_DrawPanel(this);
 
     obj = Obj_Init();
     obj.InitFull(renderer, &obj, 245, 588, 331, 80, BuildFilePath(this->assets, "button.bmp"), 0, 0, 0, SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Winner_OnPlayAgain);
@@ -72,20 +73,38 @@ static void Winner_Scene_Quit(GameManager *this)
     (void)this;
 }
 
+static void Winner_DrawPanel(GameManager *this)
+{
+    Player *p1 = this->gamePlay->player[0];
+    Player *p2 = this->gamePlay->player[1];
+
+    if (p1->isWinner && p2->isWinner)
+    {
+        Winner_LoadPlayerDraw(this);
+    }
+    else
+    {
+        Winner_LoadPlayerWinner(this);
+        Winner_LoadPlayerLoser(this);
+    }
+}
+
+static void Winner_LoadPlayerDraw(GameManager *this)
+{
+    Winner_Panel(this, SDL_TRUE, "panel_draw.bmp");
+    Winner_Panel(this, SDL_FALSE, "panel_draw.bmp");
+}
+
 static void Winner_LoadPlayerWinner(GameManager *this)
 {
     Object obj;
     SDL_Renderer *renderer = this->sceneManager->renderer;
-    SDL_bool isP2 = GamePlay_GetWinner(this);
+    Player *p = GamePlay_GetWinner(this);
+
+    Winner_Panel(this, p->isP1, "panel_win.bmp");
 
     int x;
-    x = isP2 ? 769 : 261;
-
-    obj = Obj_Init();
-    obj.InitFull(renderer, &obj, x, 108, 300, 400, BuildFilePath(this->assets, "panel_win.bmp"), 0, 0, 0, SDL_TRUE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
-    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
-
-    x = isP2 ? 719 : 211;
+    x = p->isP1 ? 211 : 719;
 
     obj = Obj_Init();
     obj.InitFull(renderer, &obj, x, 361, 400, 266, BuildFilePath(this->assets, "star.bmp"), 0, 0, 0, SDL_TRUE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
@@ -94,15 +113,19 @@ static void Winner_LoadPlayerWinner(GameManager *this)
 
 static void Winner_LoadPlayerLoser(GameManager *this)
 {
+    Player *p = GamePlay_GetWinner(this);
+    Winner_Panel(this, !p->isP1, "panel_lose.bmp");
+}
+
+static void Winner_Panel(GameManager *this, SDL_bool isP1, char *panelBMP)
+{
     Object obj;
     SDL_Renderer *renderer = this->sceneManager->renderer;
-    SDL_bool isP2 = GamePlay_GetWinner(this);
 
-    int x;
-    x = isP2 ? 261 : 769;
+    int x = isP1 ? 261 : 769;
 
     obj = Obj_Init();
-    obj.InitFull(renderer, &obj, x, 108, 300, 400, BuildFilePath(this->assets, "panel_lose.bmp"), 0, 0, 0, SDL_TRUE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
+    obj.InitFull(renderer, &obj, x, 108, 300, 400, BuildFilePath(this->assets, panelBMP), 0, 0, 0, SDL_TRUE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 }
 

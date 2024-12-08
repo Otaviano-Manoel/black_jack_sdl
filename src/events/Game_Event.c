@@ -17,6 +17,8 @@ void Game_OnInit(GameManager *this)
         Game_OnDraw(this, this->gamePlay->player[0], SDL_TRUE);
         Game_OnDraw(this, this->gamePlay->player[1], SDL_FALSE);
     }
+
+    Game_Turn_Name_Present_Render(this, this->gamePlay->player[this->gamePlay->turn]);
 }
 
 void Game_OnHit_P1(GameManager *manager, Object *this)

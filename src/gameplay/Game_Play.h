@@ -15,5 +15,5 @@ typedef struct GamePlay
 } GamePlay;
 
 GamePlay *Game_Play_Init();
-int GamePlay_GetWinner(GameManager *this);
+Player *GamePlay_GetWinner(GameManager *this);
 void GamePlay_Free(GamePlay *this);

@@ -11,15 +11,17 @@ GamePlay *Game_Play_Init()
     this->countMatche = 0;
     this->player[0] = Player_Init();
     SDL_strlcpy(this->player[0]->name, "ONE", MAX_LENGTH_NAME);
+    this->player[0]->isP1 = SDL_TRUE;
     this->player[1] = Player_Init();
     SDL_strlcpy(this->player[1]->name, "TWO", MAX_LENGTH_NAME);
+    this->player[1]->isP1 = SDL_FALSE;
     this->deck = Deck_Init();
     return this;
 }
 
-int GamePlay_GetWinner(GameManager *this)
+Player *GamePlay_GetWinner(GameManager *this)
 {
-    return this->gamePlay->player[0]->isWinner ? 0 : 1;
+    return this->gamePlay->player[0]->isWinner ? this->gamePlay->player[0] : this->gamePlay->player[1];
 }
 
 static void GamePlay_Start(GamePlay *this)
