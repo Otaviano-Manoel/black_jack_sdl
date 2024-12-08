@@ -32,6 +32,7 @@ static void GamePlay_Start(GamePlay *this)
     this->player[1]->Start_Game(this->player[1]);
     this->countTurn = 0;
     this->countMatche++;
+    this->deck->countDraw = 0;
 }
 
 static void GamePlay_Change_Turn(GamePlay *this)
