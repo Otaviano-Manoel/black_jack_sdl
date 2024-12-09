@@ -13,6 +13,7 @@ typedef struct SceneManager
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Event *event;
+    Mix_Music *mix;
 
     struct Scene *current;
     SDL_bool isCurrentSet;
@@ -22,6 +23,7 @@ typedef struct SceneManager
     void (*Start)(struct GameManager *);
     void (*Update)(struct GameManager *);
     void (*Quit)(struct GameManager *);
+    void (*Init_SDL_Mixer)(GameManager *);
 } SceneManager;
 
 SceneManager *SceneManager_Init();

@@ -11,6 +11,8 @@ GameManager *GameManager_Init()
     this->gamePlay = Game_Play_Init();
     GetPathAssets(this);
     this->isEnableTextInput = SDL_FALSE;
+    this->quit = SDL_FALSE;
+    this->sceneManager->Init_SDL_Mixer(this);
 
     return this;
 }

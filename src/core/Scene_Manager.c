@@ -6,6 +6,7 @@ static void SceneManager_ChangeScene(GameManager *manager, Scene *next);
 static void SceneManager_Start(GameManager *);
 static void SceneManager_Update(GameManager *);
 static void SceneManager_Quit(GameManager *);
+static void SceneManager_Init_SDL_Mixer(GameManager *this);
 
 SceneManager *SceneManager_Init()
 {
@@ -15,6 +16,7 @@ SceneManager *SceneManager_Init()
     sceneManager->Start = SceneManager_Start;
     sceneManager->Update = SceneManager_Update;
     sceneManager->Quit = SceneManager_Quit;
+    sceneManager->Init_SDL_Mixer = SceneManager_Init_SDL_Mixer;
     SceneManager_init_SDL(sceneManager);
 
     return sceneManager;
@@ -24,6 +26,8 @@ void Scene_Manager_Free(SceneManager *this)
 {
     SDL_DestroyRenderer(this->renderer);
     SDL_DestroyWindow(this->window);
+    Mix_FreeMusic(this->mix);
+    Mix_CloseAudio();
 }
 
 static void SceneManager_ChangeScene(GameManager *manager, Scene *next)
@@ -70,6 +74,34 @@ static void SceneManager_init_SDL(SceneManager *this)
     if (TTF_Init() == -1)
     {
         SDL_Log("Erro ao inicializar SDL_ttf: %s", TTF_GetError());
+        return;
+    }
+}
+
+static void SceneManager_Init_SDL_Mixer(GameManager *this)
+{
+    if (SDL_Init(SDL_INIT_AUDIO) < 0)
+    {
+        printf("Erro ao inicializar SDL: %s\n", SDL_GetError());
+        return;
+    }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+    {
+        printf("Erro ao inicializar SDL_mixer: %s\n", Mix_GetError());
+        return;
+    }
+
+    this->sceneManager->mix = Mix_LoadMUS(BuildFilePath(this->assets, "mix_back.mp3"));
+    if (!this->sceneManager->mix)
+    {
+        printf("Erro ao carregar música: %s\n", Mix_GetError());
+        return;
+    }
+
+    if (Mix_PlayMusic(this->sceneManager->mix, -1) == -1)
+    { // -1 para repetir indefinidamente
+        printf("Erro ao reproduzir música: %s\n", Mix_GetError());
         return;
     }
 }

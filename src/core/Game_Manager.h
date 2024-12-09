@@ -14,6 +14,7 @@ typedef struct GamePlay GamePlay;
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <SDL2/SDL_mixer.h>
 #include <File_Utils.h>
 #include <Scene_Manager.h>
 #include <Scene.h>
