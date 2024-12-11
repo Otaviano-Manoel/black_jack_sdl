@@ -10,6 +10,7 @@ typedef struct SceneManager SceneManager;
 typedef struct Card Card;
 typedef struct Deck Deck;
 typedef struct GamePlay GamePlay;
+typedef struct Window Window;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -33,6 +34,7 @@ typedef struct GamePlay GamePlay;
 #include <Game_Play.h>
 #include <Game_Event.h>
 #include <Winner_Scene.h>
+#include <Window.h>
 
 typedef struct GameManager
 {

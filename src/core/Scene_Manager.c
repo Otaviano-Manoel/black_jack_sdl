@@ -25,7 +25,7 @@ SceneManager *SceneManager_Init()
 void Scene_Manager_Free(SceneManager *this)
 {
     SDL_DestroyRenderer(this->renderer);
-    SDL_DestroyWindow(this->window);
+    SDL_DestroyWindow(this->window->window);
     Mix_FreeMusic(this->mix);
     Mix_CloseAudio();
 }
@@ -47,7 +47,7 @@ static void SceneManager_Update(GameManager *manager)
     ClearRender(manager->sceneManager->renderer);
     manager->sceneManager->current->Update(manager);
     RenderObjectsInScene(manager);
-    PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window);
+    PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window->window);
     Event_Wait(manager);
 }
 
@@ -59,13 +59,10 @@ static void SceneManager_Quit(GameManager *manager)
 
 static void SceneManager_init_SDL(SceneManager *this)
 {
-    SDL_Window *window;
     SDL_Init(SDL_INIT_VIDEO);
+    this->window = Window_Init();
 
-    window = SDL_CreateWindow("21 Master", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, SDL_WINDOW_SHOWN);
-    this->window = window;
-
-    this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);
+    this->renderer = SDL_CreateRenderer(this->window->window, -1, SDL_RENDERER_ACCELERATED);
     if (!this->renderer)
     {
         printf("Erro ao criar renderer: %s\n", SDL_GetError());

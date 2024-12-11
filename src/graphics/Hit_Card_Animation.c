@@ -30,7 +30,7 @@ static void Hit_Card_Animation_Render(GameManager *manager, Object *obj_Anim, in
         ClearRender(manager->sceneManager->renderer);
         RenderObjectsInScene(manager);
         RenderObject(manager->sceneManager->renderer, obj_Anim);
-        PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window);
+        PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window->window);
 
         // Movimento suave no eixo X
         if (obj_Anim->rect->x > xEnd)

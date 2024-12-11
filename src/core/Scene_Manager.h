@@ -10,7 +10,7 @@
 typedef struct SceneManager
 {
     int layerCurrent;
-    SDL_Window *window;
+    Window *window;
     SDL_Renderer *renderer;
     SDL_Event *event;
     Mix_Music *mix;

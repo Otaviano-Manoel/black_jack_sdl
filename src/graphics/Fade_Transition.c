@@ -21,7 +21,7 @@ void Fade_Transition(GameManager *manager, Scene *next)
         if (manager->sceneManager->isCurrentSet)
             RenderObjectsInScene(manager);
         RenderObject(manager->sceneManager->renderer, &fade);
-        PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window);
+        PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window->window);
 
         fade.opacity += opacityStep;
 
@@ -36,7 +36,7 @@ void Fade_Transition(GameManager *manager, Scene *next)
         if (manager->sceneManager->isCurrentSet)
             RenderObjectsInScene(manager);
         RenderObject(manager->sceneManager->renderer, &fade);
-        PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window);
+        PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window->window);
 
         fade.opacity -= opacityStep;
 

@@ -11,10 +11,7 @@ void HandleTextInput(GameManager *this)
 
     while (SDL_PollEvent(event))
     {
-        if (event->type == SDL_QUIT)
-        {
-            this->quit = SDL_TRUE;
-        }
+        Event_General(event, this);
 
         if (event->type == SDL_KEYDOWN)
         {

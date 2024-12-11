@@ -63,5 +63,5 @@ static void ObjectEvent_OnAnimClick(GameManager *manager, Object *this)
 static void ObjectEvent_UpdateAnimClick(GameManager *manager, Object *this)
 {
     RenderObject(manager->sceneManager->renderer, this);
-    PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window);
+    PresentRenderer(manager->sceneManager->renderer, manager->sceneManager->window->window);
 }
