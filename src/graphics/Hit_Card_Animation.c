@@ -18,7 +18,9 @@ void Hit_Card_Animation_Run(GameManager *manager, Card *card, SDL_bool isP1)
 
     Hit_Card_Animation_Render(manager, &obj_Card, dest->rect->x + (obj_Card.rect->h / 2), dest->rect->y, 8);
 
-    obj_Card.ResizeRect(&obj_Card, obj_Card.rect->x, obj_Card.rect->y, obj_Card.rect->w, obj_Card.rect->h);
+    obj_Card.rect->x = dest->rect->x + (obj_Card.rect->h / 2);
+    obj_Card.rectOrigin->x = dest->rectOrigin->x + (obj_Card.rectOrigin->h / 2);
+    obj_Card.rectOrigin->y = dest->rectOrigin->y;
 
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj_Card);
 }
@@ -49,7 +51,7 @@ static void Hit_Card_Animation_Render(GameManager *manager, Object *obj_Anim, in
 static Object Hit_CreateObjAnimated(GameManager *manager, Card *card, Object *src, Object *dest, char *tag)
 {
     Object obj = Obj_Init();
-    obj.InitFull(manager->sceneManager->renderer, &obj, src->rect->x, src->rect->y, dest->rect->w, dest->rect->h,
+    obj.InitFull(manager->sceneManager, &obj, src->rectOrigin->x, src->rectOrigin->y, dest->rectOrigin->w, dest->rectOrigin->h,
                  BuildFilePath(manager->assets, Card_GetNameFileBMP(card)), 0, 0, 0, SDL_FALSE, 255, 1, SDL_FALSE, NULL, NULL, NULL);
     obj.SetTag(&obj, tag);
 

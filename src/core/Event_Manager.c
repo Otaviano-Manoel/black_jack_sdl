@@ -1,4 +1,5 @@
 #include <Event_Manager.h>
+#include <Window_Change_Screen.h>
 #include <Text_Input_Event.h>
 
 void Event_Wait(GameManager *this)
@@ -49,27 +50,11 @@ void Event_General(SDL_Event *event, GameManager *this)
         break;
 
     case SDL_KEYDOWN:
-        /*if (event.key.keysym.sym == SDLK_RETURN && (event.key.keysym.mod & KMOD_ALT))
+        if (event->key.keysym.sym == SDLK_RETURN && (event->key.keysym.mod & KMOD_ALT))
         {
-            // Alterna entre fullscreen e janela com Alt+Enter
-            if (isFullscreen)
-            {
-                SDL_SetWindowFullscreen(window, 0); // Sair do fullscreen
-                isFullscreen = false;
-            }
-            else
-            {
-                SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP); // Fullscreen
-                isFullscreen = true;
-            }
-        }*/
-        break;
-    case SDL_WINDOWEVENT:
-        /*if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-        {
-            // Aqui você pode ajustar os gráficos se necessário ao redimensionar
+            Window_Change_Screen_OnFullScreen(this->sceneManager);
         }
-        break;*/
+        break;
     default:
         break;
     }

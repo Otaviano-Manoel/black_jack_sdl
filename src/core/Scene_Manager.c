@@ -27,6 +27,7 @@ void Scene_Manager_Free(SceneManager *this)
     SDL_DestroyRenderer(this->renderer);
     SDL_DestroyWindow(this->window->window);
     Mix_FreeMusic(this->mix);
+    SDL_free(this->window);
     Mix_CloseAudio();
 }
 

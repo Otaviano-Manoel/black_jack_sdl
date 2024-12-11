@@ -3,10 +3,10 @@
 
 static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor);
 static void Obj_Resize(Object *obj, int width, int height);
-static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height);
+static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width, int height);
 static void Obj_SetColorKey(Object *obj, Uint8 r, Uint8 g, Uint8 b);
 static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG]);
-static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
+static void Obj_InitFull(SceneManager *sceneManager, Object *obj,
                          int x, int y, int width, int height, const char *file,
                          Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor, Uint8 opacity, int layer, SDL_bool isButton,
                          void (*OnHover)(GameManager *manager, struct Object *this),
@@ -29,8 +29,6 @@ Object Obj_Init()
     obj.isHover = SDL_FALSE;
     obj.isButton = SDL_FALSE;
     obj.isVisible = SDL_TRUE;
-    obj.width = 0;
-    obj.height = 0;
     obj.xEnd = 0;
     obj.yEnd = 0;
     obj.opacity = 255;
@@ -38,6 +36,7 @@ Object Obj_Init()
     obj.texture = NULL;
     obj.rect = NULL;
     obj.layer = 0;
+    obj.rectOrigin = NULL;
     return obj;
 }
 
@@ -46,40 +45,46 @@ static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG])
     SDL_strlcpy(obj->tag, tag, MAX_LENGTH_TAG);
 }
 
-static void Obj_InitFull(SDL_Renderer *renderer, Object *obj,
+static void Obj_InitFull(SceneManager *sceneManager, Object *obj,
                          int x, int y, int width, int height, const char *file,
                          Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor, Uint8 opacity, int layer, SDL_bool isButton,
                          void (*OnHover)(GameManager *manager, struct Object *this),
                          void (*OnExit)(GameManager *manager, struct Object *this),
                          void (*OnClick)(GameManager *manager, struct Object *this))
 {
-    if (!renderer || !obj || !file || width < 0 || height < 0)
+    if (!sceneManager || !obj || !file || width < 0 || height < 0)
     {
         printf("Parâmetros inválidos em Obj_Create.\n");
         return;
     }
 
     RegisterEvent(obj, OnHover, OnExit);
-    Obj_ResizeRect(obj, x, y, width, height);
-    Obj_SetImage(renderer, obj, file, width, height, r, g, b, isSetColor);
+    Obj_ResizeRect(sceneManager->window, obj, x, y, width, height);
+    Obj_SetImage(sceneManager->renderer, obj, file, width, height, r, g, b, isSetColor);
     obj->layer = layer;
     obj->isButton = isButton;
     obj->OnClick = OnClick;
     obj->opacity = opacity;
 }
 
-static void Obj_ResizeRect(Object *obj, int x, int y, int width, int height)
+static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width, int height)
 {
     obj->rect = malloc(sizeof(SDL_Rect));
-    obj->rect->x = x;
-    obj->rect->y = y;
-    obj->rect->w = width;
-    obj->rect->h = height;
-    obj->xEnd = x + width;
-    obj->yEnd = y + height;
+    obj->rect->x = (int)(((float)x * window->scale) + window->offsetX);
+    obj->rect->y = (int)(((float)y * window->scale) + window->offsetY);
+    obj->rect->w = (int)((float)width * window->scale);
+    obj->rect->h = (int)((float)height * window->scale);
+    obj->xEnd = obj->rect->x + obj->rect->w;
+    obj->yEnd = obj->rect->y + obj->rect->h;
 
-    obj->width = width;
-    obj->height = height;
+    if (obj->rectOrigin == NULL)
+    {
+        obj->rectOrigin = malloc(sizeof(SDL_Rect));
+        obj->rectOrigin->x = x;
+        obj->rectOrigin->y = y;
+        obj->rectOrigin->w = width;
+        obj->rectOrigin->h = height;
+    }
 }
 
 static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor)

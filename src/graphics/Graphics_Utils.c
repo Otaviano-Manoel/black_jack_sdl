@@ -5,6 +5,23 @@ void ClearRender(SDL_Renderer *renderer)
     SDL_RenderClear(renderer);
 }
 
+void UpdateObjectScale(SceneManager *this)
+{
+    for (size_t i = 0; i < this->current->objCount; i++)
+    {
+        Object *obj = &this->current->objects[i];
+
+        obj->ResizeRect(this->window, obj, obj->rectOrigin->x, obj->rectOrigin->y, obj->rectOrigin->w, obj->rectOrigin->h);
+
+        if (obj->text->isTextLoaded)
+        {
+            obj->text->SetFont(this->window, obj->text, obj->text->file, obj->text->ptSize);
+            obj->text->SetText(this->renderer, obj->text, obj->text->text, obj->text->color);
+            obj->text->SetPosition(this->window, obj, obj->text, obj->text->textRectOrigin->x, obj->text->textRectOrigin->y);
+        }
+    }
+}
+
 void RenderObject(SDL_Renderer *renderer, Object *obj)
 {
     if (!obj->isVisible)

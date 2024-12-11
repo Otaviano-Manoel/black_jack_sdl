@@ -9,7 +9,7 @@ void Fade_Transition(GameManager *manager, Scene *next)
     Object fade;
 
     fade = Obj_Init();
-    fade.InitFull(manager->sceneManager->renderer, &fade, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW,
+    fade.InitFull(manager->sceneManager, &fade, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW,
                   BuildFilePath(manager->assets, "setting.bmp"), 255, 255, 255,
                   SDL_TRUE, 0, 5, SDL_FALSE, NULL, NULL, NULL);
 
