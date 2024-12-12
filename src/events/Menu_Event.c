@@ -1,6 +1,7 @@
 #include <Menu_Event.h>
 #include <Setting_Scene.h>
 #include <Game_Scene.h>
+#include <Credits_Scene.h>
 
 void Menu_OnClick_PvsCPU(GameManager *manager, Object *this)
 {
@@ -31,4 +32,11 @@ void Menu_OnClick_Quit(GameManager *manager, Object *this)
     (void)this;
 
     manager->quit = SDL_TRUE;
+}
+
+void Menu_OnClick_Credits(GameManager *manager, Object *this)
+{
+    (void)this;
+    manager->sceneManager->layerCurrent = 5;
+    Credit_Visible(manager->sceneManager->current);
 }

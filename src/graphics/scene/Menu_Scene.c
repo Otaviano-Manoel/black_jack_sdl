@@ -1,4 +1,5 @@
 #include <Menu_Scene.h>
+#include <Credits_Scene.h>
 
 static void Menu_Start(GameManager *manager);
 static void Menu_Update(GameManager *manager);
@@ -18,6 +19,7 @@ static void Menu_Start(GameManager *manager)
 {
     Menu_Draw(manager);
     Setting_Draw(manager);
+    Credit_Draw(manager);
 }
 
 static void Menu_Draw(GameManager *manager)
@@ -58,6 +60,10 @@ static void Menu_Draw(GameManager *manager)
     obj = Obj_Init();
     obj.InitFull(sceneManager, &obj, 708, 473, 350, 90, BuildFilePath(manager->assets, "button.bmp"), 0, 0, 0, SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Quit);
     obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "Quit", (SDL_Color){0, 0, 0, 255}, 170, 25);
+    manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
+
+    obj = Obj_Init();
+    obj.InitFull(sceneManager, &obj, 1160, 605, 120, 120, BuildFilePath(manager->assets, "credits.bmp"), 255, 255, 255, SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Credits);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 }
 
