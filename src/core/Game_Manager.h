@@ -11,11 +11,13 @@ typedef struct Card Card;
 typedef struct Deck Deck;
 typedef struct GamePlay GamePlay;
 typedef struct Window Window;
+typedef struct Gif Gif;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_image.h>
 #include <File_Utils.h>
 #include <Scene_Manager.h>
 #include <Scene.h>
@@ -35,6 +37,7 @@ typedef struct Window Window;
 #include <Game_Event.h>
 #include <Winner_Scene.h>
 #include <Window.h>
+#include <AnimGif.h>
 
 typedef struct GameManager
 {

@@ -26,6 +26,7 @@ Object Obj_Init()
     obj.OnHover = NULL;
     obj.OnLeave = NULL;
     obj.OnAnimClick = NULL;
+    obj.gif = NULL;
     obj.isHover = SDL_FALSE;
     obj.isButton = SDL_FALSE;
     obj.isVisible = SDL_TRUE;
@@ -60,7 +61,8 @@ static void Obj_InitFull(SceneManager *sceneManager, Object *obj,
 
     RegisterEvent(obj, OnHover, OnExit);
     Obj_ResizeRect(sceneManager->window, obj, x, y, width, height);
-    Obj_SetImage(sceneManager->renderer, obj, file, width, height, r, g, b, isSetColor);
+    if (strcmp(file, "\0"))
+        Obj_SetImage(sceneManager->renderer, obj, file, width, height, r, g, b, isSetColor);
     obj->layer = layer;
     obj->isButton = isButton;
     obj->OnClick = OnClick;
@@ -89,7 +91,7 @@ static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width,
 
 static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, Uint8 r, Uint8 g, Uint8 b, SDL_bool isSetColor)
 {
-    SDL_Surface *image = SDL_LoadBMP(file);
+    SDL_Surface *image = IMG_Load(file);
     if (!image)
     {
         printf("Erro ao carregar imagem: %s\n", SDL_GetError());
@@ -148,7 +150,6 @@ void Obj_Free(Object *obj)
         SDL_DestroyTexture(obj->texture);
     if (obj->rect)
         SDL_free(obj->rect);
-
     if (obj->text->isTextLoaded)
         obj->text->Destroy(obj->text);
     SDL_free(obj->text);

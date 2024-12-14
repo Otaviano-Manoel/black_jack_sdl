@@ -13,6 +13,7 @@ typedef struct Object
     SDL_Texture *texture;
     SDL_Rect *rect;
     SDL_Rect *rectOrigin;
+    Gif *gif;
 
     Text *text;
 
@@ -35,6 +36,7 @@ typedef struct Object
     void (*OnLeave)(GameManager *manager, struct Object *this);
     void (*OnAnimClick)(GameManager *manager, struct Object *this);
     void (*OnClick)(GameManager *manager, struct Object *this);
+    void (*LoadAnimatedGIF)(Object *obj, const char *filename);
 
 } Object;
 

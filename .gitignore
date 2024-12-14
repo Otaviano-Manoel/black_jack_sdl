@@ -12,6 +12,7 @@
 bin/
 obj/
 .vscode/
+assets/
 
 # Arquivos de configuração do editor
 *.swp

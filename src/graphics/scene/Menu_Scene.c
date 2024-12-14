@@ -70,6 +70,15 @@ static void Menu_Draw(GameManager *manager)
 static void Menu_Update(GameManager *manager)
 {
     (void)manager;
+    Object *credit = Scene_FindTag(manager->sceneManager->current, "credit");
+
+    if (credit != NULL)
+    {
+        if (credit->isVisible)
+        {
+            Credit_RunAnim(manager);
+        }
+    }
 }
 static void Menu_Quit(GameManager *manager)
 {
