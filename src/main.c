@@ -22,6 +22,7 @@ int main()
     }
 
     Game_Manager_Free(gameManager);
+    IMG_Quit();
     SDL_Quit();
 
     return 0;

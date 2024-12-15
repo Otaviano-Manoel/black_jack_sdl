@@ -33,21 +33,16 @@ void Credit_Draw(GameManager *this)
 
     // Obj
     obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(this->assets, "setting.bmp"), 0, 0, 0, SDL_TRUE, 128, 5, SDL_FALSE, NULL, NULL, NULL);
+    obj.InitFull(sceneManager, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(this->assets, "setting.bmp"),SDL_TRUE, 128, 5, SDL_FALSE, NULL, NULL, NULL);
     obj.SetTag(&obj, "credit");
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
     obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 174, 0, 933, MAX_HEIGHT_WINDOW, BuildFilePath(this->assets, "setting.bmp"), 0, 0, 0, SDL_TRUE, 255, 5, SDL_FALSE, NULL, NULL, NULL);
+    obj.InitFull(sceneManager, &obj, 174, 0, 933, MAX_HEIGHT_WINDOW, BuildFilePath(this->assets, "setting.bmp"),SDL_TRUE, 255, 5, SDL_FALSE, NULL, NULL, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
     obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 1050, 20, 40, 40, BuildFilePath(this->assets, "close.bmp"), 0, 0, 0, SDL_TRUE, 255, 5, SDL_TRUE, NULL, NULL, Credit_Event_OnClick_Close);
-    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
-
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 587, 20, 80, 80, BuildFilePath(this->assets, "r.bmp"), 255, 255, 255, SDL_TRUE, 255, 5, SDL_FALSE, NULL, NULL, NULL);
-    obj.SetTag(&obj, "anim-0");
+    obj.InitFull(sceneManager, &obj, 1050, 20, 40, 40, BuildFilePath(this->assets, "close.bmp"),SDL_TRUE, 255, 5, SDL_TRUE, NULL, NULL, Credit_Event_OnClick_Close);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
     Credit_Hide(this->sceneManager->current);
