@@ -15,9 +15,7 @@ typedef struct Gif Gif;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_image.h>
 #include <File_Utils.h>
 #include <Scene_Manager.h>
 #include <Scene.h>
@@ -37,7 +35,7 @@ typedef struct Gif Gif;
 #include <Game_Event.h>
 #include <Winner_Scene.h>
 #include <Window.h>
-#include <AnimGif.h>
+#include <Gif_Animation.h>
 
 typedef struct GameManager
 {

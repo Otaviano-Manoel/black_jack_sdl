@@ -90,7 +90,7 @@ static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width,
 
 static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, SDL_bool isSetColor)
 {
-    SDL_Surface *image = IMG_Load(file);
+    SDL_Surface *image = SDL_LoadBMP(file);
     if (!image)
     {
         printf("Erro ao carregar imagem: %s\n", SDL_GetError());
@@ -108,7 +108,6 @@ static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char 
         Obj_SetColorKey(obj, 255, 240, 0); // Cor padrão definido como alpha.
 
     obj->texture = SDL_CreateTextureFromSurface(renderer, obj->surface);
-    SDL_SetTextureBlendMode(obj->texture, SDL_BLENDMODE_BLEND);
 
     if (!obj->texture)
     {

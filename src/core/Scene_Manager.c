@@ -60,12 +60,6 @@ static void SceneManager_Quit(GameManager *manager)
 
 static void SceneManager_init_SDL(SceneManager *this)
 {
-    SDL_Init(SDL_INIT_VIDEO);
-    if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
-    {
-        printf("Erro: SDL_Image não suporta PNG. Detalhes: %s\n", IMG_GetError());
-    }
-
     this->window = Window_Init();
 
     this->renderer = SDL_CreateRenderer(this->window->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -73,8 +67,6 @@ static void SceneManager_init_SDL(SceneManager *this)
     {
         printf("Erro ao criar renderer: %s\n", SDL_GetError());
     }
-
-    SDL_SetRenderDrawBlendMode(this->renderer, SDL_BLENDMODE_BLEND);
 
     if (TTF_Init() == -1)
     {
