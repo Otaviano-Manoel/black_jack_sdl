@@ -9,21 +9,20 @@ static void Text_InitFull(SceneManager *sceneManager, Object *obj, Text *text, c
 
 Text *Text_Init()
 {
-    Text *text = malloc(sizeof(Text));
+    Text *text = SDL_malloc(sizeof(Text));
     text->font = NULL;
     text->textSurface = NULL;
     text->textTexture = NULL;
-    text->textRect = malloc(sizeof(SDL_Rect));
+    text->textRect = NULL;
     text->textRectOrigin = NULL;
-
+    text->isTextLoaded = SDL_FALSE;
+    text->text = "\0";
+    text->file = "\0";
     text->InitFull = Text_InitFull;
     text->SetText = Text_SetText;
     text->SetFont = Text_SetFont;
     text->SetPosition = Text_SetPosition;
     text->Destroy = Text_Free;
-
-    text->isTextLoaded = SDL_FALSE;
-    text->text = NULL;
     return text;
 }
 
@@ -60,7 +59,7 @@ static void Text_SetFont(Window *window, Text *text, char *file, int ptsize)
 static void Text_SetText(SDL_Renderer *renderer, Text *text, char *writer, SDL_Color textColor)
 {
     if (text->text == NULL)
-        text->text = malloc(256);
+        text->text = SDL_malloc(256);
 
     SDL_strlcpy(text->text, writer, 256);
     text->textSurface = TTF_RenderText_Blended(text->font, text->text, textColor);
@@ -92,7 +91,7 @@ static void Text_SetPosition(Window *window, Object *obj, Text *text, int x, int
     text->textRect->y = (int)(((float)(obj->rectOrigin->y + y) * window->scale) + (window->offsetY));
     if (text->textRectOrigin == NULL)
     {
-        text->textRectOrigin = malloc(sizeof(SDL_Rect));
+        text->textRectOrigin = SDL_malloc(sizeof(SDL_Rect));
         text->textRectOrigin->x = x;
         text->textRectOrigin->y = y;
     }

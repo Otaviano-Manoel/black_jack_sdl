@@ -5,7 +5,7 @@ static void GameConfig_Style_Change(GameConfig *config);
 
 GameConfig *GameConfig_Init()
 {
-    GameConfig *config = malloc(sizeof(GameConfig));
+    GameConfig *config = SDL_malloc(sizeof(GameConfig));
     config->difficulty = DIFFICULTY_EASY;
     config->style = STYLE_CLASSIC;
     config->Difficulty_Change = GameConfig_Difficulty_Change;

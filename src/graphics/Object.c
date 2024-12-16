@@ -16,28 +16,27 @@ static void Obj_InitFull(SceneManager *sceneManager, Object *obj,
 Object Obj_Init()
 {
     Object obj;
-    obj.text = Text_Init();
-    obj.SetImage = Obj_SetImage;
-    obj.ResizeRect = Obj_ResizeRect;
-    obj.SetColorKey = Obj_SetColorKey;
-    obj.InitFull = Obj_InitFull;
-    obj.SetTag = Obj_SetTag;
-    obj.OnClick = NULL;
-    obj.OnHover = NULL;
-    obj.OnLeave = NULL;
-    obj.OnAnimClick = NULL;
-    obj.gif = NULL;
-    obj.isHover = SDL_FALSE;
-    obj.isButton = SDL_FALSE;
-    obj.isVisible = SDL_TRUE;
-    obj.xEnd = 0;
-    obj.yEnd = 0;
-    obj.opacity = 255;
+    obj.layer = 0;
     obj.surface = NULL;
     obj.texture = NULL;
     obj.rect = NULL;
-    obj.layer = 0;
     obj.rectOrigin = NULL;
+    obj.gif = NULL;
+    obj.text = NULL;
+    obj.isHover = SDL_FALSE;
+    obj.isButton = SDL_FALSE;
+    obj.isVisible = SDL_FALSE;
+    obj.opacity = 255;
+    obj.SetTag = Obj_SetTag;
+    obj.SetImage = Obj_SetImage;
+    obj.SetColorKey = Obj_SetColorKey;
+    obj.ResizeRect = Obj_ResizeRect;
+    obj.InitFull = Obj_InitFull;
+    obj.OnHover = NULL;
+    obj.OnLeave = NULL;
+    obj.OnAnimClick = NULL;
+    obj.OnClick = NULL;
+    obj.LoadAnimatedGIF = NULL;
     return obj;
 }
 
@@ -70,7 +69,7 @@ static void Obj_InitFull(SceneManager *sceneManager, Object *obj,
 
 static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width, int height)
 {
-    obj->rect = malloc(sizeof(SDL_Rect));
+    obj->rect = SDL_malloc(sizeof(SDL_Rect));
     obj->rect->x = (int)(((float)x * window->scale) + window->offsetX);
     obj->rect->y = (int)(((float)y * window->scale) + window->offsetY);
     obj->rect->w = (int)((float)width * window->scale);
@@ -80,7 +79,7 @@ static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width,
 
     if (obj->rectOrigin == NULL)
     {
-        obj->rectOrigin = malloc(sizeof(SDL_Rect));
+        obj->rectOrigin = SDL_malloc(sizeof(SDL_Rect));
         obj->rectOrigin->x = x;
         obj->rectOrigin->y = y;
         obj->rectOrigin->w = width;
@@ -149,7 +148,10 @@ void Obj_Free(Object *obj)
         SDL_DestroyTexture(obj->texture);
     if (obj->rect)
         SDL_free(obj->rect);
-    if (obj->text->isTextLoaded)
-        obj->text->Destroy(obj->text);
-    SDL_free(obj->text);
+    if (obj->rectOrigin)
+        SDL_free(obj->rectOrigin);
+    if (obj->gif)
+        SDL_free(obj->gif);
+    if (obj->text)
+        SDL_free(obj->text);
 }

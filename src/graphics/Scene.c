@@ -5,7 +5,7 @@ static void Scene_RemoveObj(Scene *scene, size_t index);
 
 Scene *Scene_Init()
 {
-    Scene *scene = malloc(sizeof(Scene));
+    Scene *scene = SDL_malloc(sizeof(Scene));
     scene->AddObj = Scene_AddObj;
     scene->RemoveObj = Scene_RemoveObj;
     scene->Free = Scene_Free;

@@ -6,7 +6,7 @@ char *GetPath(size_t size)
     char *path = NULL;
     ssize_t len;
 
-    path = (char *)malloc(size);
+    path = (char *)SDL_malloc(size);
     if (path == NULL)
     {
         perror("Erro ao alocar memória");
@@ -33,7 +33,7 @@ char *GetPath(size_t size)
 
 char *BuildFilePath(const char *basePath, const char *fileName)
 {
-    char *fullPath = (char *)malloc(256);
+    char *fullPath = (char *)SDL_malloc(SDL_strlen(basePath) + 300);
     if (fullPath == NULL)
     {
         perror("Erro ao alocar memória para caminho de arquivo");

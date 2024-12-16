@@ -9,12 +9,10 @@ GamePlay *Game_Play_Init()
     this->Change_Turn = GamePlay_Change_Turn;
     this->Play_Start = GamePlay_Start;
     this->countMatche = 0;
+    this->countTurn = 0;
+    this->turn = 0;
     this->player[0] = Player_Init();
-    SDL_strlcpy(this->player[0]->name, "ONE", MAX_LENGTH_NAME);
-    this->player[0]->isP1 = SDL_TRUE;
     this->player[1] = Player_Init();
-    SDL_strlcpy(this->player[1]->name, "TWO", MAX_LENGTH_NAME);
-    this->player[1]->isP1 = SDL_FALSE;
     this->deck = Deck_Init();
     return this;
 }
@@ -43,7 +41,9 @@ static void GamePlay_Change_Turn(GamePlay *this)
 
 void GamePlay_Free(GamePlay *this)
 {
+    Player_Free(this->player[0]);
     SDL_free(this->player[0]);
+    Player_Free(this->player[1]);
     SDL_free(this->player[1]);
     Deck_Free(this->deck);
     SDL_free(this->deck);

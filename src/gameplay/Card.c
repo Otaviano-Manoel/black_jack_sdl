@@ -4,7 +4,7 @@ static char *Card_GetNaipeToString(Naipe n);
 
 Card *Card_Init(Naipe n, Value v)
 {
-    Card *c = (Card *)malloc(sizeof(Card));
+    Card *c = (Card *)SDL_malloc(sizeof(Card));
     c->naipe = n;
     c->value = v;
     c->isFaceUp = SDL_FALSE;
@@ -13,7 +13,7 @@ Card *Card_Init(Naipe n, Value v)
 
 char *Card_GetNameFileBMP(Card *card)
 {
-    char *name = (char *)malloc(50 * sizeof(char));
+    char *name = (char *)SDL_malloc(50 * sizeof(char));
 
     if (card->value == Jocker_Dark || card->value == Jocker_Red)
     {

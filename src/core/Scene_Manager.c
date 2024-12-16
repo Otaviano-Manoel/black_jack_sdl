@@ -1,32 +1,38 @@
 #include <Scene_Manager.h>
-#include <Fade_Transition.h>
 
-static void SceneManager_init_SDL(SceneManager *this);
+static void SceneManager_init_SDL(GameManager *this);
 static void SceneManager_ChangeScene(GameManager *manager, Scene *next);
 static void SceneManager_Start(GameManager *);
 static void SceneManager_Update(GameManager *);
 static void SceneManager_Quit(GameManager *);
 static void SceneManager_Init_SDL_Mixer(GameManager *this);
+static void SceneManager_Init_SDL_Renderer(SceneManager *this);
 
-SceneManager *SceneManager_Init()
+void SceneManager_Init(GameManager *this)
 {
-    SceneManager *sceneManager = malloc(sizeof(SceneManager));
-    sceneManager->event = (SDL_Event *)malloc(sizeof(SDL_Event));
+    SceneManager *sceneManager = SDL_malloc(sizeof(SceneManager));
+
+    sceneManager->event = (SDL_Event *)SDL_malloc(sizeof(SDL_Event));
     sceneManager->ChangeScene = SceneManager_ChangeScene;
     sceneManager->Start = SceneManager_Start;
     sceneManager->Update = SceneManager_Update;
     sceneManager->Quit = SceneManager_Quit;
-    sceneManager->Init_SDL_Mixer = SceneManager_Init_SDL_Mixer;
-    SceneManager_init_SDL(sceneManager);
+    sceneManager->isCurrentSet = SDL_FALSE;
+    sceneManager->layerCurrent = 0;
+    sceneManager->current = NULL;
 
-    return sceneManager;
+    this->sceneManager = sceneManager;
+
+    SceneManager_init_SDL(this);
 }
 
 void Scene_Manager_Free(SceneManager *this)
 {
     SDL_DestroyRenderer(this->renderer);
-    SDL_DestroyWindow(this->window->window);
+    SDL_free(this->event);
     Mix_FreeMusic(this->mix);
+    SDL_free(this->current);
+    Window_Free(this->window);
     SDL_free(this->window);
     Mix_CloseAudio();
 }
@@ -58,10 +64,15 @@ static void SceneManager_Quit(GameManager *manager)
     SDL_free(manager->sceneManager->current);
 }
 
-static void SceneManager_init_SDL(SceneManager *this)
+static void SceneManager_init_SDL(GameManager *this)
 {
-    this->window = Window_Init();
+    this->sceneManager->window = Window_Init();
+    SceneManager_Init_SDL_Renderer(this->sceneManager);
+    SceneManager_Init_SDL_Mixer(this);
+}
 
+static void SceneManager_Init_SDL_Renderer(SceneManager *this)
+{
     this->renderer = SDL_CreateRenderer(this->window->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!this->renderer)
     {

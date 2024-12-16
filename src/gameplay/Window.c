@@ -12,6 +12,11 @@ Window *Window_Init()
     return window;
 }
 
+void Window_Free(Window *this)
+{
+    SDL_DestroyWindow(this->window);
+}
+
 static void Window_UpdateScreen(Window *this)
 {
     SDL_GetWindowSize(this->window, &this->screenWidth, &this->screenHeight);

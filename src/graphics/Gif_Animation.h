@@ -10,4 +10,5 @@ typedef struct Gif
 } Gif;
 
 void Gif_UpdateFrame(SDL_Renderer *renderer, Object *obj);
-void Create_Gif(Object *obj, char *file, int length, char *prefix);
+void Gif_Init(Object *obj, char *file, int length, int duplicate, char *prefix);
+void Gif_Free(Gif *gif);

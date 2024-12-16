@@ -5,14 +5,13 @@ static void GetPathAssets(GameManager *this);
 
 GameManager *GameManager_Init()
 {
-    GameManager *this = malloc(sizeof(GameManager));
-    this->gameConfig = GameConfig_Init();
-    this->sceneManager = SceneManager_Init();
-    this->gamePlay = Game_Play_Init();
+    GameManager *this = SDL_malloc(sizeof(GameManager));
     GetPathAssets(this);
     this->isEnableTextInput = SDL_FALSE;
     this->quit = SDL_FALSE;
-    this->sceneManager->Init_SDL_Mixer(this);
+    this->gameConfig = GameConfig_Init();
+    SceneManager_Init(this);
+    this->gamePlay = Game_Play_Init();
 
     return this;
 }
@@ -32,9 +31,9 @@ static void GetPathAssets(GameManager *this)
 void Game_Manager_Free(GameManager *this)
 {
     SDL_free(this->assets);
-    Scene_Manager_Free(this->sceneManager);
-    SDL_free(this->sceneManager);
     GamePlay_Free(this->gamePlay);
     SDL_free(this->gamePlay);
+    Scene_Manager_Free(this->sceneManager);
+    SDL_free(this->sceneManager);
     SDL_free(this->gameConfig);
 }

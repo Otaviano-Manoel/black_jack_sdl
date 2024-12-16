@@ -23,3 +23,4 @@ typedef struct Player
 } Player;
 
 Player *Player_Init();
+void Player_Free(Player *this);

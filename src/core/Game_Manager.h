@@ -36,6 +36,9 @@ typedef struct Gif Gif;
 #include <Winner_Scene.h>
 #include <Window.h>
 #include <Gif_Animation.h>
+#include <Window_Change_Screen.h>
+#include <Text_Input_Event.h>
+#include <Fade_Transition.h>
 
 typedef struct GameManager
 {

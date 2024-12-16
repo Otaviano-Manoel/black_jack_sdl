@@ -1,6 +1,4 @@
 #include <Event_Manager.h>
-#include <Window_Change_Screen.h>
-#include <Text_Input_Event.h>
 
 void Event_Wait(GameManager *this)
 {

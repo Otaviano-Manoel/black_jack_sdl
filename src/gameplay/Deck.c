@@ -12,6 +12,14 @@ Deck *Deck_Init()
     return deck;
 }
 
+void Deck_Free(Deck *deck)
+{
+    for (size_t i = 0; i < MAX_DECK; i++)
+    {
+        SDL_free(deck->cards[i]);
+    }
+}
+
 Card *Deck_DrawCard(Deck *deck)
 {
     if (deck->countDraw < MAX_DECK)
@@ -22,14 +30,6 @@ Card *Deck_DrawCard(Deck *deck)
     }
 
     return NULL;
-}
-
-void Deck_Free(Deck *deck)
-{
-    for (size_t i = 0; i < MAX_DECK; i++)
-    {
-        SDL_free(deck->cards[i]);
-    }
 }
 
 static void Build_Deck(Deck *deck)

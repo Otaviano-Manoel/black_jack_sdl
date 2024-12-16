@@ -7,7 +7,7 @@ static void Player_Add_Card(Player *p, Card *card);
 
 Player *Player_Init()
 {
-    Player *player = malloc(sizeof(Player));
+    Player *player = SDL_malloc(sizeof(Player));
     player->Add_Card = Player_Add_Card;
     player->SetName = Player_SetName;
     player->Start_Game = Player_Start_Game;
@@ -19,6 +19,15 @@ Player *Player_Init()
     player->isPlayer = SDL_TRUE;
     player->isWinner = SDL_FALSE;
     return player;
+}
+
+void Player_Free(Player *this)
+{
+    for (size_t i = 0; i < 6; i++)
+    {
+        if (this->hand[i] != NULL)
+            SDL_free(this->hand[i]);
+    }
 }
 
 static void Player_Add_Card(Player *p, Card *card)

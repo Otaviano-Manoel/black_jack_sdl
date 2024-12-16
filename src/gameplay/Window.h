@@ -18,3 +18,4 @@ typedef struct Window
 } Window;
 
 Window *Window_Init();
+void Window_Free(Window *this);

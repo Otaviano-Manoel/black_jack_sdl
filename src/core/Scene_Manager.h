@@ -23,8 +23,7 @@ typedef struct SceneManager
     void (*Start)(struct GameManager *);
     void (*Update)(struct GameManager *);
     void (*Quit)(struct GameManager *);
-    void (*Init_SDL_Mixer)(GameManager *);
 } SceneManager;
 
-SceneManager *SceneManager_Init();
+void SceneManager_Init(GameManager *this);
 void Scene_Manager_Free(SceneManager *this);
