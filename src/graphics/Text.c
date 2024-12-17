@@ -15,6 +15,7 @@ Text *Text_Init()
         text->textRectOrigin[i] = NULL;
         text->textSurface[i] = NULL;
         text->textTexture[i] = NULL;
+        text->text[i] = NULL;
     }
     text->isTextLoaded = SDL_FALSE;
     text->file = "\0";
@@ -86,6 +87,11 @@ static void Text_SetFont(Window *window, Text *text, char *file, int ptsize)
 
 static void Text_SetText(SDL_Renderer *renderer, Text *text, SDL_Color textColor, char *writer, int line)
 {
+    if (text->textSurface[line] != NULL)
+    {
+        SDL_FreeSurface(text->textSurface[line]);
+        text->textSurface[line] = NULL;
+    }
     text->text[line] = SDL_malloc(SDL_strlen(writer + 1));
     text->color = textColor;
 
@@ -104,6 +110,12 @@ static void Text_SetText(SDL_Renderer *renderer, Text *text, SDL_Color textColor
 
 static void Text_SetTexture(SDL_Renderer *renderer, Text *text, int line)
 {
+    if (text->textTexture[line])
+    {
+        SDL_DestroyTexture(text->textTexture[line]);
+        text->textTexture[line] = NULL;
+    }
+
     text->textTexture[line] = SDL_CreateTextureFromSurface(renderer, text->textSurface[line]);
     if (text->textTexture[line] == NULL)
     {
@@ -135,42 +147,22 @@ void Text_Free(Text *text)
 {
     if (text->font != NULL)
         TTF_CloseFont(text->font);
-
-    if (text->textSurface[0] != NULL)
+    for (int i = 0; i < 50; i++)
     {
-        for (int i = 0; i < text->lines; i++)
-        {
+        if (text->textSurface[i])
             SDL_FreeSurface(text->textSurface[i]);
-        }
-    }
 
-    if (text->textTexture[0] != NULL)
-    {
-        for (int i = 0; i < text->lines; i++)
-        {
+        if (text->textTexture[i])
             SDL_DestroyTexture(text->textTexture[i]);
-        }
-    }
 
-    if (text->textRect[0] != NULL)
-    {
-        for (int i = 0; i < text->lines; i++)
-        {
+        if (text->textRect[i])
             SDL_free(text->textRect[i]);
-        }
-    }
 
-    if (text->textRectOrigin[0] != NULL)
-    {
-        for (int i = 0; i < text->lines; i++)
-        {
+        if (text->textRectOrigin[i])
             SDL_free(text->textRectOrigin[i]);
-        }
-    }
 
-    for (int i = 0; i < text->lines; i++)
-    {
-        SDL_free(text->text[i]);
+        if (text->text[i])
+            SDL_free(text->text[i]);
     }
 
     SDL_free(text->file);

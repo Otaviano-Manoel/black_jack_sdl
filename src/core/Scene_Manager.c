@@ -31,7 +31,11 @@ void Scene_Manager_Free(SceneManager *this)
     SDL_DestroyRenderer(this->renderer);
     SDL_free(this->event);
     Mix_FreeMusic(this->mix);
-    SDL_free(this->current);
+    if (this->current)
+    {
+        Scene_Free(this->current);
+        SDL_free(this->current);
+    }
     Window_Free(this->window);
     SDL_free(this->window);
     Mix_CloseAudio();
@@ -60,6 +64,7 @@ static void SceneManager_Update(GameManager *manager)
 
 static void SceneManager_Quit(GameManager *manager)
 {
+    manager->sceneManager->current->Quit(manager);
     SDL_free(manager->sceneManager->current);
 }
 

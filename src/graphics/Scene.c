@@ -35,13 +35,22 @@ static void Scene_AddObj(Scene *scene, Object *obj)
     if (scene->objCount == scene->capacity)
     {
         scene->capacity = (scene->capacity == 0) ? 4 : scene->capacity * 2;
+        Object **temp = NULL;
+        if (scene->capacity == 0)
+            temp = malloc(sizeof(Object *) * scene->capacity);
+        else
+            temp = realloc(scene->objects, sizeof(Object *) * scene->capacity);
 
-        Object **temp = realloc(scene->objects, sizeof(Object *) * scene->capacity);
         if (!temp)
         {
             fprintf(stderr, "Erro ao realocar memória para os objetos\n");
         }
         scene->objects = temp;
+
+        for (size_t i = scene->objCount; i < scene->capacity; i++)
+        {
+            scene->objects[i] = NULL;
+        }
     }
 
     scene->objects[scene->objCount] = obj;
@@ -64,10 +73,11 @@ void Scene_Free(Scene *scene)
 {
     if (scene->objects)
     {
-        for (size_t i = 0; i < scene->objCount; i++)
+        for (size_t i = 0; i < scene->capacity; i++)
         {
             Object *obj = scene->objects[i];
-            Obj_Free(obj);
+            if (obj)
+                Obj_Free(obj);
         }
 
         free(scene->objects);

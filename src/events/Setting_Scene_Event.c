@@ -6,12 +6,16 @@ void Setting_OnClick_Difficulty(GameManager *manager, Object *this)
 {
     manager->gameConfig->Difficulty_Change(manager->gameConfig);
     this->text->SetText(manager->sceneManager->renderer, this->text, this->text->color, GameConfig_Difficulty_String(manager->gameConfig), 0);
+    this->text->textRect[0]->w = this->text->textSurface[0]->w;
+    this->text->textRect[0]->h = this->text->textSurface[0]->h;
 }
 
 void Setting_OnClick_Style(GameManager *manager, Object *this)
 {
     manager->gameConfig->Style_Change(manager->gameConfig);
     this->text->SetText(manager->sceneManager->renderer, this->text, this->text->color, GameConfig_Style_String(manager->gameConfig), 0);
+    this->text->textRect[0]->w = this->text->textSurface[0]->w;
+    this->text->textRect[0]->h = this->text->textSurface[0]->h;
 }
 
 void Setting_OnClick_Quit(GameManager *manager, Object *this)

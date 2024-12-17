@@ -22,6 +22,7 @@ int main()
     }
 
     Game_Manager_Free(gameManager);
+    Mix_Quit();
     SDL_Quit();
 
     return 0;

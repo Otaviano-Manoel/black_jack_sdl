@@ -114,6 +114,12 @@ static void Obj_Create_Rect(Window *window, Object *obj, int x, int y, int width
 
 static void Obj_Create_Surface(Object *obj, const char *file, int width, int height, SDL_bool isSetColor)
 {
+    if (obj->surface)
+    {
+        SDL_FreeSurface(obj->surface);
+        obj->surface = NULL;
+    }
+
     SDL_Surface *image = SDL_LoadBMP(file);
     if (!image)
     {
@@ -131,11 +137,17 @@ static void Obj_Create_Surface(Object *obj, const char *file, int width, int hei
     if (isSetColor)
         Obj_SetColorKey(obj, 255, 240, 0);
 
-    SDL_free(image);
+    SDL_FreeSurface(image);
 }
 
 static void Obj_Create_Texture(SDL_Renderer *renderer, Object *obj)
 {
+    if (obj->texture)
+    {
+        SDL_DestroyTexture(obj->texture);
+        obj->texture = NULL;
+    }
+
     obj->texture = SDL_CreateTextureFromSurface(renderer, obj->surface);
 
     if (!obj->texture)
@@ -177,7 +189,7 @@ void Obj_Free(Object *obj)
     SDL_free(obj->rect);
     SDL_free(obj->rectOrigin);
     SDL_free(obj->gif);
-    if (obj->text != NULL)
+    if (obj->text)
     {
         Text_Free(obj->text);
         SDL_free(obj->text);
