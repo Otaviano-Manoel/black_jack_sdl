@@ -81,6 +81,18 @@ Object *Obj_CreateWithText(GameManager *manager, Object *objDest, SDL_Color text
     return obj;
 }
 
+Object *Obj_CreateWithGif(GameManager *manager, char *file, char *prefix, char *tag, Uint8 opacity, int length, int duplicate, int x, int y, int width, int height, int layer)
+{
+    Object *obj = Obj_Init();
+    Gif_Init(obj, GetFilePath(manager, file), prefix, length, duplicate, width, height);
+    obj->Create_Rect(manager->sceneManager->window, obj, x, y, width, height);
+    obj->SetTag(obj, tag);
+    obj->layer = layer;
+    obj->opacity = opacity;
+    obj->gif->UpdateFrame(manager->sceneManager->renderer, obj);
+    return obj;
+}
+
 static SDL_bool hasNewline(const char *text)
 {
     return strchr(text, '\n') != NULL;
@@ -188,7 +200,13 @@ void Obj_Free(Object *obj)
     SDL_DestroyTexture(obj->texture);
     SDL_free(obj->rect);
     SDL_free(obj->rectOrigin);
-    SDL_free(obj->gif);
+    if (obj->gif)
+    {
+        Gif_Free(obj->gif);
+        if (obj->gif)
+            SDL_free(obj->gif);
+    }
+
     if (obj->text)
     {
         Text_Free(obj->text);

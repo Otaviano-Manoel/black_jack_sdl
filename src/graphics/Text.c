@@ -44,6 +44,8 @@ Text *Text_CreateWithMultiLine(GameManager *manager, Object *obj, SDL_Color text
 {
     Text *text = Text_Init();
     text->SetFont(manager->sceneManager->window, text, GetFilePath(manager, fileFont), ptsize);
+    text->file = SDL_malloc(sizeof(char) * (SDL_strlen(fileFont) + 1));
+    SDL_strlcpy(text->file, fileFont, SDL_strlen(fileFont) + 1);
     text->lineSpace = lineSpace;
 
     char *textCopy = SDL_strdup(writer);
@@ -62,7 +64,8 @@ Text *Text_CreateWithMultiLine(GameManager *manager, Object *obj, SDL_Color text
         token = SDL_strtokr(NULL, delimiters, &saveptr);
     }
 
-    text->lines = line + 1;
+    text->ptSize = ptsize;
+    text->lines = line;
     text->isTextLoaded = SDL_TRUE;
 
     SDL_free(textCopy);
@@ -92,7 +95,7 @@ static void Text_SetText(SDL_Renderer *renderer, Text *text, SDL_Color textColor
         SDL_FreeSurface(text->textSurface[line]);
         text->textSurface[line] = NULL;
     }
-    text->text[line] = SDL_malloc(SDL_strlen(writer + 1));
+    text->text[line] = SDL_malloc(SDL_strlen(writer) + 1);
     text->color = textColor;
 
     SDL_strlcpy(text->text[line], writer, SDL_strlen(writer) + 1);

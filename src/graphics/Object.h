@@ -38,4 +38,5 @@ typedef struct Object
 Object *Obj_Init();
 Object *Obj_CreateWithImage(GameManager *manager, const char *file, char *tag, int layer, int x, int y, int width, int height, Uint8 opacity, SDL_bool isSetColor, SDL_bool isButton, void (*OnClick)(GameManager *manager, struct Object *this));
 Object *Obj_CreateWithText(GameManager *manager, Object *objDest, SDL_Color textColor, char *writer, char *fileFont, char *tag, int layer, int ptsize, int x, int y, int lineSpace, Uint8 opacity);
+Object *Obj_CreateWithGif(GameManager *manager, char *file, char *prefix, char *tag, Uint8 opacity, int length, int duplicate, int x, int y, int width, int height, int layer);
 void Obj_Free(Object *obj);
