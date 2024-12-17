@@ -1,7 +1,7 @@
 #include <Hit_Card_Animation.h>
 
 static void Hit_Card_Animation_Render(GameManager *manager, Object *obj_Anim, int xEnd, int yEnd, int speed);
-static Object Hit_CreateObjAnimated(GameManager *manager, Card *card, Object *src, Object *dest, char *tag);
+static Object *Hit_CreateObjAnimated(GameManager *manager, Card *card, Object *src, Object *dest, char *tag);
 
 void Hit_Card_Animation_Run(GameManager *manager, Card *card, SDL_bool isP1)
 {
@@ -14,13 +14,13 @@ void Hit_Card_Animation_Run(GameManager *manager, Card *card, SDL_bool isP1)
     Object *dest = Scene_FindTag(current, tag);
     dest->SetTag(dest, "none");
 
-    Object obj_Card = Hit_CreateObjAnimated(manager, card, src, dest, tag);
+    Object *obj_Card = Hit_CreateObjAnimated(manager, card, src, dest, tag);
 
-    Hit_Card_Animation_Render(manager, &obj_Card, dest->rect->x + (obj_Card.rect->h / 2), dest->rect->y, 22);
+    Hit_Card_Animation_Render(manager, obj_Card, dest->rect->x + (obj_Card->rect->h / 2), dest->rect->y, 22);
 
-    obj_Card.rect->x = dest->rect->x + (obj_Card.rect->h / 2);
-    obj_Card.rectOrigin->x = dest->rectOrigin->x + (obj_Card.rectOrigin->h / 2);
-    obj_Card.rectOrigin->y = dest->rectOrigin->y;
+    obj_Card->rect->x = dest->rect->x + (obj_Card->rect->h / 2);
+    obj_Card->rectOrigin->x = dest->rectOrigin->x + (obj_Card->rectOrigin->h / 2);
+    obj_Card->rectOrigin->y = dest->rectOrigin->y;
 
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj_Card);
 }
@@ -48,12 +48,7 @@ static void Hit_Card_Animation_Render(GameManager *manager, Object *obj_Anim, in
     }
 }
 
-static Object Hit_CreateObjAnimated(GameManager *manager, Card *card, Object *src, Object *dest, char *tag)
+static Object *Hit_CreateObjAnimated(GameManager *manager, Card *card, Object *src, Object *dest, char *tag)
 {
-    Object obj = Obj_Init();
-    obj.InitFull(manager->sceneManager, &obj, src->rectOrigin->x, src->rectOrigin->y, dest->rectOrigin->w, dest->rectOrigin->h,
-                 BuildFilePath(manager->assets, Card_GetNameFileBMP(card)), SDL_FALSE, 255, 1, SDL_FALSE, NULL, NULL, NULL);
-    obj.SetTag(&obj, tag);
-
-    return obj;
+    return Obj_CreateWithImage(manager, Card_GetNameFileBMP(card), tag, 1, src->rectOrigin->x, src->rectOrigin->y, dest->rectOrigin->w, dest->rectOrigin->h, 255, SDL_FALSE, SDL_FALSE, NULL);
 }

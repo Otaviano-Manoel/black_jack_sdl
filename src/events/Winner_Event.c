@@ -2,7 +2,7 @@
 #include <Game_Scene.h>
 #include <Menu_Scene.h>
 
-void Winnar_OnInit(GameManager *this)
+void Winner_OnInit(GameManager *this)
 {
     Player *p1 = this->gamePlay->player[0];
     Player *p2 = this->gamePlay->player[1];

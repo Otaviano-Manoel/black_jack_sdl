@@ -19,69 +19,47 @@ Scene *Game_Scene_Init()
 static void Game_Scene_Start(GameManager *this)
 {
     this->sceneManager->layerCurrent = 1;
-    Object obj;
-    SceneManager *sceneManager = this->sceneManager;
+    Object *obj;
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(this->assets, "background.bmp"), SDL_TRUE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
+    obj = Obj_CreateWithImage(this, "background.bmp", "background", 0, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, 255, SDL_TRUE, SDL_FALSE, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 324, 30, 660, 660, BuildFilePath(this->assets, "title.bmp"), SDL_TRUE, 25, 0, SDL_FALSE, NULL, NULL, NULL);
+    obj = Obj_CreateWithImage(this, "title.bmp", "title", 0, 324, 30, 660, 660, 25, SDL_TRUE, SDL_FALSE, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 1053, 137, 120, 160, BuildFilePath(this->assets, "cards/back_grey.bmp"), SDL_FALSE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
-    obj.SetTag(&obj, "deck");
+    obj = Obj_CreateWithImage(this, "cards/back_grey.bmp", "deck", 0, 1053, 137, 120, 160, 255, SDL_FALSE, SDL_FALSE, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 66, 39, 120, 160, BuildFilePath(this->assets, "cards/back_blue.bmp"), SDL_FALSE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
-    obj.SetTag(&obj, "c-p1");
+    obj = Obj_CreateWithImage(this, "cards/back_blue.bmp", "c-p1", 0, 66, 39, 120, 160, 255, SDL_FALSE, SDL_FALSE, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 66, 241, 120, 160, BuildFilePath(this->assets, "cards/back_red.bmp"), SDL_FALSE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
-    obj.SetTag(&obj, "c-p2");
+    obj = Obj_CreateWithImage(this, "cards/back_red.bmp", "c-p2", 0, 66, 241, 120, 160, 255, SDL_FALSE, SDL_FALSE, NULL);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 1060, 30, 0, 0, BuildFilePath(this->assets, "null.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "TURN", (SDL_Color){255, 255, 255, 255}, 0, 0);
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, "TURN", "font/MontserratAlternates-Black.ttf", "turn", 0, 26, 1060, 30, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 1000, 70, 0, 0, BuildFilePath(this->assets, "null.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Bold.ttf"), 20, this->gamePlay->player[0]->name, (SDL_Color){255, 255, 255, 255}, 0, 0);
-    obj.SetTag(&obj, "turn-name");
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, this->gamePlay->player[0]->name, "font/MontserratAlternates-Bold.ttf", "turn-name", 0, 20, 1000, 70, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
     // p1
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 180, 542, 200, 70, BuildFilePath(this->assets, "button_small_red.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Game_OnHit_P1);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "Hit", (SDL_Color){0, 0, 0, 255}, 100, 19);
+    obj = Obj_CreateWithImage(this, "button_small_red.bmp", "hitp1", 1, 180, 542, 200, 70, 255, SDL_TRUE, SDL_TRUE, Game_OnHit_P1);
+    Obj_CreateWithText(this, obj, (SDL_Color){0, 0, 0, 255}, "Hit", "font/MontserratAlternates-Black.ttf", obj->tag, obj->layer, 26, 100, 19, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 408, 542, 200, 70, BuildFilePath(this->assets, "button_small_red.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Game_OnStand_P1);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "Stand", (SDL_Color){0, 0, 0, 255}, 90, 17);
+    obj = Obj_CreateWithImage(this, "button_small_red.bmp", "standp1", 1, 408, 542, 200, 70, 255, SDL_TRUE, SDL_TRUE, Game_OnStand_P1);
+    Obj_CreateWithText(this, obj, (SDL_Color){0, 0, 0, 255}, "Stand", "font/MontserratAlternates-Black.ttf", obj->tag, obj->layer, 26, 90, 17, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 280, 628, 200, 70, BuildFilePath(this->assets, "button_small_red.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Game_OnExit);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "Exit", (SDL_Color){0, 0, 0, 255}, 90, 17);
+    obj = Obj_CreateWithImage(this, "button_small_red.bmp", "exitp1", 1, 280, 628, 200, 70, 255, SDL_TRUE, SDL_TRUE, Game_OnExit);
+    Obj_CreateWithText(this, obj, (SDL_Color){0, 0, 0, 255}, "Exit", "font/MontserratAlternates-Black.ttf", obj->tag, obj->layer, 26, 90, 17, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 200, 450, 0, 0, BuildFilePath(this->assets, "null.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Bold.ttf"), 26, this->gamePlay->player[0]->name, (SDL_Color){255, 255, 255, 255}, 0, 0);
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, this->gamePlay->player[0]->name, "font/MontserratAlternates-Bold.ttf", "namep1", 0, 26, 200, 450, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 200, 495, 0, 0, BuildFilePath(this->assets, "null.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Bold.ttf"), 26, "Points: 00", (SDL_Color){255, 255, 255, 255}, 0, 0);
-    obj.SetTag(&obj, "p-p1");
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, "Points: 00", "font/MontserratAlternates-Bold.ttf", "p-p1", 0, 26, 200, 495, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
     // p2
@@ -89,31 +67,23 @@ static void Game_Scene_Start(GameManager *this)
     if (this->gamePlay->player[1]->isPlayer)
     {
 
-        obj = Obj_Init();
-        obj.InitFull(sceneManager, &obj, 700, 542, 200, 70, BuildFilePath(this->assets, "button_small_blue.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Game_OnHit_P2);
-        obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "Hit", (SDL_Color){0, 0, 0, 255}, 100, 19);
+        obj = Obj_CreateWithImage(this, "button_small_blue.bmp", "hitp2", 1, 700, 542, 200, 70, 255, SDL_TRUE, SDL_TRUE, Game_OnHit_P2);
+        Obj_CreateWithText(this, obj, (SDL_Color){0, 0, 0, 255}, "Hit", "font/MontserratAlternates-Black.ttf", obj->tag, obj->layer, 26, 100, 19, 0, 255);
         this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-        obj = Obj_Init();
-        obj.InitFull(sceneManager, &obj, 928, 542, 200, 70, BuildFilePath(this->assets, "button_small_blue.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Game_OnStand_P2);
-        obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "Stand", (SDL_Color){0, 0, 0, 255}, 90, 17);
+        obj = Obj_CreateWithImage(this, "button_small_blue.bmp", "standp2", 1, 928, 542, 200, 70, 255, SDL_TRUE, SDL_TRUE, Game_OnStand_P2);
+        Obj_CreateWithText(this, obj, (SDL_Color){0, 0, 0, 255}, "Stand", "font/MontserratAlternates-Black.ttf", obj->tag, obj->layer, 26, 90, 17, 0, 255);
         this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-        obj = Obj_Init();
-        obj.InitFull(sceneManager, &obj, 800, 628, 200, 70, BuildFilePath(this->assets, "button_small_blue.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Game_OnExit);
-        obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Black.ttf"), 26, "Exit", (SDL_Color){0, 0, 0, 255}, 90, 17);
+        obj = Obj_CreateWithImage(this, "button_small_blue.bmp", "exitp2", 1, 800, 628, 200, 70, 255, SDL_TRUE, SDL_TRUE, Game_OnExit);
+        Obj_CreateWithText(this, obj, (SDL_Color){0, 0, 0, 255}, "Exit", "font/MontserratAlternates-Black.ttf", obj->tag, obj->layer, 26, 90, 17, 0, 255);
         this->sceneManager->current->AddObj(this->sceneManager->current, obj);
     }
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 720, 450, 0, 0, BuildFilePath(this->assets, "null.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Bold.ttf"), 26, this->gamePlay->player[1]->name, (SDL_Color){255, 255, 255, 255}, 0, 0);
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, this->gamePlay->player[1]->name, "font/MontserratAlternates-Bold.ttf", "namep2", 0, 26, 720, 450, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 720, 495, 0, 0, BuildFilePath(this->assets, "null.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(this->assets, "font/MontserratAlternates-Bold.ttf"), 26, "Points: 00", (SDL_Color){255, 255, 255, 255}, 0, 0);
-    obj.SetTag(&obj, "p-p2");
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, "Points: 00", "font/MontserratAlternates-Bold.ttf", "p-p2", 0, 26, 720, 495, 0, 255);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 }
 
@@ -137,5 +107,5 @@ static void Game_Scene_Update(GameManager *this)
 
 static void Game_Scene_Quit(GameManager *this)
 {
-    (void)this;
+    Scene_Free(this->sceneManager->current);
 }

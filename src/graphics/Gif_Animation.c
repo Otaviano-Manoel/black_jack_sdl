@@ -17,6 +17,7 @@ void Gif_Init(Object *obj, char *file, int length, int duplicate, char *prefix)
         snprintf(path, strlen(file) + 200, "%s/%s%d.bmp", file, prefix, i);
 
         SDL_Surface *surface = SDL_LoadBMP(path);
+        SDL_free(path);
         for (int j = 0; j < duplicate; j++)
         {
             obj->gif->surfaces[index++] = surface;

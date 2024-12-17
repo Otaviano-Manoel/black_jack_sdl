@@ -9,7 +9,7 @@ void Object_Interaction_GetMouseHover(GameManager *this)
 
     for (size_t i = 0; i < this->sceneManager->current->objCount; i++)
     {
-        Object *obj = &this->sceneManager->current->objects[i];
+        Object *obj = this->sceneManager->current->objects[i];
 
         if (obj->isHover)
         {
@@ -38,7 +38,7 @@ int SceneManager_GetObjisHover(struct GameManager *this)
 {
     for (size_t i = 0; i < this->sceneManager->current->objCount; i++)
     {
-        Object *obj = &this->sceneManager->current->objects[i];
+        Object *obj = this->sceneManager->current->objects[i];
 
         if (obj->isHover)
         {

@@ -22,15 +22,10 @@ typedef struct Object
     Uint8 opacity;
 
     void (*SetTag)(Object *obj, char tag[MAX_LENGTH_TAG]);
-    void (*SetImage)(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, SDL_bool isSetColor);
-    void (*SetColorKey)(struct Object *obj, Uint8 r, Uint8 g, Uint8 b);
-    void (*ResizeRect)(Window *window, struct Object *obj, int x, int y, int width, int height);
-    void (*InitFull)(SceneManager *sceneManager, struct Object *obj,
-                     int x, int y, int width, int height, const char *file,
-                     SDL_bool isSetColor, Uint8 opacity, int layer, SDL_bool isButton,
-                     void (*OnHover)(GameManager *manager, struct Object *this),
-                     void (*OnExit)(GameManager *manager, struct Object *this),
-                     void (*OnClick)(GameManager *manager, struct Object *this));
+    void (*Create_Rect)(Window *window, struct Object *obj, int x, int y, int width, int height);
+    void (*Create_Surface)(Object *obj, const char *file, int width, int height, SDL_bool isSetColor);
+    void (*Create_Texture)(SDL_Renderer *renderer, Object *obj);
+    void (*SetColorKey)(Object *obj, Uint8 r, Uint8 g, Uint8 b);
 
     void (*OnHover)(GameManager *manager, struct Object *this);
     void (*OnLeave)(GameManager *manager, struct Object *this);
@@ -40,5 +35,7 @@ typedef struct Object
 
 } Object;
 
-Object Obj_Init();
+Object *Obj_Init();
+Object *Obj_CreateWithImage(GameManager *manager, const char *file, char *tag, int layer, int x, int y, int width, int height, Uint8 opacity, SDL_bool isSetColor, SDL_bool isButton, void (*OnClick)(GameManager *manager, struct Object *this));
+Object *Obj_CreateWithText(GameManager *manager, Object *objDest, SDL_Color textColor, char *writer, char *fileFont, char *tag, int layer, int ptsize, int x, int y, int lineSpace, Uint8 opacity);
 void Obj_Free(Object *obj);

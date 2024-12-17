@@ -27,7 +27,6 @@ char *GetPath(size_t size)
         free(path);
         return GetPath(size * 2);
     }
-
     return path;
 }
 
@@ -43,4 +42,9 @@ char *BuildFilePath(const char *basePath, const char *fileName)
     snprintf(fullPath, 256, "%s%s", basePath, fileName);
 
     return fullPath;
+}
+
+char *GetFilePath(GameManager *manager, const char *fileName)
+{
+    return BuildFilePath(manager->assets, fileName);
 }

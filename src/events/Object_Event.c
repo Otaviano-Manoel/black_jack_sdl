@@ -5,28 +5,10 @@ static void ObjectEvent_OnExit(GameManager *manager, Object *this);
 static void ObjectEvent_OnAnimClick(GameManager *manager, Object *this);
 static void ObjectEvent_UpdateAnimClick(GameManager *manager, Object *this);
 
-void RegisterEvent(Object *this,
-                   void (*OnHover)(GameManager *manager, struct Object *this),
-                   void (*OnExit)(GameManager *manager, struct Object *this))
+void RegisterEvent(Object *this)
 {
-    if (OnHover == NULL)
-    {
-        this->OnHover = ObjectEvent_OnHover;
-    }
-    else
-    {
-        this->OnHover = OnHover;
-    }
-
-    if (OnExit == NULL)
-    {
-        this->OnLeave = ObjectEvent_OnExit;
-    }
-    else
-    {
-        this->OnLeave = OnExit;
-    }
-
+    this->OnHover = ObjectEvent_OnHover;
+    this->OnLeave = ObjectEvent_OnExit;
     this->OnAnimClick = ObjectEvent_OnAnimClick;
 }
 

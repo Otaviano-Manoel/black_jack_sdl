@@ -60,7 +60,6 @@ static void SceneManager_Update(GameManager *manager)
 
 static void SceneManager_Quit(GameManager *manager)
 {
-    Scene_Free(manager->sceneManager->current);
     SDL_free(manager->sceneManager->current);
 }
 

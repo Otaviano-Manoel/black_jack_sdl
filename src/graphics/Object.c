@@ -1,43 +1,89 @@
 #include <Object.h>
 #include <math.h>
 
-static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, SDL_bool isSetColor);
-static void Obj_Resize(Object *obj, int width, int height);
-static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width, int height);
+static void Obj_Create_Rect(Window *window, Object *obj, int x, int y, int width, int height);
+static void Obj_Create_Surface(Object *obj, const char *file, int width, int height, SDL_bool isSetColor);
+static void Obj_Create_Texture(SDL_Renderer *renderer, Object *obj);
 static void Obj_SetColorKey(Object *obj, Uint8 r, Uint8 g, Uint8 b);
+static void Obj_Resize(Object *obj, int width, int height);
+static SDL_bool hasNewline(const char *text);
 static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG]);
-static void Obj_InitFull(SceneManager *sceneManager, Object *obj,
-                         int x, int y, int width, int height, const char *file,
-                         SDL_bool isSetColor, Uint8 opacity, int layer, SDL_bool isButton,
-                         void (*OnHover)(GameManager *manager, struct Object *this),
-                         void (*OnExit)(GameManager *manager, struct Object *this),
-                         void (*OnClick)(GameManager *manager, struct Object *this));
 
-Object Obj_Init()
+Object *Obj_Init()
 {
-    Object obj;
-    obj.layer = 0;
-    obj.surface = NULL;
-    obj.texture = NULL;
-    obj.rect = NULL;
-    obj.rectOrigin = NULL;
-    obj.gif = NULL;
-    obj.text = NULL;
-    obj.isHover = SDL_FALSE;
-    obj.isButton = SDL_FALSE;
-    obj.isVisible = SDL_FALSE;
-    obj.opacity = 255;
-    obj.SetTag = Obj_SetTag;
-    obj.SetImage = Obj_SetImage;
-    obj.SetColorKey = Obj_SetColorKey;
-    obj.ResizeRect = Obj_ResizeRect;
-    obj.InitFull = Obj_InitFull;
-    obj.OnHover = NULL;
-    obj.OnLeave = NULL;
-    obj.OnAnimClick = NULL;
-    obj.OnClick = NULL;
-    obj.LoadAnimatedGIF = NULL;
+    Object *obj = SDL_malloc(sizeof(Object));
+    obj->layer = 0;
+    obj->surface = NULL;
+    obj->texture = NULL;
+    obj->rect = NULL;
+    obj->rectOrigin = NULL;
+    obj->gif = NULL;
+    obj->text = NULL;
+    obj->isHover = SDL_FALSE;
+    obj->isButton = SDL_FALSE;
+    obj->isVisible = SDL_TRUE;
+    obj->opacity = 255;
+    obj->SetTag = Obj_SetTag;
+    obj->Create_Rect = Obj_Create_Rect;
+    obj->Create_Surface = Obj_Create_Surface;
+    obj->Create_Texture = Obj_Create_Texture;
+    obj->SetColorKey = Obj_SetColorKey;
+    obj->OnHover = NULL;
+    obj->OnLeave = NULL;
+    obj->OnAnimClick = NULL;
+    obj->OnClick = NULL;
+    obj->LoadAnimatedGIF = NULL;
     return obj;
+}
+
+Object *Obj_CreateWithImage(GameManager *manager, const char *file, char *tag, int layer, int x, int y, int width, int height, Uint8 opacity, SDL_bool isSetColor, SDL_bool isButton, void (*OnClick)(GameManager *manager, struct Object *this))
+{
+    Object *obj = Obj_Init();
+    obj->Create_Rect(manager->sceneManager->window, obj, x, y, width, height);
+    obj->Create_Surface(obj, GetFilePath(manager, file), width, height, isSetColor);
+    obj->Create_Texture(manager->sceneManager->renderer, obj);
+    obj->SetTag(obj, tag);
+    obj->layer = layer;
+    obj->opacity = opacity;
+    if (isButton)
+    {
+        obj->isButton = isButton;
+        RegisterEvent(obj);
+        obj->OnClick = OnClick;
+    }
+    return obj;
+}
+
+Object *Obj_CreateWithText(GameManager *manager, Object *objDest, SDL_Color textColor, char *writer, char *fileFont, char *tag, int layer, int ptsize, int x, int y, int lineSpace, Uint8 opacity)
+{
+    Object *obj = objDest;
+
+    if (obj == NULL)
+    {
+        obj = Obj_Init();
+        obj->Create_Rect(manager->sceneManager->window, obj, x, y, 0, 0);
+        x = 0;
+        y = 0;
+    }
+
+    if (obj->text)
+        obj->text = Text_Init();
+
+    if (!hasNewline(writer))
+        obj->text = Text_CreateWithOneLine(manager, obj, textColor, writer, fileFont, ptsize, x, y);
+    else
+        obj->text = Text_CreateWithMultiLine(manager, obj, textColor, writer, fileFont, ptsize, x, y, lineSpace);
+
+    obj->SetTag(obj, tag);
+    obj->layer = layer;
+    obj->opacity = opacity;
+
+    return obj;
+}
+
+static SDL_bool hasNewline(const char *text)
+{
+    return strchr(text, '\n') != NULL;
 }
 
 static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG])
@@ -45,31 +91,10 @@ static void Obj_SetTag(Object *obj, char tag[MAX_LENGTH_TAG])
     SDL_strlcpy(obj->tag, tag, MAX_LENGTH_TAG);
 }
 
-static void Obj_InitFull(SceneManager *sceneManager, Object *obj,
-                         int x, int y, int width, int height, const char *file,
-                         SDL_bool isSetColor, Uint8 opacity, int layer, SDL_bool isButton,
-                         void (*OnHover)(GameManager *manager, struct Object *this),
-                         void (*OnExit)(GameManager *manager, struct Object *this),
-                         void (*OnClick)(GameManager *manager, struct Object *this))
+static void Obj_Create_Rect(Window *window, Object *obj, int x, int y, int width, int height)
 {
-    if (!sceneManager || !obj || !file || width < 0 || height < 0)
-    {
-        printf("Parâmetros inválidos em Obj_Create.\n");
-        return;
-    }
-
-    RegisterEvent(obj, OnHover, OnExit);
-    Obj_ResizeRect(sceneManager->window, obj, x, y, width, height);
-    Obj_SetImage(sceneManager->renderer, obj, file, width, height, isSetColor);
-    obj->layer = layer;
-    obj->isButton = isButton;
-    obj->OnClick = OnClick;
-    obj->opacity = opacity;
-}
-
-static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width, int height)
-{
-    obj->rect = SDL_malloc(sizeof(SDL_Rect));
+    if (obj->rect == NULL)
+        obj->rect = SDL_malloc(sizeof(SDL_Rect));
     obj->rect->x = (int)(((float)x * window->scale) + window->offsetX);
     obj->rect->y = (int)(((float)y * window->scale) + window->offsetY);
     obj->rect->w = (int)((float)width * window->scale);
@@ -87,7 +112,7 @@ static void Obj_ResizeRect(Window *window, Object *obj, int x, int y, int width,
     }
 }
 
-static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char *file, int width, int height, SDL_bool isSetColor)
+static void Obj_Create_Surface(Object *obj, const char *file, int width, int height, SDL_bool isSetColor)
 {
     SDL_Surface *image = SDL_LoadBMP(file);
     if (!image)
@@ -99,13 +124,18 @@ static void Obj_SetImage(SDL_Renderer *renderer, struct Object *obj, const char 
     obj->surface = image;
 
     if (width != 0 && height != 0)
-    {
         Obj_Resize(obj, width, height);
-    }
+    else
+        Obj_Resize(obj, 1, 1);
 
     if (isSetColor)
-        Obj_SetColorKey(obj, 255, 240, 0); // Cor padrão definido como alpha.
+        Obj_SetColorKey(obj, 255, 240, 0);
 
+    SDL_free(image);
+}
+
+static void Obj_Create_Texture(SDL_Renderer *renderer, Object *obj)
+{
     obj->texture = SDL_CreateTextureFromSurface(renderer, obj->surface);
 
     if (!obj->texture)
@@ -142,16 +172,14 @@ static void Obj_Resize(Object *obj, int width, int height)
 
 void Obj_Free(Object *obj)
 {
-    if (obj->surface)
-        SDL_FreeSurface(obj->surface);
-    if (obj->texture)
-        SDL_DestroyTexture(obj->texture);
-    if (obj->rect)
-        SDL_free(obj->rect);
-    if (obj->rectOrigin)
-        SDL_free(obj->rectOrigin);
-    if (obj->gif)
-        SDL_free(obj->gif);
-    if (obj->text)
+    SDL_FreeSurface(obj->surface);
+    SDL_DestroyTexture(obj->texture);
+    SDL_free(obj->rect);
+    SDL_free(obj->rectOrigin);
+    SDL_free(obj->gif);
+    if (obj->text != NULL)
+    {
+        Text_Free(obj->text);
         SDL_free(obj->text);
+    }
 }

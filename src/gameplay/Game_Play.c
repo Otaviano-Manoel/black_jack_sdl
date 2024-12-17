@@ -46,5 +46,4 @@ void GamePlay_Free(GamePlay *this)
     Player_Free(this->player[1]);
     SDL_free(this->player[1]);
     Deck_Free(this->deck);
-    SDL_free(this->deck);
 }

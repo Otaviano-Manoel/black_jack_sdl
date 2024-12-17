@@ -4,4 +4,4 @@
 
 void Winner_OnPlayAgain(GameManager *manager, Object *);
 void Winner_OnMainMenu(GameManager *manager, Object *);
-void Winnar_OnInit(GameManager *this);
+void Winner_OnInit(GameManager *this);

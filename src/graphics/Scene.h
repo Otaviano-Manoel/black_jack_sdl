@@ -4,11 +4,11 @@
 
 typedef struct Scene
 {
-    struct Object *objects;
+    struct Object **objects;
     size_t objCount;
     size_t capacity;
 
-    void (*AddObj)(struct Scene *, struct Object);
+    void (*AddObj)(struct Scene *, struct Object *);
     void (*Start)(GameManager *);
     void (*Update)(GameManager *);
     void (*Quit)(GameManager *);

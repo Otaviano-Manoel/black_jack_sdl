@@ -25,62 +25,46 @@ static void Menu_Start(GameManager *manager)
 static void Menu_Draw(GameManager *manager)
 {
     manager->sceneManager->layerCurrent = 1;
-    Object obj;
-    SceneManager *sceneManager = manager->sceneManager;
+    Object *obj = NULL;
 
     // Obj
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(manager->assets, "background.bmp"), SDL_TRUE, 255, 0, SDL_FALSE, NULL, NULL, NULL);
+    obj = Obj_CreateWithImage(manager, "background.bmp", "back", 0, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, 255, SDL_TRUE, SDL_FALSE, NULL);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 86, 107, 460, 460, BuildFilePath(manager->assets, "title.bmp"), SDL_TRUE, 255, 1, SDL_FALSE, NULL, NULL, NULL);
+    obj = Obj_CreateWithImage(manager, "title.bmp", "title", 0, 86, 107, 460, 460, 255, SDL_TRUE, SDL_FALSE, NULL);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj P VS CPU
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 708, 113, 350, 90, BuildFilePath(manager->assets, "button.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_PvsCPU);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "P vs CPU", (SDL_Color){0, 0, 0, 255}, 137, 25);
+    obj = Obj_CreateWithImage(manager, "button.bmp", "pvscpu", 1, 708, 113, 350, 90, 255, SDL_TRUE, SDL_TRUE, Menu_OnClick_PvsCPU);
+    Obj_CreateWithText(manager, obj, (SDL_Color){0, 0, 0, 255}, "P vs CPU", "font/MontserratAlternates-ExtraBold.ttf", obj->tag, obj->layer, 32, 137, 25, 0, obj->opacity);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj P VS P
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 708, 233, 350, 90, BuildFilePath(manager->assets, "button.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_PvsP);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "P vs P", (SDL_Color){0, 0, 0, 255}, 137, 25);
+    obj = Obj_CreateWithImage(manager, "button.bmp", "pvsp", 1, 708, 223, 350, 90, 255, SDL_TRUE, SDL_TRUE, Menu_OnClick_PvsP);
+    Obj_CreateWithText(manager, obj, (SDL_Color){0, 0, 0, 255}, "P vs P", "font/MontserratAlternates-ExtraBold.ttf", obj->tag, obj->layer, 32, 137, 25, 0, obj->opacity);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj SETTINGS
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 708, 353, 350, 90, BuildFilePath(manager->assets, "button.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Settings);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "Settings", (SDL_Color){0, 0, 0, 255}, 137, 25);
+    obj = Obj_CreateWithImage(manager, "button.bmp", "setting", 1, 708, 353, 350, 90, 255, SDL_TRUE, SDL_TRUE, Menu_OnClick_Settings);
+    Obj_CreateWithText(manager, obj, (SDL_Color){0, 0, 0, 255}, "Settings", "font/MontserratAlternates-ExtraBold.ttf", obj->tag, obj->layer, 32, 137, 25, 0, obj->opacity);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
     // Obj QUIT
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 708, 473, 350, 90, BuildFilePath(manager->assets, "button.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Quit);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(manager->assets, "font/MontserratAlternates-ExtraBold.ttf"), 32, "Quit", (SDL_Color){0, 0, 0, 255}, 170, 25);
+
+    obj = Obj_CreateWithImage(manager, "button.bmp", "quit", 1, 708, 473, 350, 90, 255, SDL_TRUE, SDL_TRUE, Menu_OnClick_Quit);
+    Obj_CreateWithText(manager, obj, (SDL_Color){0, 0, 0, 255}, "Quit", "font/MontserratAlternates-ExtraBold.ttf", obj->tag, obj->layer, 32, 137, 25, 0, obj->opacity);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 1160, 605, 120, 120, BuildFilePath(manager->assets, "credits.bmp"), SDL_TRUE, 255, 1, SDL_TRUE, NULL, NULL, Menu_OnClick_Credits);
+    obj = Obj_CreateWithImage(manager, "credits.bmp", "credit", 1, 1160, 605, 120, 120, 255, SDL_TRUE, SDL_TRUE, Menu_OnClick_Credits);
     manager->sceneManager->current->AddObj(manager->sceneManager->current, obj);
 }
 
 static void Menu_Update(GameManager *manager)
 {
     (void)manager;
-    Object *credit = Scene_FindTag(manager->sceneManager->current, "credit");
-
-    if (credit != NULL)
-    {
-        if (credit->isVisible)
-        {
-            Credit_RunAnim(manager);
-        }
-    }
 }
 static void Menu_Quit(GameManager *manager)
 {
-    (void)manager;
+    Scene_Free(manager->sceneManager->current);
 }

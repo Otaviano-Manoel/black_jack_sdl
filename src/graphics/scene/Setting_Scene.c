@@ -5,82 +5,61 @@ static void Setting_SetVisible(Scene *scene, SDL_bool visible);
 
 void Setting_Draw(GameManager *gameManager)
 {
-    Object obj;
-    SceneManager *sceneManager = gameManager->sceneManager;
+    Object *obj = NULL;
 
     // Obj
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, BuildFilePath(gameManager->assets, "setting.bmp"), SDL_TRUE, 128, 2, SDL_FALSE, NULL, NULL, NULL);
+    obj = Obj_CreateWithImage(gameManager, "background_dark.bmp", "back", 2, 0, 0, MAX_WIDTH_WINDOW, MAX_HEIGHT_WINDOW, 128, SDL_TRUE, SDL_FALSE, NULL);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 450, 162, 451, 450, BuildFilePath(gameManager->assets, "background_setting.bmp"), SDL_TRUE, 255, 2, SDL_FALSE, NULL, NULL, NULL);
+    obj = Obj_CreateWithImage(gameManager, "background_setting.bmp", "back", 2, 450, 162, 450, 450, 255, SDL_TRUE, SDL_FALSE, NULL);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 630, 485, 100, 100, BuildFilePath(gameManager->assets, "card.bmp"), SDL_TRUE, 255, 2, SDL_FALSE, NULL, NULL, NULL);
+    obj = Obj_CreateWithImage(gameManager, "card.bmp", "card", 2, 630, 485, 100, 100, 255, SDL_TRUE, SDL_FALSE, NULL);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 866, 137, 50, 50, BuildFilePath(gameManager->assets, "close.bmp"), SDL_TRUE, 255, 2, SDL_TRUE, NULL, NULL, Setting_OnClick_Quit);
+    obj = Obj_CreateWithImage(gameManager, "close.bmp", "close", 2, 866, 137, 50, 50, 255, SDL_TRUE, SDL_TRUE, Setting_OnClick_Quit);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Difficulty
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 469, 192, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), SDL_TRUE, 255, 2, SDL_FALSE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "Difficulty", (SDL_Color){255, 255, 255, 255}, 0, 0);
+    obj = Obj_CreateWithText(gameManager, NULL, (SDL_Color){255, 255, 255, 255}, "Difficulty", "font/MontserratAlternates-Medium.ttf", "difficulty", 2, 26, 469, 192, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Difficulty
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 605, 192, 215, 36, BuildFilePath(gameManager->assets, "b_background.bmp"), SDL_TRUE, 255, 2, SDL_TRUE, NULL, NULL, Setting_OnClick_Difficulty);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, GameConfig_Difficulty_String(gameManager->gameConfig), (SDL_Color){0, 0, 0, 255}, 45, 1);
+    obj = Obj_CreateWithImage(gameManager, "b_background.bmp", "b_difficulty", 2, 605, 192, 215, 35, 255, SDL_TRUE, SDL_TRUE, Setting_OnClick_Difficulty);
+    Obj_CreateWithText(gameManager, obj, (SDL_Color){0, 0, 0, 255}, GameConfig_Difficulty_String(gameManager->gameConfig), "font/MontserratAlternates-Medium.ttf", obj->tag, 2, 26, 45, 1, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Style
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 469, 252, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), SDL_TRUE, 255, 2, SDL_FALSE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "Style", (SDL_Color){255, 255, 255, 255}, 0, 0);
+    obj = Obj_CreateWithText(gameManager, NULL, (SDL_Color){255, 255, 255, 255}, "Style", "font/MontserratAlternates-Medium.ttf", "style", 2, 26, 469, 252, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Style
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 605, 252, 215, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), SDL_TRUE, 255, 2, SDL_TRUE, NULL, NULL, Setting_OnClick_Style);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, GameConfig_Style_String(gameManager->gameConfig), (SDL_Color){0, 0, 0, 255}, 45, 1);
+    obj = Obj_CreateWithImage(gameManager, "b_background.bmp", "b_style", 2, 605, 252, 215, 35, 255, SDL_TRUE, SDL_TRUE, Setting_OnClick_Style);
+    Obj_CreateWithText(gameManager, obj, (SDL_Color){0, 0, 0, 255}, GameConfig_Style_String(gameManager->gameConfig), "font/MontserratAlternates-Medium.ttf", obj->tag, 2, 26, 45, 1, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P1
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 469, 312, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), SDL_TRUE, 255, 2, SDL_FALSE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "Name P1", (SDL_Color){255, 255, 255, 255}, 0, 0);
+    obj = Obj_CreateWithText(gameManager, NULL, (SDL_Color){255, 255, 255, 255}, "Name P1", "font/MontserratAlternates-Medium.ttf", "nameP1", 2, 26, 469, 312, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P1
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 605, 312, 275, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), SDL_TRUE, 255, 2, SDL_TRUE, NULL, NULL, Setting_OnClick_SetName_P1);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, gameManager->gamePlay->player[0]->name, (SDL_Color){0, 0, 0, 255}, 5, 2);
-    obj.SetTag(&obj, "P1");
+    obj = Obj_CreateWithImage(gameManager, "b_background.bmp", "P1", 2, 605, 312, 275, 35, 255, SDL_TRUE, SDL_TRUE, Setting_OnClick_SetName_P1);
+    Obj_CreateWithText(gameManager, obj, (SDL_Color){0, 0, 0, 255}, gameManager->gamePlay->player[0]->name, "font/MontserratAlternates-Medium.ttf", obj->tag, 2, 26, 5, 2, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P2
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 469, 377, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), SDL_TRUE, 255, 2, SDL_FALSE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "Name P2", (SDL_Color){255, 255, 255, 255}, 0, 0);
+    obj = Obj_CreateWithText(gameManager, NULL, (SDL_Color){255, 255, 255, 255}, "Name P2", "font/MontserratAlternates-Medium.ttf", "nameP2", 2, 26, 469, 377, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     // Obj Name P2
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 605, 377, 275, 35, BuildFilePath(gameManager->assets, "b_background.bmp"), SDL_TRUE, 255, 2, SDL_TRUE, NULL, NULL, Setting_OnClick_SetName_P2);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, gameManager->gamePlay->player[1]->name, (SDL_Color){0, 0, 0, 255}, 5, 2);
-    obj.SetTag(&obj, "P2");
+    obj = Obj_CreateWithImage(gameManager, "b_background.bmp", "P2", 2, 605, 377, 275, 35, 255, SDL_TRUE, SDL_TRUE, Setting_OnClick_SetName_P2);
+    Obj_CreateWithText(gameManager, obj, (SDL_Color){0, 0, 0, 255}, gameManager->gamePlay->player[1]->name, "font/MontserratAlternates-Medium.ttf", obj->tag, 2, 26, 5, 2, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
-    obj = Obj_Init();
-    obj.InitFull(sceneManager, &obj, 469, 435, 0, 0, BuildFilePath(gameManager->assets, "null.bmp"), SDL_TRUE, 255, 2, SDL_FALSE, NULL, NULL, NULL);
-    obj.text->InitFull(sceneManager, &obj, obj.text, BuildFilePath(gameManager->assets, "font/MontserratAlternates-Medium.ttf"), 26, "FullScreen: Alt + Enter", (SDL_Color){255, 255, 255, 255}, 0, 0);
+    obj = Obj_CreateWithText(gameManager, NULL, (SDL_Color){255, 255, 255, 255}, "FullScreen: Alt + Enter", "font/MontserratAlternates-Medium.ttf", "full", 2, 26, 469, 435, 0, 255);
     gameManager->sceneManager->current->AddObj(gameManager->sceneManager->current, obj);
 
     Setting_Hide(gameManager->sceneManager->current);
@@ -88,7 +67,7 @@ void Setting_Draw(GameManager *gameManager)
 
 void Setting_UpdateNamePlayer(GameManager *this, Player *player, Object *obj)
 {
-    obj->text->SetText(this->sceneManager->renderer, obj->text, player->name, (SDL_Color){0, 0, 0, 255});
+    obj->text->SetText(this->sceneManager->renderer, obj->text, obj->text->color, player->name, 0);
 }
 
 void Setting_Visible(Scene *scene)
@@ -105,7 +84,7 @@ static void Setting_SetVisible(Scene *scene, SDL_bool visible)
 {
     for (size_t i = 0; i < scene->objCount; i++)
     {
-        Object *obj = &scene->objects[i];
+        Object *obj = scene->objects[i];
 
         if (obj->layer == 2)
         {

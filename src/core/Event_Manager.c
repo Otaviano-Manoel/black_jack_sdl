@@ -22,7 +22,7 @@ void Event_Wait(GameManager *this)
             index = SceneManager_GetObjisHover(this);
             if (index != -1)
             {
-                Object *obj = &this->sceneManager->current->objects[index];
+                Object *obj = this->sceneManager->current->objects[index];
                 if (obj->OnAnimClick != NULL)
                     obj->OnAnimClick(this, obj);
                 if (obj->OnClick != NULL)

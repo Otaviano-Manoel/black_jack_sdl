@@ -14,10 +14,7 @@ Deck *Deck_Init()
 
 void Deck_Free(Deck *deck)
 {
-    for (size_t i = 0; i < MAX_DECK; i++)
-    {
-        SDL_free(deck->cards[i]);
-    }
+    SDL_free(deck->cards);
 }
 
 Card *Deck_DrawCard(Deck *deck)

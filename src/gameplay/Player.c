@@ -18,6 +18,10 @@ Player *Player_Init()
     player->totalWinner = 0;
     player->isPlayer = SDL_TRUE;
     player->isWinner = SDL_FALSE;
+    for (size_t i = 0; i < 6; i++)
+    {
+        player->hand[i] = NULL;
+    }
     return player;
 }
 

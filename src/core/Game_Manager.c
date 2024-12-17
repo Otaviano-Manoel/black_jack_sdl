@@ -21,11 +21,8 @@ static void GetPathAssets(GameManager *this)
     this->assets = GetPath(1024);
 
     char *path = this->assets;
-    size_t len = strlen(path);
 
-    path[len - 3] = '\0';
-
-    strcat(path, "assets/");
+    strcat(path, "/assets/");
 }
 
 void Game_Manager_Free(GameManager *this)

@@ -8,6 +8,5 @@ void Game_Points_Present_Render(GameManager *manager, Player *player, SDL_bool i
     char *tag = isP1 ? "p-p1" : "p-p2";
 
     Object *obj_Points = Scene_FindTag(manager->sceneManager->current, tag);
-
-    obj_Points->text->SetText(manager->sceneManager->renderer, obj_Points->text, buffer, (SDL_Color){255, 255, 255, 255});
+    obj_Points->text->SetText(manager->sceneManager->renderer, obj_Points->text, obj_Points->text->color, buffer, 0);
 }
