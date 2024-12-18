@@ -5,26 +5,27 @@ static void Credit_SetVisible(Scene *scene, SDL_bool visible);
 static void UpdateGifFrame(Object *obj, SDL_Renderer *renderer);
 static char *Author()
 {
-    return "Criado por: \n - Otaviano Manoel \n \n GitHub: \n - Repositorio: [Black Jack SDL] \n (https://github.com/Otaviano-Manoel/black_jack_sdl)";
+    return "Created by:\n - Otaviano Manoel\nGitHub :\n - Repository: [Black Jack SDL]\n   (https://github.com/Otaviano-Manoel/black_jack_sdl)";
+    //          return "Criado por: \n - Otaviano Manoel \n \n GitHub: \n - Repositorio: [Black Jack SDL] \n (https://github.com/Otaviano-Manoel/black_jack_sdl)";
 }
 
 static char *Graphics()
 {
-    return "Graficos:\n Freepik(freepik.com):\n - @stockgiu\n - @bearicons\n - @rawpixel.com\n - @iyikon\n - @freepik\n - @juicy_fish\n \n Outras Fontes:\n - Andrew Tidey(andrewtidey.blogspot.co.uk)";
+    return "Graphics:\n Freepik(freepik.com):\n  - @stockgiu\n  - @bearicons\n  - @rawpixel.com\n  - @iyikon\n  - @freepik\n  - @juicy_fish\nOther Sources:\n  - Andrew Tidey(andrewtidey.blogspot.co.uk)";
 }
 static char *Mixer()
 {
-    return "Musica:\n Free Music Archive(freemusicarchive.org):\n  - Zane Little";
+    return "Music:\n Free Music Archive(freemusicarchive.org):\n  - Zane Little ";
 }
 
 static char *Thanks()
 {
-    return "Agradecimentos Especiais:\n \n Um agradecimento especial ao meu irmão,\n George Paulino, por estar sempre ao meu lado,\n me apoiando e acreditando no meu potencial.\n Sua ajuda foi essencial para que este projeto se\n tornasse realidade.";
+    return "A special thanks to my brother,\nGeorge Paulino, for always being by my side,\nsupporting me and believing in my potential.\nYour help was essential in making this project\na reality.";
 }
 
 static char *Conclusion()
 {
-    return "Este é apenas o começo! Se tiver sugestões ou\n feedback, visite o repositório no GitHub e participe do\n desenvolvimento. Sua opinião faz a diferença!";
+    return "This is just the beginning!\n If you have suggestions or feedback,\n visit the GitHub repository\n and contribute to the development.\n Your input makes a difference!";
 }
 
 void Credit_Visible(Scene *scene)
@@ -88,22 +89,30 @@ void Credit_Draw(GameManager *this)
     obj = Obj_CreateWithGif(this, "gifs/naipes", "f829255745cf4340d114cb5e68a9c584fEcEtV1qFbedeeoW-", "anim-7", 255, 116, 1, 950, 567, 140, 140, 5);
     this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    /*obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Author(), "font/MontserratAlternates-Medium.ttf", "author", 5, 26, 250, 200, 40, 255);
-    this->sceneManager->current->AddObj(this->sceneManager->current, obj);*/
+    obj = Obj_CreateWithImage(this, "scroll.bmp", "scroll", 5, 1150, 300, 90, 90, 255, SDL_TRUE, SDL_FALSE, NULL);
+    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    /*obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Graphics(), "font/MontserratAlternates-Medium.ttf", "graphics", 5, 26, 250, 150, 35, 255);
-    this->sceneManager->current->AddObj(this->sceneManager->current, obj);*/
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Author(), "font/MontserratAlternates-Medium.ttf", "txt-0", 5, 26, 250, 200, 40, 255);
+    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    /*obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Mixer(), "font/MontserratAlternates-Medium.ttf", "mixer", 5, 26, 250, 200, 40, 255);
-    this->sceneManager->current->AddObj(this->sceneManager->current, obj);*/
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Graphics(), "font/MontserratAlternates-Medium.ttf", "txt-1", 5, 26, 250, 150, 40, 0);
+    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    /*obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Thanks(), "font/MontserratAlternates-Medium.ttf", "thanks", 5, 26, 275, 200, 40, 255);
-    this->sceneManager->current->AddObj(this->sceneManager->current, obj);*/
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Mixer(), "font/MontserratAlternates-Medium.ttf", "txt-2", 5, 26, 250, 200, 40, 0);
+    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
-    /*obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Conclusion(), "font/MontserratAlternates-Medium.ttf", "conclusion", 5, 26, 275, 200, 40, 255);
-    this->sceneManager->current->AddObj(this->sceneManager->current, obj);*/
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Thanks(), "font/MontserratAlternates-Medium.ttf", "txt-3", 5, 26, 275, 200, 40, 0);
+    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
+
+    obj = Obj_CreateWithText(this, NULL, (SDL_Color){255, 255, 255, 255}, Conclusion(), "font/MontserratAlternates-Medium.ttf", "txt-4", 5, 26, 275, 200, 40, 0);
+    this->sceneManager->current->AddObj(this->sceneManager->current, obj);
 
     Credit_Hide(this->sceneManager->current);
+}
+
+void Credit_Update(GameManager *this)
+{
+    Credit_RunAnim(this);
 }
 
 void Credit_RunAnim(GameManager *this)

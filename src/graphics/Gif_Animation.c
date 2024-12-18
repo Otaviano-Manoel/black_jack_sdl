@@ -63,8 +63,6 @@ static void Gif_UpdateFrame(SDL_Renderer *renderer, Object *obj)
 void Gif_Free(Gif *gif)
 {
     gif->surfaces[gif->current - 1] = NULL;
-    SDL_FreeSurface(gif->surfaces[gif->current]);
-    gif->surfaces[gif->current] = NULL;
 
     for (int i = 0; i < 120; i++)
     {

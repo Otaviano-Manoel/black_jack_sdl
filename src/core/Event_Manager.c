@@ -1,4 +1,5 @@
 #include <Event_Manager.h>
+#include <Credit_Event.h>
 
 void Event_Wait(GameManager *this)
 {
@@ -36,6 +37,8 @@ void Event_Wait(GameManager *this)
         default:
             break;
         }
+
+        Credit_Wheel_Event(this, NULL);
     }
 }
 

@@ -64,7 +64,7 @@ static void Menu_Update(GameManager *manager)
 {
     if (manager->sceneManager->layerCurrent == 5)
     {
-        Credit_RunAnim(manager);
+        Credit_Update(manager);
     }
 }
 static void Menu_Quit(GameManager *manager)
