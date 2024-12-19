@@ -14,7 +14,7 @@ void UpdateObjectScale(SceneManager *this)
         if (obj->rect)
             obj->Create_Rect(this->window, obj, obj->rectOrigin->x, obj->rectOrigin->y, obj->rectOrigin->w, obj->rectOrigin->h);
 
-        if (obj->text->isTextLoaded)
+        if (obj->text)
         {
             for (int j = 0; j < obj->text->lines; j++)
             {

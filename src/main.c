@@ -27,12 +27,3 @@ int main()
 
     return 0;
 }
-
-/*
-void (*InitFull)(SceneManager *sceneManager, struct Object *obj,
-                     int x, int y, int width, int height, const char *file,
-                     SDL_bool isSetColor, Uint8 opacity, int layer, SDL_bool isButton,
-                     void (*OnHover)(GameManager *manager, struct Object *this),
-                     void (*OnExit)(GameManager *manager, struct Object *this),
-                     void (*OnClick)(GameManager *manager, struct Object *this));
-*/

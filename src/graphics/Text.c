@@ -133,8 +133,11 @@ static void Text_SetPosition(Window *window, Object *obj, Text *text, int x, int
         text->textRect[line] = SDL_malloc(sizeof(SDL_Rect));
     text->textRect[line]->x = (int)(((float)(obj->rectOrigin->x + x) * window->scale) + (window->offsetX));
     text->textRect[line]->y = (int)(((float)(obj->rectOrigin->y + y) * window->scale) + (window->offsetY));
-    text->textRect[line]->w = text->textSurface[line]->w;
-    text->textRect[line]->h = text->textSurface[line]->h;
+    if (text->textSurface[line])
+    {
+        text->textRect[line]->w = text->textSurface[line]->w;
+        text->textRect[line]->h = text->textSurface[line]->h;
+    }
 
     if (text->textRectOrigin[line] == NULL)
     {

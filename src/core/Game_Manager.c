@@ -1,5 +1,7 @@
 #include <Game_Manager.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <stdio.h>
 
 static void GetPathAssets(GameManager *this);
 
@@ -7,12 +9,12 @@ GameManager *GameManager_Init()
 {
     GameManager *this = SDL_malloc(sizeof(GameManager));
     GetPathAssets(this);
+
     this->isEnableTextInput = SDL_FALSE;
     this->quit = SDL_FALSE;
     this->gameConfig = GameConfig_Init();
     SceneManager_Init(this);
     this->gamePlay = Game_Play_Init();
-
     return this;
 }
 
