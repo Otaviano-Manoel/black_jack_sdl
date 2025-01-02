@@ -17,6 +17,22 @@ Bem-vindo ao repositório do **21 Master**! Este projeto foi desenvolvido utiliz
 
 **21 Master** é um jogo de blackjack com três níveis de dificuldade, possui tambẃm o modo jogador contra jogador para jogar com seu amigo, seus gráficos são em vetor trazidos do 'Freepik' e 'OpenGameArt'. Este jogo foi desenvolvido como parte de um projeto pessoal.
 
+## 
+Uma seção de Capturas (ou "Screenshots") no README de um repositório geralmente tem como objetivo mostrar imagens do funcionamento ou aparência do projeto. Ela ajuda os visitantes a entenderem rapidamente o que esperar do software, jogo ou aplicação.
+
+Aqui está um exemplo de como essa seção poderia ser estruturada:
+
+## Capturas
+
+### Principal
+![Tela inicial do jogo.](images/title.png)
+### Configuração
+![Tela de configurações.](images/menu.png)
+### Jogo
+![Tela de jogo.](images/game.png)
+
+
+
 ## Como Jogar
 
 1. Ao iniciar o jogo, você pode decidir renomear os dois jogadores tanto você quanto a máquina. Mas também pode clicar no modo 'P vs CPU' para jogar contra a máquina ou no 'P vs P' para jogar contra outro jogador.
