@@ -5,6 +5,7 @@ Bem-vindo ao repositório do **21 Master**! Este projeto foi desenvolvido utiliz
 ## Sumário
 
 - [Descrição](#descrição)
+- [Capturas](#capturas)
 - [Como Jogar](#como-jogar)
 - [Recursos Implementados](#recursos-implementados)
 - [Requisitos do Sistema](#requisitos-do-sistema)
@@ -16,11 +17,6 @@ Bem-vindo ao repositório do **21 Master**! Este projeto foi desenvolvido utiliz
 ## Descrição
 
 **21 Master** é um jogo de blackjack com três níveis de dificuldade, possui tambẃm o modo jogador contra jogador para jogar com seu amigo, seus gráficos são em vetor trazidos do 'Freepik' e 'OpenGameArt'. Este jogo foi desenvolvido como parte de um projeto pessoal.
-
-## 
-Uma seção de Capturas (ou "Screenshots") no README de um repositório geralmente tem como objetivo mostrar imagens do funcionamento ou aparência do projeto. Ela ajuda os visitantes a entenderem rapidamente o que esperar do software, jogo ou aplicação.
-
-Aqui está um exemplo de como essa seção poderia ser estruturada:
 
 ## Capturas
 
